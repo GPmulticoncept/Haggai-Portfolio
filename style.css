@@ -1,4 +1,4 @@
-/* FINAL PERFECTED PORTFOLIO CSS */
+/* PERFECTED PORTFOLIO CSS - FULL VERSION */
 
 :root {
   --bg-deep: #050505;
@@ -280,14 +280,26 @@ section {
   margin-top: auto;
 }
 
-/* CONTACT */
+/* CONTACT - PERFECTLY CENTERED */
 #contact {
-  text-align: center;
-  background: var(--bg-surface);
-  border-radius: 20px;
-  padding: 4rem 2rem;
+  padding: clamp(4rem, 10vh, 8rem) 0;
+}
+
+#contact .container > div {
   max-width: 600px;
   margin: 0 auto;
+  text-align: center;
+}
+
+#contact .cta-btn {
+  margin: 2rem auto;
+  display: inline-block;
+}
+
+#contact p:last-child {
+  margin-top: 1.5rem;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 /* MOBILE - PERFECT ALIGNMENT */
@@ -306,5 +318,31 @@ section {
   
   .container {
     padding: 0 1rem;
+  }
+  
+  .add-task input {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .add-task button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* PREMIUM BORDERS FOR FEATURED PROJECTS */
+.premium-border-primary {
+  border: 2px solid var(--accent-primary) !important;
+}
+
+.premium-border-success {
+  border: 2px solid var(--success) !important;
+}
+
+/* SMOOTH SCROLL FIX */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
