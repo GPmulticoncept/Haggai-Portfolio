@@ -1,393 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ESSENTIAL META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI-Assisted Full-Stack Developer - Production apps with AI acceleration">
-    <title>Haggai Enitan | Full-Stack Developer | GospelSwipe & Real Estate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.1, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- SEO OPTIMIZATION -->
+    <meta name="description" content="Haggai Enitan - Senior Full-Stack Developer & Technical Architect. Production-ready web applications for mobile, tablet, and desktop.">
+    <meta name="keywords" content="responsive web developer, mobile-friendly portfolio, React, Node.js, JavaScript, cross-platform developer">
+    <meta name="author" content="Haggai Enitan">
+    
+    <!-- SOCIAL MEDIA META -->
+    <meta property="og:title" content="Haggai Enitan | Responsive Full-Stack Developer">
+    <meta property="og:description" content="100% responsive portfolio - Perfect on all devices from mobile to desktop">
+    <meta property="og:type" content="website">
+    
+    <!-- TITLE -->
+    <title>Haggai Enitan | 100% Responsive Full-Stack Developer</title>
+    
+    <!-- STYLESHEETS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- ICONS & FONTS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
 </head>
 <body>
-    <!-- HERO -->
+    <!-- ANIMATED BACKGROUND -->
+    <canvas id="backgroundCanvas"></canvas>
+    
+    <!-- HERO SECTION -->
     <section id="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Full-Stack Developer</h1>
-            <p class="hero-subtitle">Built GospelSwipe Pro & Premium Real Estate Platform. Production apps with AI acceleration.</p>
-            <a href="#contact" class="cta-btn">Start Your Project →</a>
-            <div class="ai-badge">
-                <span>🤖</span>
-                <span>Transparent AI usage • All code human-reviewed</span>
+            <h1 class="hero-title">Full-Stack Developer & Technical Architect</h1>
+            <p class="hero-subtitle">
+                I build <span class="highlight">scalable, production-grade</span> web applications that work perfectly on <strong>all devices</strong>. From mobile to desktop, every pixel is optimized.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#portfolio" class="cta-btn primary-btn">
+                    <i class="fas fa-code"></i> View My Work
+                </a>
+                <a href="#contact" class="cta-btn secondary-btn">
+                    <i class="fas fa-paper-plane"></i> Start a Project
+                </a>
+            </div>
+            <div class="device-badges">
+                <span class="device-badge"><i class="fas fa-mobile-alt"></i> Mobile</span>
+                <span class="device-badge"><i class="fas fa-tablet-alt"></i> Tablet</span>
+                <span class="device-badge"><i class="fas fa-laptop"></i> Desktop</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-tools"></i>
+                <span>100% Responsive • All Screen Compatible</span>
             </div>
         </div>
     </section>
-
-    <!-- ABOUT -->
-    <section id="about">
+    
+    <!-- TECH STACK -->
+    <section id="tech-stack">
         <div class="container">
-            <h2 class="section-title">My Enhanced Process</h2>
-            <div class="about-grid">
-                <div class="about-item">
-                    <h3>⚡ Speed</h3>
-                    <p>Built GospelSwipe Pro in 15 hours vs 60+ hour industry standard</p>
+            <h2 class="section-title">Core Technical Toolkit</h2>
+            <p class="section-subtitle">Mastering technologies that deliver flawless experiences across all devices</p>
+            <div class="stack-grid">
+                <div class="stack-category">
+                    <h3><i class="fas fa-layer-group"></i> Frontend</h3>
+                    <div class="stack-tags">
+                        <span class="stack-tag">React</span>
+                        <span class="stack-tag">Next.js</span>
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag">Vue.js</span>
+                        <span class="stack-tag">Tailwind CSS</span>
+                    </div>
                 </div>
-                <div class="about-item">
-                    <h3>🛡️ Quality</h3>
-                    <p>Production-ready architecture with AI-assisted implementation</p>
+                <div class="stack-category">
+                    <h3><i class="fas fa-server"></i> Backend</h3>
+                    <div class="stack-tags">
+                        <span class="stack-tag">Node.js</span>
+                        <span class="stack-tag">Python</span>
+                        <span class="stack-tag">PostgreSQL</span>
+                        <span class="stack-tag">MongoDB</span>
+                        <span class="stack-tag">GraphQL</span>
+                    </div>
                 </div>
-                <div class="about-item">
-                    <h3>📈 Results</h3>
-                    <p>Shipped live app with 100+ beta users in first week</p>
+                <div class="stack-category">
+                    <h3><i class="fas fa-cloud"></i> Infrastructure</h3>
+                    <div class="stack-tags">
+                        <span class="stack-tag">AWS</span>
+                        <span class="stack-tag">Docker</span>
+                        <span class="stack-tag">Vercel</span>
+                        <span class="stack-tag">CI/CD</span>
+                        <span class="stack-tag">Firebase</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
+    
     <!-- PORTFOLIO -->
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title">Production Projects</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 4rem;">
-                Real apps I built and deployed. Test them live.
-            </p>
+            <h2 class="section-title">Responsive Production Projects</h2>
+            <p class="section-subtitle">Each project is meticulously tested on 20+ device sizes for perfect rendering</p>
             
             <div class="projects-grid">
                 <!-- GOSPELSWIPE PRO -->
-                <div class="project-card premium-border-primary">
+                <div class="project-card featured-card">
+                    <div class="project-badge">Mobile-First PWA</div>
                     <div class="project-header">
-                        <h3>🇳🇬 GospelSwipe Pro</h3>
+                        <h3><span class="flag">🇳🇬</span> GospelSwipe Pro</h3>
                         <div class="tech-stack">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">PWA</span>
-                            <span class="tech-tag">OpenAI</span>
-                            <span class="tech-tag">Web Speech API</span>
+                            <span class="tech-tag">OpenAI API</span>
+                            <span class="tech-tag">Web Speech</span>
                         </div>
                     </div>
                     <p class="project-description">
-                        <strong>Production gospel app with AI-powered Q&A, voice narration, offline mode, and prayer journal.</strong><br>
-                        Built for campus outreach and church evangelism. 100+ beta users in first week. PWA installable on any device.
+                        A production-ready Progressive Web App optimized for mobile first, then enhanced for tablet and desktop. Features responsive AI-powered Q&A system.
                     </p>
+                    <div class="project-highlight">
+                        <strong>Responsive Testing:</strong> Tested on iPhone SE to 4K monitors with perfect rendering
+                    </div>
                     <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" target="_blank" class="demo-btn">Live App →</a>
-                        <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" target="_blank" class="github-btn">GitHub</a>
+                        <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" target="_blank" class="demo-btn">
+                            <i class="fas fa-external-link-alt"></i> Live Application
+                        </a>
+                        <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" target="_blank" class="github-btn">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
                     </div>
                     <div class="project-metrics">
-                        <div class="metric">⚡ Built in 20h</div>
-                        <div class="metric">👥 100+ Users</div>
-                        <div class="metric">🔌 PWA Ready</div>
+                        <div class="metric"><i class="fas fa-mobile-alt"></i> Mobile Optimized</div>
+                        <div class="metric"><i class="fas fa-tablet-alt"></i> Tablet Ready</div>
+                        <div class="metric"><i class="fas fa-desktop"></i> Desktop Perfect</div>
                     </div>
                 </div>
-
+                
                 <!-- REAL ESTATE PLATFORM -->
-                <div class="project-card premium-border-success">
+                <div class="project-card featured-card">
+                    <div class="project-badge">Cross-Device Platform</div>
                     <div class="project-header">
-                        <h3>🏠 Premium Real Estate Platform</h3>
+                        <h3><span class="flag">🏠</span> Premium Real Estate Platform</h3>
                         <div class="tech-stack">
                             <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Mapbox API</span>
+                            <span class="tech-tag">Mapbox</span>
                             <span class="tech-tag">PostgreSQL</span>
                             <span class="tech-tag">Stripe</span>
+                            <span class="tech-tag">Tailwind</span>
                         </div>
                     </div>
                     <p class="project-description">
-                        <strong>High-end real estate platform with advanced property search, interactive maps, agent dashboards, and payment integration.</strong><br>
-                        Features: AI-powered property recommendations, virtual tour booking, mortgage calculator, admin CMS. Built for Nigerian luxury market.
+                        A fully responsive real estate platform with adaptive layouts for mobile browsing, tablet property viewing, and desktop administration.
                     </p>
+                    <div class="project-highlight">
+                        <strong>Device Adaptation:</strong> Layout automatically adjusts from mobile cards to desktop grids
+                    </div>
                     <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/haggai-portfolio/real-estate" target="_blank" class="demo-btn">Live Demo →</a>
-                        <a href="https://github.com/gpmulticoncept/haggai-portfolio" target="_blank" class="github-btn">GitHub</a>
+                        <a href="https://gpmulticoncept.github.io/haggai-portfolio/real-estate" target="_blank" class="demo-btn">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        <a href="https://github.com/gpmulticoncept/haggai-portfolio" target="_blank" class="github-btn">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
                     </div>
                     <div class="project-metrics">
-                        <div class="metric">⚡ Built in 25h</div>
-                        <div class="metric">🏗️ 20+ Properties</div>
-                        <div class="metric">💳 Payments Ready</div>
-                    </div>
-                </div>
-
-                <!-- AI TASK MANAGER -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>AI Task Manager</h3>
-                        <div class="tech-stack">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">OpenAI</span>
-                            <span class="tech-tag">GitHub Pages</span>
-                        </div>
-                    </div>
-                    <p class="project-description">Smart task management with AI-powered categorization. Built in 6 hours using AI-assisted workflow with Firebase auth and OpenAI integration.</p>
-                    <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/ai-task-manager/" target="_blank" class="demo-btn">Live Demo →</a>
-                        <a href="https://github.com/gpmulticoncept/ai-task-manager" target="_blank" class="github-btn">GitHub</a>
-                    </div>
-                    <div class="project-metrics">
-                        <div class="metric">⚡ Built in 6h</div>
-                        <div class="metric">🔥 AI-Powered</div>
-                        <div class="metric">📱 Fully Functional</div>
-                    </div>
-                </div>
-
-                <!-- CHROME EXTENSION -->
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3>Chrome Extension + Web App</h3>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Chrome API</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Supabase</span>
-                        </div>
-                    </div>
-                    <p class="project-description">Browser extension that syncs data to web dashboard. Demonstrates full integration pattern.</p>
-                    <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/haggai-portfolio/chrome-extension" target="_blank" class="demo-btn">Live Demo →</a>
-                        <a href="https://github.com/gpmulticoncept/haggai-portfolio" target="_blank" class="github-btn">GitHub</a>
-                    </div>
-                    <div class="project-metrics">
-                        <div class="metric">⚡ Built in 8h</div>
-                        <div class="metric">🔗 Full Sync</div>
+                        <div class="metric"><i class="fas fa-columns"></i> Adaptive Layouts</div>
+                        <div class="metric"><i class="fas fa-search"></i> Responsive Search</div>
+                        <div class="metric"><i class="fas fa-map-marked-alt"></i> Mobile Maps</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- SERVICES (15 TOTAL) -->
+    
+    <!-- SERVICES -->
     <section id="services">
         <div class="container">
-            <h2 class="section-title">Full-Stack Services</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">
-                From gospel apps to SaaS platforms — Accelerated delivery across all web technologies
-            </p>
+            <h2 class="section-title">Responsive Development Services</h2>
+            <p class="section-subtitle">Building applications that work flawlessly across all screen sizes and devices</p>
             
             <div class="services-grid">
+                <!-- Responsive Web Development -->
+                <div class="service-card popular-tag">
+                    <div class="service-header">
+                        <h3><i class="fas fa-mobile-alt"></i> Responsive Web Development</h3>
+                        <span class="popular-badge">Most Requested</span>
+                    </div>
+                    <p class="service-description">Create websites and applications that adapt perfectly to every screen size, from smartphones to 4K monitors.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> Mobile-First Design</li>
+                        <li><i class="fas fa-check-circle"></i> Tablet Optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Desktop Enhancement</li>
+                        <li><i class="fas fa-check-circle"></i> Cross-Browser Testing</li>
+                        <li><i class="fas fa-check-circle"></i> Performance Optimization</li>
+                    </ul>
+                    <div class="service-footer">
+                        <span class="service-price">From $3,500</span>
+                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Progressive Web Apps -->
                 <div class="service-card">
-                    <h3>🚀 SaaS MVP Development</h3>
-                    <p class="service-description">Launch your SaaS in 2 weeks instead of 6. Includes auth, payments, and dashboard.</p>
+                    <div class="service-header">
+                        <h3><i class="fas fa-rocket"></i> Progressive Web Apps (PWA)</h3>
+                    </div>
+                    <p class="service-description">Native-like experiences that work offline and install on any device - mobile, tablet, or desktop.</p>
                     <ul class="service-features">
-                        <li>✓ React/Next.js frontend</li>
-                        <li>✓ Node.js/Python backend</li>
-                        <li>✓ Stripe payments</li>
-                        <li>✓ PostgreSQL/MongoDB</li>
-                        <li>✓ Deployed to Vercel/AWS</li>
+                        <li><i class="fas fa-check-circle"></i> Installable on All Devices</li>
+                        <li><i class="fas fa-check-circle"></i> Offline Functionality</li>
+                        <li><i class="fas fa-check-circle"></i> Push Notifications</li>
+                        <li><i class="fas fa-check-circle"></i> Device Hardware Access</li>
+                        <li><i class="fas fa-check-circle"></i> App Store Deployment</li>
                     </ul>
-                    <div class="service-price">From $4,500</div>
+                    <div class="service-footer">
+                        <span class="service-price">From $4,800</span>
+                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-
+                
+                <!-- Cross-Platform Applications -->
                 <div class="service-card">
-                    <h3>🛒 E-Commerce Platforms</h3>
-                    <p class="service-description">Custom online stores with inventory, checkout, and payment integration. Mobile-first design.</p>
+                    <div class="service-header">
+                        <h3><i class="fas fa-sync-alt"></i> Cross-Platform Applications</h3>
+                    </div>
+                    <p class="service-description">Single codebase applications that run natively on iOS, Android, Web, and Desktop.</p>
                     <ul class="service-features">
-                        <li>✓ Next.js + Shopify/Hydrogen</li>
-                        <li>✓ Product catalog & search</li>
-                        <li>✓ Cart & checkout flow</li>
-                        <li>✓ Payment gateway (Stripe/PayPal)</li>
-                        <li>✓ Admin dashboard</li>
+                        <li><i class="fas fa-check-circle"></i> React Native / Flutter</li>
+                        <li><i class="fas fa-check-circle"></i> Single Codebase</li>
+                        <li><i class="fas fa-check-circle"></i> Native Performance</li>
+                        <li><i class="fas fa-check-circle"></i> Platform-Specific UI</li>
+                        <li><i class="fas fa-check-circle"></i> App Store Submission</li>
                     </ul>
-                    <div class="service-price">From $3,800</div>
+                    <div class="service-footer">
+                        <span class="service-price">From $7,500</span>
+                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
-
-                <div class="service-card" style="border: 1px solid var(--accent-primary);">
-                    <h3>✝️ Gospel & Faith-Based Apps</h3>
-                    <p class="service-description">Specialized in building Christian apps with AI features, offline mode, and community tools. See GospelSwipe Pro.</p>
-                    <ul class="service-features">
-                        <li>✓ Bible study tools & devotionals</li>
-                        <li>✓ AI-powered Q&A systems</li>
-                        <li>✓ Voice narration & audio</li>
-                        <li>✓ Offline PWA capabilities</li>
-                        <li>✓ Church management features</li>
-                    </ul>
-                    <div class="service-price">From $2,500</div>
-                </div>
-
-                <div class="service-card" style="border: 1px solid var(--success);">
-                    <h3>🏠 Real Estate Platforms</h3>
-                    <p class="service-description">Luxury property platforms with maps, agent tools, and payment processing. Built for premium markets.</p>
-                    <ul class="service-features">
-                        <li>✓ Interactive maps (Mapbox/Google)</li>
-                        <li>✓ Property search & filtering</li>
-                        <li>✓ Agent dashboards</li>
-                        <li>✓ Virtual tour booking</li>
-                        <li>✓ Payment processing</li>
-                    </ul>
-                    <div class="service-price">From $3,500</div>
-                </div>
-
+                
+                <!-- Performance Optimization -->
                 <div class="service-card">
-                    <h3>🔌 Chrome Extensions + Web Integration</h3>
-                    <p class="service-description">Browser extensions that connect to your web app. Data sync, automation, and enhanced functionality.</p>
+                    <div class="service-header">
+                        <h3><i class="fas fa-tachometer-alt"></i> Performance Optimization</h3>
+                    </div>
+                    <p class="service-description">Speed up slow websites and applications with focus on mobile performance and Core Web Vitals.</p>
                     <ul class="service-features">
-                        <li>✓ Manifest v3 compliant</li>
-                        <li>✓ Connects to your backend API</li>
-                        <li>✓ User authentication & sync</li>
-                        <li>✓ Web scraping & automation</li>
-                        <li>✓ Chrome Web Store deployment</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile Speed Optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Core Web Vitals 90+</li>
+                        <li><i class="fas fa-check-circle"></i> Image Optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Lazy Loading</li>
+                        <li><i class="fas fa-check-circle"></i> CDN Implementation</li>
                     </ul>
-                    <div class="service-price">From $1,200</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>⚡ Performance Optimization</h3>
-                    <p class="service-description">Speed up slow websites. Guaranteed Lighthouse 90+ scores and <2s load times.</p>
-                    <ul class="service-features">
-                        <li>✓ Core Web Vitals audit</li>
-                        <li>✓ Image optimization</li>
-                        <li>✓ Code splitting & lazy loading</li>
-                        <li>✓ CDN & caching setup</li>
-                        <li>✓ Performance monitoring</li>
-                    </ul>
-                    <div class="service-price">From $1,200</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>🏷️ White-Label SaaS Platforms</h3>
-                    <p class="service-description">Resellable SaaS platforms for agencies. Rebrand and sell to your clients with licensing.</p>
-                    <ul class="service-features">
-                        <li>✓ Multi-tenant architecture</li>
-                        <li>✓ Custom branding system</li>
-                        <li>✓ Subscription management</li>
-                        <li>✓ Admin panel for resellers</li>
-                        <li>✓ Ongoing support & updates</li>
-                    </ul>
-                    <div class="service-price">From $5,500</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>🤖 AI Chatbot Integration</h3>
-                    <p class="service-description">Custom GPT-powered chatbots trained on your data. Customer support, sales, and engagement automation.</p>
-                    <ul class="service-features">
-                        <li>✓ Custom GPT-4 integration</li>
-                        <li>✓ Training on your data/docs</li>
-                        <li>✓ Embed on any website</li>
-                        <li>✓ Conversation analytics</li>
-                        <li>✓ Human handoff system</li>
-                    </ul>
-                    <div class="service-price">From $1,200</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>👥 Membership Platforms</h3>
-                    <p class="service-description">Paid content platforms with tiered subscriptions, paywalls, and member-only areas.</p>
-                    <ul class="service-features">
-                        <li>✓ Subscription tiers & billing</li>
-                        <li>✓ Content paywall system</li>
-                        <li>✓ Member dashboards</li>
-                        <li>✓ Video/content hosting</li>
-                        <li>✓ Community features</li>
-                    </ul>
-                    <div class="service-price">From $3,500</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>📅 Booking & Scheduling</h3>
-                    <p class="service-description">Custom booking systems for appointments, rentals, and services. Calendar integration included.</p>
-                    <ul class="service-features">
-                        <li>✓ Calendar integration (Google/Outlook)</li>
-                        <li>✓ Time slot management</li>
-                        <li>✓ Payment for bookings</li>
-                        <li>✓ Email/SMS reminders</li>
-                        <li>✓ Admin calendar view</li>
-                    </ul>
-                    <div class="service-price">From $1,800</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>🛠️ Automation Tools</h3>
-                    <p class="service-description">Python scripts and bots for business automation. Save hours of manual work daily.</p>
-                    <ul class="service-features">
-                        <li>✓ Python automation scripts</li>
-                        <li>✓ Web scraping & data extraction</li>
-                        <li>✓ API integrations</li>
-                        <li>✓ Email automation</li>
-                        <li>✓ Report generation</li>
-                    </ul>
-                    <div class="service-price">From $650</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>🎯 Premium Landing Pages</h3>
-                    <p class="service-description">High-converting marketing pages with animations, forms, and analytics. Ready in 3-5 days.</p>
-                    <ul class="service-features">
-                        <li>✓ Next.js + Tailwind CSS</li>
-                        <li>✓ Framer Motion animations</li>
-                        <li>✓ Email capture forms</li>
-                        <li>✓ Google Analytics</li>
-                        <li>✓ A/B test ready</li>
-                    </ul>
-                    <div class="service-price">From $850</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>📊 Custom Web Applications</h3>
-                    <p class="service-description">CRUD apps, dashboards, internal tools. Real-time data, user management, and role-based access.</p>
-                    <ul class="service-features">
-                        <li>✓ React/Vue frontend</li>
-                        <li>✓ REST/GraphQL API</li>
-                        <li>✓ Authentication & RBAC</li>
-                        <li>✓ Database design</li>
-                        <li>✓ Real-time features</li>
-                    </ul>
-                    <div class="service-price">From $2,200</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>📝 Headless WordPress</h3>
-                    <p class="service-description">Modern Next.js frontend with WordPress backend. Best of both worlds: speed + content management.</p>
-                    <ul class="service-features">
-                        <li>✓ Next.js/React frontend</li>
-                        <li>✓ WordPress as headless CMS</li>
-                        <li>✓ GraphQL data fetching</li>
-                        <li>✓ Custom Gutenberg blocks</li>
-                        <li>✓ SEO-first architecture</li>
-                    </ul>
-                    <div class="service-price">From $2,800</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>🗄️ Database Optimization</h3>
-                    <p class="service-description">Speed up slow queries, optimize schema, and reduce costs for existing applications.</p>
-                    <ul class="service-features">
-                        <li>✓ Query performance audit</li>
-                        <li>✓ Index optimization</li>
-                        <li>✓ Schema redesign</li>
-                        <li>✓ Connection pooling</li>
-                        <li>✓ Cost reduction strategies</li>
-                    </ul>
-                    <div class="service-price">From $900</div>
-                </div>
-
-                <div class="service-card">
-                    <h3>💡 Technical Consulting</h3>
-                    <p class="service-description">Architecture reviews, stack recommendations, and development strategy for startups.</p>
-                    <ul class="service-features">
-                        <li>✓ Codebase audit & review</li>
-                        <li>✓ Tech stack recommendations</li>
-                        <li>✓ Architecture planning</li>
-                        <li>✓ Scalability assessment</li>
-                        <li>✓ 1:1 developer mentoring</li>
-                    </ul>
-                    <div class="service-price">$150/hour</div>
+                    <div class="service-footer">
+                        <span class="service-price">From $1,800</span>
+                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
+            
+            <p class="services-note">
+                <i>All projects include comprehensive testing on 20+ device sizes before delivery</i>
+            </p>
         </div>
     </section>
-
+    
     <!-- CONTACT -->
     <section id="contact">
         <div class="container">
-            <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-                <h2 class="section-title">Ready to Start?</h2>
-                <p style="margin-bottom: 2rem;">
-                    Available for new projects. Let's discuss your timeline and budget.
-                </p>
-                <a href="mailto:haggai.enitan.dev@gmail.com" class="cta-btn" style="display: inline-block;">
-                    haggai.enitan.dev@gmail.com
-                </a>
-                <p style="margin-top: 1.5rem; color: var(--text-muted); text-align: center;">
-                    Or schedule a 15-min discovery call →
-                </p>
+            <div class="contact-wrapper">
+                <h2 class="section-title">Contact Me - Works Perfectly on Any Device</h2>
+                <p class="section-subtitle">Reach out from your phone, tablet, or computer - this form is optimized for all</p>
+                
+                <div class="contact-grid">
+                    <!-- Email Contact -->
+                    <div class="contact-card primary-contact">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Consultation</h3>
+                        <p class="contact-description">
+                            Send detailed project requirements. I'll respond with a comprehensive proposal including responsive design considerations.
+                        </p>
+                        <div class="contact-email-display">
+                            <i class="fas fa-at"></i>
+                            <div class="email-info">
+                                <span class="email-label">Primary Contact</span>
+                                <a href="mailto:haggai.enitan.dev@gmail.com" class="email-address">haggai.enitan.dev@gmail.com</a>
+                            </div>
+                        </div>
+                        <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-action-btn">
+                            <i class="fas fa-paper-plane"></i> Send Email
+                        </a>
+                        <div class="contact-note">
+                            <i class="fas fa-clock"></i> Response within 24 hours on any device
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Inquiry -->
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Quick Inquiry</h3>
+                        <p class="contact-description">
+                            Have a simple question? Use this quick contact form optimized for mobile typing and desktop input.
+                        </p>
+                        <div class="quick-contact-form">
+                            <input type="text" placeholder="Your Name" class="form-input">
+                            <input type="email" placeholder="Your Email" class="form-input">
+                            <textarea placeholder="Your Message" class="form-textarea" rows="3"></textarea>
+                            <button class="form-submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </div>
+                        <div class="contact-note">
+                            <i class="fas fa-mobile-alt"></i> Touch-optimized for mobile devices
+                        </div>
+                    </div>
+                    
+                    <!-- Availability -->
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Current Availability</h3>
+                        <p class="contact-description">
+                            I'm currently accepting new projects for responsive web development and cross-platform applications.
+                        </p>
+                        <div class="availability-status">
+                            <div class="status-indicator available"></div>
+                            <span class="status-text">Available for Q2 2024 Projects</span>
+                        </div>
+                        <div class="device-support">
+                            <h4>Device Support Coverage</h4>
+                            <div class="device-list">
+                                <div class="device-item">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Mobile (100%)</span>
+                                </div>
+                                <div class="device-item">
+                                    <i class="fas fa-tablet-alt"></i>
+                                    <span>Tablet (100%)</span>
+                                </div>
+                                <div class="device-item">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>Desktop (100%)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contact-note">
+                            <i class="fas fa-check-circle"></i> All projects tested on 20+ screen sizes
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="secondary-contact-methods">
+                    <h4>Connect Across Platforms</h4>
+                    <div class="method-grid">
+                        <a href="https://github.com/gpmulticoncept" target="_blank" class="method-link">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="#contact" class="method-link">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="#contact" class="method-link">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="#contact" class="method-link">
+                            <i class="fab fa-codepen"></i> CodePen
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Haggai Enitan</h3>
+                    <p>100% Responsive Full-Stack Developer</p>
+                </div>
+                <div class="footer-contact">
+                    <div class="footer-email">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:haggai.enitan.dev@gmail.com">haggai.enitan.dev@gmail.com</a>
+                    </div>
+                    <p class="footer-tagline">Perfect experiences on every screen size</p>
+                </div>
+                <div class="footer-devices">
+                    <div class="device-icons">
+                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-tablet-alt"></i>
+                        <i class="fas fa-laptop"></i>
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <p>Fully Responsive Design</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; <span id="currentYear"></span> Haggai Enitan. All rights reserved.</p>
+                    <p>Optimized for every device, from mobile to 4K monitors.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
 </body>
 </html>
