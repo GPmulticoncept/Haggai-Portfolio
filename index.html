@@ -311,16 +311,20 @@
                         </div>
                         <h3>Quick Inquiry</h3>
                         <p class="contact-description">
-                            Have a simple question? Use this quick contact form optimized for mobile typing and desktop input.
+                            Have a simple question? Use this working contact form that sends directly to my email.
                         </p>
-                        <div class="quick-contact-form">
-                            <input type="text" placeholder="Your Name" class="form-input">
-                            <input type="email" placeholder="Your Email" class="form-input">
-                            <textarea placeholder="Your Message" class="form-textarea" rows="3"></textarea>
-                            <button class="form-submit-btn">
+                        <!-- WORKING CONTACT FORM -->
+                        <form id="contactForm" class="quick-contact-form" action="https://formspree.io/f/xvojjzwv" method="POST">
+                            <input type="text" name="name" placeholder="Your Name" class="form-input" required>
+                            <input type="email" name="email" placeholder="Your Email" class="form-input" required>
+                            <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+                            <input type="hidden" name="_replyto" value="haggai.enitan.dev@gmail.com">
+                            <textarea name="message" placeholder="Your Message" class="form-textarea" rows="3" required></textarea>
+                            <button type="submit" class="form-submit-btn">
                                 <i class="fas fa-paper-plane"></i> Send Message
                             </button>
-                        </div>
+                            <div id="formMessage" class="form-message"></div>
+                        </form>
                         <div class="contact-note">
                             <i class="fas fa-mobile-alt"></i> Touch-optimized for mobile devices
                         </div>
@@ -384,33 +388,36 @@
         </div>
     </section>
     
-    <!-- FOOTER -->
+    <!-- FIXED FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-brand">
+                <!-- Centered Brand Section -->
+                <div class="footer-brand centered">
+                    <div class="footer-logo">
+                        <i class="fas fa-code"></i>
+                    </div>
                     <h3>Haggai Enitan</h3>
-                    <p>100% Responsive Full-Stack Developer</p>
+                    <p class="footer-title">Senior Full-Stack Developer & Technical Architect</p>
                 </div>
-                <div class="footer-contact">
+                
+                <!-- Centered Contact Info -->
+                <div class="footer-contact centered">
                     <div class="footer-email">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:haggai.enitan.dev@gmail.com">haggai.enitan.dev@gmail.com</a>
+                        <div class="email-icon-wrapper">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="email-details">
+                            <span class="email-label">Primary Contact Email</span>
+                            <a href="mailto:haggai.enitan.dev@gmail.com" class="email-address">haggai.enitan.dev@gmail.com</a>
+                        </div>
                     </div>
-                    <p class="footer-tagline">Perfect experiences on every screen size</p>
                 </div>
-                <div class="footer-devices">
-                    <div class="device-icons">
-                        <i class="fas fa-mobile-alt"></i>
-                        <i class="fas fa-tablet-alt"></i>
-                        <i class="fas fa-laptop"></i>
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <p>Fully Responsive Design</p>
-                </div>
-                <div class="footer-copyright">
+                
+                <!-- Copyright Section -->
+                <div class="footer-copyright centered">
                     <p>&copy; <span id="currentYear"></span> Haggai Enitan. All rights reserved.</p>
-                    <p>Optimized for every device, from mobile to 4K monitors.</p>
+                    <p class="footer-tagline">Building digital excellence with strategic intent</p>
                 </div>
             </div>
         </div>

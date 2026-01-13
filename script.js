@@ -5,8 +5,8 @@
 
 // Console welcome message
 console.log('%c🚀 Haggai Enitan - 100% Responsive Portfolio', 'color: #6366f1; font-size: 18px; font-weight: bold;');
-console.log('%c📱 Mobile | 📟 Tablet | 💻 Desktop | 🖥️ 4K Monitor', 'color: #10b981; font-size: 14px;');
-console.log('%cOptimized for every screen size', 'color: #a0a0a0;');
+console.log('%c📧 Contact Form: Now Working! Goes to your email', 'color: #10b981; font-size: 14px;');
+console.log('%c✅ Form submissions go to: haggai.enitan.dev@gmail.com', 'color: #a0a0a0;');
 
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Initialize screen detection
-    const screenInfo = detectScreenSize();
+    detectScreenSize();
     
     // ============================================
     // 3. IOS SAFARI 100VH FIX
@@ -188,31 +188,118 @@ document.addEventListener('DOMContentLoaded', () => {
     fixIOSSafariVH();
     
     // ============================================
-    // 4. TOUCH DEVICE DETECTION
+    // 4. WORKING CONTACT FORM WITH FORMSPREE
     // ============================================
     
-    // Check if touch device
-    function isTouchDevice() {
-        return (('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-    }
-    
-    // Apply touch optimizations
-    if (isTouchDevice()) {
-        document.body.classList.add('touch-device');
-        console.log('👆 Touch device detected - applying optimizations');
-        
-        // Increase touch target sizes
-        document.querySelectorAll('a, button, .cta-btn, .demo-btn, .github-btn, .contact-action-btn').forEach(element => {
-            element.style.minHeight = '44px';
-            element.style.cursor = 'pointer';
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.form-submit-btn');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Validate form
+            if (!name || !email || !message) {
+                showFormMessage('Please fill in all fields', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showFormMessage('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Send to Formspree
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success
+                    showFormMessage('Message sent successfully! I\'ll get back to you within 24 hours.', 'success');
+                    contactForm.reset();
+                    
+                    // Log for debugging
+                    console.log('📨 Form submitted successfully');
+                    console.log(`👤 From: ${name} (${email})`);
+                    console.log(`💬 Message: ${message.substring(0, 100)}...`);
+                    
+                    // Button success state
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                    submitBtn.style.background = 'var(--success)';
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                } else {
+                    // Formspree error
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Fallback to email if Formspree fails
+                console.warn('Formspree failed, falling back to mailto:', error);
+                
+                // Create mailto link
+                const subject = encodeURIComponent('New Portfolio Contact Form Submission');
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+                const mailtoLink = `mailto:haggai.enitan.dev@gmail.com?subject=${subject}&body=${body}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show success message anyway
+                showFormMessage('Opening your email client... Please send the pre-filled email.', 'success');
+                contactForm.reset();
+                
+                // Reset button
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+                    submitBtn.disabled = false;
+                }, 2000);
+            }
         });
         
-        // Prevent double-tap zoom on buttons
-        document.querySelectorAll('button, .cta-btn').forEach(button => {
-            button.style.touchAction = 'manipulation';
-        });
+        // Helper function to show form messages
+        function showFormMessage(text, type) {
+            const formMessage = document.getElementById('formMessage');
+            if (formMessage) {
+                formMessage.textContent = text;
+                formMessage.className = `form-message ${type}`;
+                formMessage.style.display = 'block';
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Email validation
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        console.log('✅ Contact form initialized with Formspree + mailto fallback');
     }
     
     // ============================================
@@ -303,70 +390,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // ============================================
-    // 8. FORM HANDLING
+    // 8. TOUCH DEVICE DETECTION
     // ============================================
     
-    // Quick contact form simulation
-    const contactForm = document.querySelector('.quick-contact-form');
-    const submitBtn = document.querySelector('.form-submit-btn');
+    // Check if touch device
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+    }
     
-    if (submitBtn && contactForm) {
-        submitBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const inputs = contactForm.querySelectorAll('.form-input, .form-textarea');
-            let allFilled = true;
-            
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    allFilled = false;
-                    input.style.borderColor = 'var(--error)';
-                } else {
-                    input.style.borderColor = '';
-                }
-            });
-            
-            if (allFilled) {
-                // Simulate form submission
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-                    submitBtn.style.background = 'var(--success)';
-                    
-                    // Reset form
-                    setTimeout(() => {
-                        inputs.forEach(input => input.value = '');
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                    }, 2000);
-                }, 1500);
-                
-                console.log('📨 Contact form submitted (simulated)');
-            } else {
-                // Shake animation for empty fields
-                contactForm.style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    contactForm.style.animation = '';
-                }, 500);
-                
-                console.log('⚠️ Please fill all fields');
-            }
+    // Apply touch optimizations
+    if (isTouchDevice()) {
+        document.body.classList.add('touch-device');
+        console.log('👆 Touch device detected - applying optimizations');
+        
+        // Increase touch target sizes
+        document.querySelectorAll('a, button, .cta-btn, .demo-btn, .github-btn, .contact-action-btn').forEach(element => {
+            element.style.minHeight = '44px';
+            element.style.cursor = 'pointer';
         });
         
-        // Add shake animation CSS
-        const shakeStyle = document.createElement('style');
-        shakeStyle.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
-            }
-        `;
-        document.head.appendChild(shakeStyle);
+        // Prevent double-tap zoom on buttons
+        document.querySelectorAll('button, .cta-btn').forEach(button => {
+            button.style.touchAction = 'manipulation';
+        });
     }
     
     // ============================================
@@ -395,44 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // ============================================
-    // 10. DEVICE-SPECIFIC OPTIMIZATIONS
-    // ============================================
-    
-    // Apply device-specific optimizations
-    function applyDeviceOptimizations() {
-        const { deviceType } = detectScreenSize();
-        
-        // Mobile optimizations
-        if (deviceType === 'mobile') {
-            // Reduce particle animation intensity
-            if (window.animationId) {
-                // Could adjust animation frame rate here
-            }
-            
-            // Optimize images (if any)
-            document.querySelectorAll('img').forEach(img => {
-                img.loading = 'lazy';
-            });
-            
-            console.log('📱 Mobile optimizations applied');
-        }
-        
-        // Tablet optimizations
-        if (deviceType === 'tablet') {
-            console.log('📟 Tablet optimizations applied');
-        }
-        
-        // Desktop optimizations
-        if (deviceType === 'desktop') {
-            console.log('💻 Desktop optimizations applied');
-        }
-    }
-    
-    // Apply initial optimizations
-    applyDeviceOptimizations();
-    
-    // ============================================
-    // 11. LOADING STATE
+    // 10. LOADING STATE
     // ============================================
     
     // Remove loading class when everything is loaded
@@ -452,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// 12. NETWORK & CONNECTION DETECTION
+// 11. NETWORK & CONNECTION DETECTION
 // ============================================
 
 // Check network connection
@@ -464,19 +475,16 @@ if (navigator.connection) {
     // Apply optimizations for slow connections
     if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
         console.log('⚠️ Slow connection - applying heavy optimizations');
-        
-        // Could disable heavy animations here
     }
 }
 
 // ============================================
-// 13. ERROR HANDLING
+// 12. ERROR HANDLING
 // ============================================
 
 // Global error handler
 window.addEventListener('error', (e) => {
     console.error('❌ Error:', e.message);
-    // Could send errors to analytics here
 });
 
 // Unhandled promise rejection
@@ -485,19 +493,7 @@ window.addEventListener('unhandledrejection', (e) => {
 });
 
 // ============================================
-// 14. SERVICE WORKER (FOR PWA - FUTURE)
-// ============================================
-
-// Check if service workers are supported
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Could register service worker here for offline functionality
-        // navigator.serviceWorker.register('/sw.js');
-    });
-}
-
-// ============================================
-// 15. ANALYTICS (BASIC)
+// 13. ANALYTICS (BASIC)
 // ============================================
 
 // Track page views and device info
@@ -515,9 +511,6 @@ function trackPageView() {
     };
     
     console.log('📊 Analytics:', analyticsData);
-    
-    // Could send to analytics server here
-    // fetch('/api/analytics', { method: 'POST', body: JSON.stringify(analyticsData) });
 }
 
 // Track initial page view
@@ -545,6 +538,6 @@ function detectScreenSize() {
 // FINAL INITIALIZATION
 // ============================================
 
-console.log('%c🎉 100% Responsive Portfolio Ready!', 'color: #ec4899; font-size: 16px; font-weight: bold;');
-console.log('%c📧 Contact: haggai.enitan.dev@gmail.com', 'color: #10b981;');
-console.log('%c✅ Tested on: Mobile | Tablet | Laptop | Desktop | 4K', 'color: #a0a0a0;');
+console.log('%c🎉 Portfolio Ready with Working Contact Form!', 'color: #ec4899; font-size: 16px; font-weight: bold;');
+console.log('%c📧 Form goes to: haggai.enitan.dev@gmail.com', 'color: #10b981;');
+console.log('%c✅ Footer Fixed | Email Icon Fixed | Form Working', 'color: #a0a0a0;');

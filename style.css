@@ -757,6 +757,30 @@ p {
     transform: translateY(-2px);
 }
 
+/* Form Message */
+.form-message {
+    padding: 0.8rem;
+    border-radius: var(--border-radius-md);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
+}
+
+.form-message.success {
+    display: block;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--success);
+    color: var(--success);
+}
+
+.form-message.error {
+    display: block;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--error);
+    color: var(--error);
+}
+
 /* Availability & Device Support */
 .availability-status, .device-support, .project-slots {
     background: rgba(255, 255, 255, 0.03);
@@ -910,93 +934,148 @@ p {
     color: var(--accent-primary);
 }
 
-/* ==================== FOOTER ==================== */
+/* ==================== FIXED FOOTER ==================== */
 footer {
     background: var(--bg-surface);
-    padding: clamp(2rem, 5vw, 4rem) 0 clamp(1rem, 3vw, 2rem) 0;
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem) 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     margin-top: 4rem;
+    text-align: center;
 }
 
 .footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 3rem;
+    width: 100%;
+}
+
+/* Centered Utility */
+.centered {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Brand Section */
+.footer-brand.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.footer-logo {
+    font-size: 3rem;
+    color: var(--accent-primary);
+    background: rgba(99, 102, 241, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
 }
 
 .footer-brand h3 {
     color: var(--text-title);
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
     margin-bottom: 0.5rem;
-    font-size: clamp(1.5rem, 3vw, 1.8rem);
 }
 
-.footer-brand p {
+.footer-title {
     color: var(--text-muted);
-    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    max-width: 500px;
+    line-height: 1.5;
 }
 
-.footer-contact {
-    text-align: center;
+/* Fixed Contact Info */
+.footer-contact.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .footer-email {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    max-width: 500px;
+    width: 100%;
+}
+
+.email-icon-wrapper {
+    font-size: 2.5rem;
+    color: var(--accent-primary);
+    background: rgba(99, 102, 241, 0.1);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
 }
 
-.footer-email a {
+.email-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.email-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.email-address {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-weight: 600;
     color: var(--text-title);
     text-decoration: none;
-    font-weight: 600;
-    font-size: clamp(1rem, 1.5vw, 1.1rem);
-    transition: color var(--transition-fast);
-    word-break: break-all;
+    transition: all var(--transition-fast);
+    word-break: break-word;
+    text-align: center;
 }
 
-.footer-email a:hover {
+.email-address:hover {
     color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+/* Copyright Section */
+.footer-copyright.centered {
+    margin-top: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+}
+
+.footer-copyright p {
+    color: var(--text-muted);
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    margin-bottom: 0.5rem;
 }
 
 .footer-tagline {
     font-style: italic;
     color: var(--text-muted);
+    opacity: 0.8;
     font-size: clamp(0.9rem, 1.5vw, 1rem);
-}
-
-.footer-devices {
-    text-align: center;
-}
-
-.device-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--accent-primary);
-}
-
-.footer-devices p {
-    color: var(--text-muted);
-    font-size: clamp(0.9rem, 1.5vw, 1rem);
-}
-
-.footer-copyright {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-    grid-column: 1 / -1;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.footer-copyright p {
-    margin-bottom: 0.5rem;
 }
 
 /* ==================== RESPONSIVE BREAKPOINTS ==================== */
@@ -1038,6 +1117,18 @@ footer {
     .method-link {
         justify-content: center;
     }
+    
+    .footer-logo {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .email-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+    }
 }
 
 /* Small Phones (376px to 480px) */
@@ -1057,7 +1148,6 @@ footer {
     }
     
     .footer-content {
-        grid-template-columns: 1fr;
         text-align: center;
     }
 }
@@ -1086,6 +1176,12 @@ footer {
     
     .container {
         padding: 0 1.5rem;
+    }
+    
+    .footer-email {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 }
 
@@ -1129,6 +1225,17 @@ footer {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
+    
+    .footer-email {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem 3rem;
+    }
+    
+    .email-icon-wrapper {
+        margin-bottom: 0;
+    }
 }
 
 /* Large Desktops (1441px and above) */
@@ -1147,6 +1254,14 @@ footer {
     
     section {
         padding: clamp(8rem, 15vh, 12rem) 0;
+    }
+    
+    .footer-email {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2.5rem;
+        padding: 2.5rem 4rem;
+        max-width: 600px;
     }
 }
 
@@ -1195,6 +1310,12 @@ footer {
     .device-badges {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .footer-logo {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
     }
 }
 
