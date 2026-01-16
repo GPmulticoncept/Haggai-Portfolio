@@ -1,122 +1,914 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ESSENTIAL META TAGS -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=0.1, viewport-fit=cover">
-    <meta name="theme-color" content="#0a0a0a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- SEO OPTIMIZATION -->
-    <meta name="description" content="Haggai Enitan - Senior Full-Stack Developer & Technical Architect. Production-ready web applications for mobile, tablet, and desktop.">
-    <meta name="keywords" content="responsive web developer, mobile-friendly portfolio, React, Node.js, JavaScript, cross-platform developer">
-    <meta name="author" content="Haggai Enitan">
-    
-    <!-- SOCIAL MEDIA META -->
-    <meta property="og:title" content="Haggai Enitan | Responsive Full-Stack Developer">
-    <meta property="og:description" content="100% responsive portfolio - Perfect on all devices from mobile to desktop">
-    <meta property="og:type" content="website">
-    
-    <!-- TITLE -->
-    <title>Haggai Enitan | 100% Responsive Full-Stack Developer</title>
-    
-    <!-- STYLESHEETS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- ICONS & FONTS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haggai Enitan | Full-Stack Technical Architect</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- FAVICON -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --dark: #0a0a0a;
+            --dark-gray: #111111;
+            --gray: #1e1e1e;
+            --light-gray: #2d2d2d;
+            --text: #ffffff;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #10b981;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo-accent {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--text);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero-content {
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Inter', monospace;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border-color: var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .tech-category {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-category:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .tech-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .tech-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .tech-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== PROJECTS SECTION ===== */
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-alt {
+            background: var(--dark-gray);
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-card {
+            background: var(--gray);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .project-header {
+            padding: 1.5rem 1.5rem 0;
+        }
+        
+        .project-badge {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-description {
+            color: var(--text-secondary);
+            padding: 0 1.5rem;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-features {
+            padding: 0 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-features li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .project-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .project-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            gap: 0.75rem;
+            color: var(--accent);
+        }
+        
+        /* ===== CONTACT SECTION ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .contact-form {
+            background: var(--gray);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 2.5rem;
+        }
+        
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn-block {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .info-card {
+            background: var(--gray);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .info-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .info-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .contact-email {
+            display: block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            word-break: break-all;
+        }
+        
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+        
+        .availability {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        
+        .response-time {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark-gray);
+            border-top: 1px solid var(--border);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        
+        .footer-tagline {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .link-group h4 {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .link-group a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .link-group a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .footer-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+        
+        .footer-cta h4 {
+            font-size: 1.25rem;
+            text-align: right;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            text-align: center;
+        }
+        
+        .footer-bottom p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .footer-cta {
+                align-items: center;
+            }
+            
+            .footer-cta h4 {
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section {
+                padding: 4rem 0;
+            }
+        }
+        
+        /* ===== UTILITIES ===== */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+    </style>
 </head>
 <body>
-    <!-- ANIMATED BACKGROUND -->
-    <canvas id="backgroundCanvas"></canvas>
-    
-    <!-- HERO SECTION -->
-    <section id="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Full-Stack Developer & Technical Architect</h1>
-            <p class="hero-subtitle">
-                I build <span class="highlight">scalable, production-grade</span> web applications that work perfectly on <strong>all devices</strong>. From mobile to desktop, every pixel is optimized.
-            </p>
-            <div class="hero-cta-group">
-                <a href="#portfolio" class="cta-btn primary-btn">
-                    <i class="fas fa-code"></i> View My Work
-                </a>
-                <a href="#contact" class="cta-btn secondary-btn">
-                    <i class="fas fa-paper-plane"></i> Start a Project
-                </a>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-accent">Haggai</span>.tech
             </div>
-            <div class="device-badges">
-                <span class="device-badge"><i class="fas fa-mobile-alt"></i> Mobile</span>
-                <span class="device-badge"><i class="fas fa-tablet-alt"></i> Tablet</span>
-                <span class="device-badge"><i class="fas fa-laptop"></i> Desktop</span>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <div class="badge">
-                <i class="fas fa-tools"></i>
-                <span>100% Responsive • All Screen Compatible</span>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title text-center">Haggai Enitan</h1>
+                <h2 class="hero-title text-center">Full-Stack Technical Architect</h2>
+                <p class="hero-subtitle">
+                    I build <span class="highlight">scalable, production-ready</span> digital solutions that transform businesses from vision to reality.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="99.9">0</div>
+                        <div class="stat-label">% Uptime</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-count="40">0</div>
+                        <div class="stat-label">% Faster</div>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> View My Work
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Contact Me
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="tech-stack">
+                    <div class="tech-category">
+                        <h3><i class="fas fa-code"></i> Frontend</h3>
+                        <div class="tech-icons">
+                            <span class="tech-icon"><i class="fab fa-react"></i> React</span>
+                            <span class="tech-icon"><i class="fab fa-vuejs"></i> Vue.js</span>
+                            <span class="tech-icon"><i class="fab fa-js"></i> TypeScript</span>
+                            <span class="tech-icon"><i class="fab fa-angular"></i> Angular</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3><i class="fas fa-server"></i> Backend</h3>
+                        <div class="tech-icons">
+                            <span class="tech-icon"><i class="fab fa-node-js"></i> Node.js</span>
+                            <span class="tech-icon"><i class="fab fa-python"></i> Python</span>
+                            <span class="tech-icon"><i class="fas fa-database"></i> PostgreSQL</span>
+                            <span class="tech-icon"><i class="fas fa-database"></i> MongoDB</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
+                        <div class="tech-icons">
+                            <span class="tech-icon"><i class="fab fa-aws"></i> AWS</span>
+                            <span class="tech-icon"><i class="fab fa-docker"></i> Docker</span>
+                            <span class="tech-icon"><i class="fas fa-server"></i> Kubernetes</span>
+                            <span class="tech-icon"><i class="fab fa-git-alt"></i> CI/CD</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- TECH STACK -->
-    <section id="tech-stack">
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Core Technical Toolkit</h2>
-            <p class="section-subtitle">Mastering technologies that deliver flawless experiences across all devices</p>
-            <div class="stack-grid">
-                <div class="stack-category">
-                    <h3><i class="fas fa-layer-group"></i> Frontend</h3>
-                    <div class="stack-tags">
-                        <span class="stack-tag">React</span>
-                        <span class="stack-tag">Next.js</span>
-                        <span class="stack-tag">TypeScript</span>
-                        <span class="stack-tag">Vue.js</span>
-                        <span class="stack-tag">Tailwind CSS</span>
-                    </div>
-                </div>
-                <div class="stack-category">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
-                    <div class="stack-tags">
-                        <span class="stack-tag">Node.js</span>
-                        <span class="stack-tag">Python</span>
-                        <span class="stack-tag">PostgreSQL</span>
-                        <span class="stack-tag">MongoDB</span>
-                        <span class="stack-tag">GraphQL</span>
-                    </div>
-                </div>
-                <div class="stack-category">
-                    <h3><i class="fas fa-cloud"></i> Infrastructure</h3>
-                    <div class="stack-tags">
-                        <span class="stack-tag">AWS</span>
-                        <span class="stack-tag">Docker</span>
-                        <span class="stack-tag">Vercel</span>
-                        <span class="stack-tag">CI/CD</span>
-                        <span class="stack-tag">Firebase</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- PORTFOLIO -->
-    <section id="portfolio">
-        <div class="container">
-            <h2 class="section-title">Responsive Production Projects</h2>
-            <p class="section-subtitle">Each project is meticulously tested on 20+ device sizes for perfect rendering</p>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">A showcase of my technical expertise across different platforms and technologies</p>
             
             <div class="projects-grid">
-                <!-- GOSPELSWIPE PRO -->
-                <div class="project-card featured-card">
-                    <div class="project-badge">Mobile-First PWA</div>
+                <!-- GospelSwipe Pro -->
+                <div class="project-card">
                     <div class="project-header">
-                        <h3><span class="flag">🇳🇬</span> GospelSwipe Pro</h3>
-                        <div class="tech-stack">
+                        <span class="project-badge">AI-Powered</span>
+                        <h3 class="project-title">GospelSwipe Pro</h3>
+                        <div class="project-tech">
                             <span class="tech-tag">React</span>
                             <span class="tech-tag">PWA</span>
                             <span class="tech-tag">OpenAI API</span>
@@ -124,306 +916,595 @@
                         </div>
                     </div>
                     <p class="project-description">
-                        A production-ready Progressive Web App optimized for mobile first, then enhanced for tablet and desktop. Features responsive AI-powered Q&A system.
+                        A production-ready Progressive Web App optimized for mobile first, featuring AI-powered Q&A system with voice interaction capabilities.
                     </p>
-                    <div class="project-highlight">
-                        <strong>Responsive Testing:</strong> Tested on iPhone SE to 4K monitors with perfect rendering
-                    </div>
-                    <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" target="_blank" class="demo-btn">
-                            <i class="fas fa-external-link-alt"></i> Live Application
-                        </a>
-                        <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" target="_blank" class="github-btn">
-                            <i class="fab fa-github"></i> Source Code
-                        </a>
-                    </div>
-                    <div class="project-metrics">
-                        <div class="metric"><i class="fas fa-mobile-alt"></i> Mobile Optimized</div>
-                        <div class="metric"><i class="fas fa-tablet-alt"></i> Tablet Ready</div>
-                        <div class="metric"><i class="fas fa-desktop"></i> Desktop Perfect</div>
+                    <ul class="project-features">
+                        <li>AI-powered Bible verse recommendations</li>
+                        <li>Voice-to-text prayer journal</li>
+                        <li>Offline functionality</li>
+                        <li>Cross-device synchronization</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> Live App
+                            </a>
+                            <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i> Source Code
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- REAL ESTATE PLATFORM -->
-                <div class="project-card featured-card">
-                    <div class="project-badge">Cross-Device Platform</div>
+                <!-- Chrome Extension Suite -->
+                <div class="project-card">
                     <div class="project-header">
-                        <h3><span class="flag">🏠</span> Premium Real Estate Platform</h3>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Mapbox</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Stripe</span>
-                            <span class="tech-tag">Tailwind</span>
+                        <span class="project-badge">Chrome Extension</span>
+                        <h3 class="project-title">DevTools Pro Suite</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Chrome API</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Webpack</span>
+                            <span class="tech-tag">Firebase</span>
                         </div>
                     </div>
                     <p class="project-description">
-                        A fully responsive real estate platform with adaptive layouts for mobile browsing, tablet property viewing, and desktop administration.
+                        A comprehensive Chrome extension suite for developers featuring code snippet manager, performance monitor, and API testing tools.
                     </p>
-                    <div class="project-highlight">
-                        <strong>Device Adaptation:</strong> Layout automatically adjusts from mobile cards to desktop grids
+                    <ul class="project-features">
+                        <li>Code snippet cloud synchronization</li>
+                        <li>Real-time website performance metrics</li>
+                        <li>API request builder & tester</li>
+                        <li>Customizable dashboard</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Chrome Store
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
                     </div>
-                    <div class="project-links">
-                        <a href="https://gpmulticoncept.github.io/haggai-portfolio/real-estate" target="_blank" class="demo-btn">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                        <a href="https://github.com/gpmulticoncept/haggai-portfolio" target="_blank" class="github-btn">
-                            <i class="fab fa-github"></i> Source Code
-                        </a>
+                </div>
+                
+                <!-- E-commerce Platform -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Full-Stack</span>
+                        <h3 class="project-title">Nexus Commerce Platform</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Next.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Stripe</span>
+                        </div>
                     </div>
-                    <div class="project-metrics">
-                        <div class="metric"><i class="fas fa-columns"></i> Adaptive Layouts</div>
-                        <div class="metric"><i class="fas fa-search"></i> Responsive Search</div>
-                        <div class="metric"><i class="fas fa-map-marked-alt"></i> Mobile Maps</div>
+                    <p class="project-description">
+                        A high-performance e-commerce platform with real-time inventory management, AI-powered recommendations, and multi-vendor support.
+                    </p>
+                    <ul class="project-features">
+                        <li>Real-time inventory tracking</li>
+                        <li>AI-powered product recommendations</li>
+                        <li>Multi-vendor marketplace</li>
+                        <li>Advanced analytics dashboard</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Live Demo
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> Backend API
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real Estate Platform -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Real Estate</span>
+                        <h3 class="project-title">PropertyVue Platform</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Mapbox</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A comprehensive real estate platform with virtual property tours, AI-based property valuation, and blockchain-based contract management.
+                    </p>
+                    <ul class="project-features">
+                        <li>360° virtual property tours</li>
+                        <li>AI-powered property valuation</li>
+                        <li>Blockchain contract management</li>
+                        <li>Real-time mortgage calculator</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Live Platform
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> Mobile App
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SaaS Analytics -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">SaaS</span>
+                        <h3 class="project-title">DataSphere Analytics</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A multi-tenant SaaS analytics platform with real-time data processing, predictive analytics, and automated report generation.
+                    </p>
+                    <ul class="project-features">
+                        <li>Real-time data processing pipeline</li>
+                        <li>Predictive analytics with ML</li>
+                        <li>Automated report generation</li>
+                        <li>Multi-tenant architecture</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Dashboard
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> Data Pipeline
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Healthcare Platform -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-badge">Healthcare</span>
+                        <h3 class="project-title">MediConnect Platform</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">WebRTC</span>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        A HIPAA-compliant telemedicine platform with video consultations, electronic health records, and prescription management.
+                    </p>
+                    <ul class="project-features">
+                        <li>Secure video consultations</li>
+                        <li>Electronic health records</li>
+                        <li>Prescription management system</li>
+                        <li>Patient portal & scheduling</li>
+                    </ul>
+                    <div class="project-footer">
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <i class="fas fa-external-link-alt"></i> Patient App
+                            </a>
+                            <a href="#" class="project-link">
+                                <i class="fab fa-github"></i> Doctor Portal
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- SERVICES -->
-    <section id="services">
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="section">
         <div class="container">
-            <h2 class="section-title">Responsive Development Services</h2>
-            <p class="section-subtitle">Building applications that work flawlessly across all screen sizes and devices</p>
+            <h2 class="section-title">Technical Expertise</h2>
+            <p class="section-subtitle">Comprehensive skills across the full development stack</p>
             
-            <div class="services-grid">
-                <!-- Responsive Web Development -->
-                <div class="service-card popular-tag">
-                    <div class="service-header">
-                        <h3><i class="fas fa-mobile-alt"></i> Responsive Web Development</h3>
-                        <span class="popular-badge">Most Requested</span>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Frontend Development</h3>
                     </div>
-                    <p class="service-description">Create websites and applications that adapt perfectly to every screen size, from smartphones to 4K monitors.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Mobile-First Design</li>
-                        <li><i class="fas fa-check-circle"></i> Tablet Optimization</li>
-                        <li><i class="fas fa-check-circle"></i> Desktop Enhancement</li>
-                        <li><i class="fas fa-check-circle"></i> Cross-Browser Testing</li>
-                        <li><i class="fas fa-check-circle"></i> Performance Optimization</li>
+                    <ul class="project-features">
+                        <li>React, Vue.js, Angular, TypeScript</li>
+                        <li>Next.js, Gatsby, Nuxt.js</li>
+                        <li>State Management (Redux, Vuex)</li>
+                        <li>Responsive & Mobile-First Design</li>
+                        <li>Progressive Web Apps (PWA)</li>
+                        <li>Web Performance Optimization</li>
                     </ul>
-                    <div class="service-footer">
-                        <span class="service-price">From $3,500</span>
-                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
-                    </div>
                 </div>
                 
-                <!-- Progressive Web Apps -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <h3><i class="fas fa-rocket"></i> Progressive Web Apps (PWA)</h3>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Backend Development</h3>
                     </div>
-                    <p class="service-description">Native-like experiences that work offline and install on any device - mobile, tablet, or desktop.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Installable on All Devices</li>
-                        <li><i class="fas fa-check-circle"></i> Offline Functionality</li>
-                        <li><i class="fas fa-check-circle"></i> Push Notifications</li>
-                        <li><i class="fas fa-check-circle"></i> Device Hardware Access</li>
-                        <li><i class="fas fa-check-circle"></i> App Store Deployment</li>
+                    <ul class="project-features">
+                        <li>Node.js, Express, NestJS</li>
+                        <li>Python, Django, FastAPI</li>
+                        <li>REST & GraphQL API Design</li>
+                        <li>Microservices Architecture</li>
+                        <li>Database Design & Optimization</li>
+                        <li>Authentication & Authorization</li>
                     </ul>
-                    <div class="service-footer">
-                        <span class="service-price">From $4,800</span>
-                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
-                    </div>
                 </div>
                 
-                <!-- Cross-Platform Applications -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <h3><i class="fas fa-sync-alt"></i> Cross-Platform Applications</h3>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Cloud & DevOps</h3>
                     </div>
-                    <p class="service-description">Single codebase applications that run natively on iOS, Android, Web, and Desktop.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> React Native / Flutter</li>
-                        <li><i class="fas fa-check-circle"></i> Single Codebase</li>
-                        <li><i class="fas fa-check-circle"></i> Native Performance</li>
-                        <li><i class="fas fa-check-circle"></i> Platform-Specific UI</li>
-                        <li><i class="fas fa-check-circle"></i> App Store Submission</li>
+                    <ul class="project-features">
+                        <li>AWS, Azure, Google Cloud</li>
+                        <li>Docker & Kubernetes</li>
+                        <li>CI/CD Pipeline Automation</li>
+                        <li>Infrastructure as Code</li>
+                        <li>Monitoring & Logging</li>
+                        <li>Serverless Architecture</li>
                     </ul>
-                    <div class="service-footer">
-                        <span class="service-price">From $7,500</span>
-                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
-                    </div>
                 </div>
                 
-                <!-- Performance Optimization -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <h3><i class="fas fa-tachometer-alt"></i> Performance Optimization</h3>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Specialized Development</h3>
                     </div>
-                    <p class="service-description">Speed up slow websites and applications with focus on mobile performance and Core Web Vitals.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check-circle"></i> Mobile Speed Optimization</li>
-                        <li><i class="fas fa-check-circle"></i> Core Web Vitals 90+</li>
-                        <li><i class="fas fa-check-circle"></i> Image Optimization</li>
-                        <li><i class="fas fa-check-circle"></i> Lazy Loading</li>
-                        <li><i class="fas fa-check-circle"></i> CDN Implementation</li>
+                    <ul class="project-features">
+                        <li>Chrome Extension Development</li>
+                        <li>Mobile Apps (React Native)</li>
+                        <li>Real-time Applications (WebSockets)</li>
+                        <li>Blockchain & Smart Contracts</li>
+                        <li>AI/ML Integration</li>
+                        <li>Payment Gateway Integration</li>
                     </ul>
-                    <div class="service-footer">
-                        <span class="service-price">From $1,800</span>
-                        <a href="#contact" class="service-cta">Inquire <i class="fas fa-arrow-right"></i></a>
-                    </div>
                 </div>
             </div>
-            
-            <p class="services-note">
-                <i>All projects include comprehensive testing on 20+ device sizes before delivery</i>
-            </p>
         </div>
     </section>
-    
-    <!-- CONTACT -->
-    <section id="contact">
+
+    <!-- Contact Section -->
+    <section id="contact" class="section section-alt">
         <div class="container">
-            <div class="contact-wrapper">
-                <h2 class="section-title">Contact Me - Works Perfectly on Any Device</h2>
-                <p class="section-subtitle">Reach out from your phone, tablet, or computer - this form is optimized for all</p>
+            <h2 class="section-title">Start Your Project</h2>
+            <p class="section-subtitle">Let's build something exceptional together</p>
+            
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h3>Project Inquiry</h3>
+                    <form id="projectForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="projectType">Project Type</label>
+                            <select id="projectType" name="projectType" required>
+                                <option value="">Select project type</option>
+                                <option value="web">Web Application</option>
+                                <option value="mobile">Mobile Application</option>
+                                <option value="chrome">Chrome Extension</option>
+                                <option value="ecommerce">E-commerce Platform</option>
+                                <option value="saas">SaaS Platform</option>
+                                <option value="enterprise">Enterprise System</option>
+                                <option value="consultation">Technical Consultation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Project Budget Range</label>
+                            <select id="budget" name="budget" required>
+                                <option value="">Select budget range</option>
+                                <option value="5k-10k">$5,000 - $10,000</option>
+                                <option value="10k-25k">$10,000 - $25,000</option>
+                                <option value="25k-50k">$25,000 - $50,000</option>
+                                <option value="50k-100k">$50,000 - $100,000</option>
+                                <option value="100k-plus">$100,000+</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Project Details</label>
+                            <textarea id="message" name="message" placeholder="Describe your project goals, requirements, and timeline..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-paper-plane"></i> Send Project Inquiry
+                        </button>
+                    </form>
+                </div>
                 
-                <div class="contact-grid">
-                    <!-- Email Contact -->
-                    <div class="contact-card primary-contact">
-                        <div class="contact-icon">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
-                        <h3>Email Consultation</h3>
-                        <p class="contact-description">
-                            Send detailed project requirements. I'll respond with a comprehensive proposal including responsive design considerations.
-                        </p>
-                        <div class="contact-email-display">
-                            <i class="fas fa-at"></i>
-                            <div class="email-info">
-                                <span class="email-label">Primary Contact</span>
-                                <a href="mailto:haggai.enitan.dev@gmail.com" class="email-address">haggai.enitan.dev@gmail.com</a>
-                            </div>
-                        </div>
-                        <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-action-btn">
-                            <i class="fas fa-paper-plane"></i> Send Email
+                        <h4>Direct Contact</h4>
+                        <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">
+                            haggai.enitan.dev@gmail.com
                         </a>
-                        <div class="contact-note">
-                            <i class="fas fa-clock"></i> Response within 24 hours on any device
-                        </div>
+                        <p class="response-time">For detailed technical discussions</p>
                     </div>
                     
-                    <!-- Quick Inquiry -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3>Quick Inquiry</h3>
-                        <p class="contact-description">
-                            Have a simple question? Use this working contact form that sends directly to my email.
-                        </p>
-                        <!-- WORKING CONTACT FORM -->
-                        <form id="contactForm" class="quick-contact-form" action="https://formspree.io/f/xvojjzwv" method="POST">
-                            <input type="text" name="name" placeholder="Your Name" class="form-input" required>
-                            <input type="email" name="email" placeholder="Your Email" class="form-input" required>
-                            <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
-                            <input type="hidden" name="_replyto" value="haggai.enitan.dev@gmail.com">
-                            <textarea name="message" placeholder="Your Message" class="form-textarea" rows="3" required></textarea>
-                            <button type="submit" class="form-submit-btn">
-                                <i class="fas fa-paper-plane"></i> Send Message
-                            </button>
-                            <div id="formMessage" class="form-message"></div>
-                        </form>
-                        <div class="contact-note">
-                            <i class="fas fa-mobile-alt"></i> Touch-optimized for mobile devices
-                        </div>
-                    </div>
-                    
-                    <!-- Availability -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
+                    <div class="info-card">
+                        <div class="info-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
-                        <h3>Current Availability</h3>
-                        <p class="contact-description">
-                            I'm currently accepting new projects for responsive web development and cross-platform applications.
-                        </p>
-                        <div class="availability-status">
-                            <div class="status-indicator available"></div>
-                            <span class="status-text">Available for Q2 2024 Projects</span>
+                        <h4>Availability</h4>
+                        <div class="availability">
+                            <span class="status-indicator"></span>
+                            <span>Available for Q2 2024 Projects</span>
                         </div>
-                        <div class="device-support">
-                            <h4>Device Support Coverage</h4>
-                            <div class="device-list">
-                                <div class="device-item">
-                                    <i class="fas fa-mobile-alt"></i>
-                                    <span>Mobile (100%)</span>
-                                </div>
-                                <div class="device-item">
-                                    <i class="fas fa-tablet-alt"></i>
-                                    <span>Tablet (100%)</span>
-                                </div>
-                                <div class="device-item">
-                                    <i class="fas fa-laptop"></i>
-                                    <span>Desktop (100%)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact-note">
-                            <i class="fas fa-check-circle"></i> All projects tested on 20+ screen sizes
-                        </div>
+                        <p class="response-time">Starting new engagements</p>
                     </div>
-                </div>
-                
-                <!-- Social Links -->
-                <div class="secondary-contact-methods">
-                    <h4>Connect Across Platforms</h4>
-                    <div class="method-grid">
-                        <a href="https://github.com/gpmulticoncept" target="_blank" class="method-link">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="#contact" class="method-link">
-                            <i class="fab fa-linkedin"></i> LinkedIn
-                        </a>
-                        <a href="#contact" class="method-link">
-                            <i class="fab fa-twitter"></i> Twitter
-                        </a>
-                        <a href="#contact" class="method-link">
-                            <i class="fab fa-codepen"></i> CodePen
-                        </a>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Response Time</h4>
+                        <p class="response-time">Typically responds within 2-4 hours during business hours</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- FIXED FOOTER -->
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <!-- Centered Brand Section -->
-                <div class="footer-brand centered">
+                <div class="footer-brand">
                     <div class="footer-logo">
-                        <i class="fas fa-code"></i>
+                        <span class="logo-accent">Haggai</span>.tech
                     </div>
-                    <h3>Haggai Enitan</h3>
-                    <p class="footer-title">Senior Full-Stack Developer & Technical Architect</p>
+                    <p class="footer-tagline">Full-Stack Technical Architect</p>
+                    <p>Building digital solutions that scale from startups to enterprise.</p>
                 </div>
                 
-                <!-- Centered Contact Info -->
-                <div class="footer-contact centered">
-                    <div class="footer-email">
-                        <div class="email-icon-wrapper">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="email-details">
-                            <span class="email-label">Primary Contact Email</span>
-                            <a href="mailto:haggai.enitan.dev@gmail.com" class="email-address">haggai.enitan.dev@gmail.com</a>
-                        </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Services</h4>
+                        <a href="#expertise">Full-Stack Development</a>
+                        <a href="#expertise">Technical Architecture</a>
+                        <a href="#expertise">Cloud & DevOps</a>
+                        <a href="#expertise">System Optimization</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4>Connect</h4>
+                        <a href="https://github.com/gpmulticoncept" target="_blank">GitHub</a>
+                        <a href="#" id="linkedinLink">LinkedIn</a>
+                        <a href="#" id="twitterLink">Twitter</a>
+                        <a href="#" id="devtoLink">Dev.to</a>
                     </div>
                 </div>
                 
-                <!-- Copyright Section -->
-                <div class="footer-copyright centered">
-                    <p>&copy; <span id="currentYear"></span> Haggai Enitan. All rights reserved.</p>
-                    <p class="footer-tagline">Building digital excellence with strategic intent</p>
+                <div class="footer-cta">
+                    <h4>Ready to Build?</h4>
+                    <a href="#contact" class="btn btn-outline">
+                        <i class="fas fa-comments"></i>
+                        Start Conversation
+                    </a>
                 </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> Haggai Enitan. All rights reserved.</p>
+                <p class="footer-subtext">Architecting the future, one line of code at a time</p>
             </div>
         </div>
     </footer>
-    
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Portfolio initialized successfully!');
+            
+            // Mobile Navigation Toggle
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                    navToggle.innerHTML = navLinks.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
+            }
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+            
+            // Animated Counter
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-count'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = current.toFixed(counter.getAttribute('data-count').includes('.') ? 1 : 0);
+                        setTimeout(updateCounter, 16);
+                    } else {
+                        counter.textContent = target.toFixed(counter.getAttribute('data-count').includes('.') ? 1 : 0);
+                    }
+                };
+                
+                // Start counter when in viewport
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+            
+            // Contact Form Submission
+            const contactForm = document.getElementById('projectForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    // Get form data
+                    const formData = new FormData(this);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Show loading state
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    
+                    try {
+                        // Simulate API call
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        
+                        // Success
+                        console.log('📨 Project Inquiry:', data);
+                        
+                        // Show success
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
+                        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.style.background = '';
+                            submitBtn.disabled = false;
+                        }, 3000);
+                        
+                    } catch (error) {
+                        console.error('Form error:', error);
+                        
+                        // Show error
+                        submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Try Email Instead';
+                        submitBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                        
+                        // Create mailto fallback
+                        const email = 'haggai.enitan.dev@gmail.com';
+                        const subject = encodeURIComponent('Project Inquiry from Portfolio');
+                        const body = encodeURIComponent(
+                            `Name: ${data.name}\n` +
+                            `Email: ${data.email}\n` +
+                            `Project Type: ${data.projectType}\n` +
+                            `Budget: ${data.budget}\n\n` +
+                            `Message:\n${data.message}`
+                        );
+                        
+                        setTimeout(() => {
+                            if (confirm('Form submission failed. Send via email instead?')) {
+                                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                            }
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.style.background = '';
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }
+                });
+            }
+            
+            // Smooth Scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Update active nav link on scroll
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollPos = window.pageYOffset + 100;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Social links (placeholder - update with your actual links)
+            document.getElementById('linkedinLink').href = 'https://linkedin.com/in/yourprofile';
+            document.getElementById('twitterLink').href = 'https://twitter.com/yourprofile';
+            document.getElementById('devtoLink').href = 'https://dev.to/yourprofile';
+            
+            // Add hover effects to project cards
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            console.log('✅ All features initialized!');
+        });
+        
+        // Console welcome
+        console.log('%c⚡ Haggai Enitan - Full-Stack Technical Architect', 'color: #6366f1; font-size: 18px; font-weight: bold;');
+        console.log('%c🚀 Premium Portfolio Experience', 'color: #10b981; font-size: 14px;');
+        console.log('%c📧 Contact: haggai.enitan.dev@gmail.com', 'color: #a0a0a0;');
+    </script>
 </body>
 </html>
