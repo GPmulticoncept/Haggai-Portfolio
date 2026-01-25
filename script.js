@@ -1,8 +1,6 @@
-// Simple working version - No complex dependencies
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Portfolio loaded successfully!');
     
-    // ==================== ANIMATE STATISTICS ====================
     const counters = document.querySelectorAll('.stat-number');
     
     counters.forEach(counter => {
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         
-        // Start counter when in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -34,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(counter);
     });
     
-    // ==================== FORM SUBMISSION ====================
-    const contactForm = document.getElementById('contactForm');
+    const contactForm = document.getElementById('projectForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -43,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             
-            // Get form data
             const formData = new FormData(this);
             const data = {
                 name: formData.get('name'),
@@ -53,39 +48,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: formData.get('message')
             };
             
-            // Show loading
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
             try {
-                // Simulate API call
                 await new Promise(resolve => setTimeout(resolve, 1500));
                 
-                // Success
                 console.log('✅ Form submitted:', data);
                 
-                // Show success message
                 submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
                 submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                 
-                // Reset form
                 this.reset();
                 
-                // Reset button after 3 seconds
                 setTimeout(() => {
                     submitBtn.innerHTML = originalText;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
                 }, 3000);
                 
+                setTimeout(() => {
+                    const email = 'haggai.enitan.dev@gmail.com';
+                    const subject = encodeURIComponent('Project Inquiry from Portfolio');
+                    const body = encodeURIComponent(
+                        `Name: ${data.name}\n` +
+                        `Email: ${data.email}\n` +
+                        `Project Type: ${data.projectType}\n` +
+                        `Budget: ${data.budget}\n\n` +
+                        `Message:\n${data.message}`
+                    );
+                    
+                    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
+                }, 200);
+                
             } catch (error) {
                 console.error('Form error:', error);
                 
-                // Show error
                 submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error - Try Email';
                 submitBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
                 
-                // Fallback to email
                 setTimeout(() => {
                     if (confirm('Form submission failed. Would you like to send via email instead?')) {
                         const email = 'haggai.enitan.dev@gmail.com';
@@ -109,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ==================== SMOOTH SCROLL ====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.querySelector(href);
             
             if (targetElement) {
-                const headerHeight = document.querySelector('.navbar').offsetHeight;
+                const headerHeight = document.querySelector('nav').offsetHeight;
                 const targetPosition = targetElement.offsetTop - headerHeight - 20;
                 
                 window.scrollTo({
@@ -131,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 
-                // Update active nav link
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
                 });
@@ -140,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ==================== UPDATE ACTIVE NAV ON SCROLL ====================
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     
@@ -165,13 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ==================== SET CURRENT YEAR ====================
     const currentYear = document.getElementById('currentYear');
     if (currentYear) {
         currentYear.textContent = new Date().getFullYear();
     }
     
-    // ==================== TECH ICON HOVER EFFECTS ====================
     const techIcons = document.querySelectorAll('.tech-icon');
     techIcons.forEach(icon => {
         icon.addEventListener('mouseenter', () => {
@@ -185,7 +181,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ==================== PROJECT CARD ANIMATIONS ====================
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -197,10 +192,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    const whisperCards = document.querySelectorAll('.project-card:first-child');
+    whisperCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const badge = card.querySelector('.badge-production-ready');
+            if (badge) {
+                badge.style.animation = 'pulse 1.5s infinite';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            const badge = card.querySelector('.badge-production-ready');
+            if (badge) {
+                badge.style.animation = 'none';
+            }
+        });
+    });
+    
     console.log('✅ All features initialized successfully!');
+    console.log('📱 Whisper Network v1.0 + GospelSwipe Pro integrated!');
 });
 
-// Console welcome message
 console.log('%c⚡ Haggai Enitan - Full-Stack Architect Portfolio', 'color: #6366f1; font-size: 18px; font-weight: bold;');
-console.log('%c🚀 Premium Portfolio Experience', 'color: #10b981; font-size: 14px;');
+console.log('%c🚀 Production-Ready Portfolio Experience', 'color: #10b981; font-size: 14px;');
+console.log('%c📱 GospelSwipe Pro - Product Ready PWA', 'color: #10b981; font-size: 14px;');
 console.log('%c📧 Contact: haggai.enitan.dev@gmail.com', 'color: #a0a0a0;');
