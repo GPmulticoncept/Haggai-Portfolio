@@ -1,219 +1,194 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Portfolio loaded successfully!');
+(() => {
+    'use strict';
     
-    const counters = document.querySelectorAll('.stat-number');
+    const $ = (sel, scope = document) => scope.querySelector(sel);
+    const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
     
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-        
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.floor(current);
-                setTimeout(updateCounter, 16);
-            } else {
-                counter.textContent = target;
+    // Mobile Navigation Controller
+    const navToggle = $('#navToggle');
+    const navLinks = $('#navLinks');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isOpen);
+            navLinks.classList.toggle('is-open');
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+            
+            // Close all dropdowns when closing mobile menu
+            if (isOpen) {
+                $$('.dropdown-menu').forEach(menu => menu.classList.remove('is-open'));
+                $$('.dropdown-toggle').forEach(toggle => toggle.setAttribute('aria-expanded', 'false'));
             }
-        };
+        });
+    }
+    
+    // Dropdown Menu Controller (Desktop & Mobile)
+    $$('.nav-dropdown').forEach(dropdown => {
+        const toggle = $('.dropdown-toggle', dropdown);
+        const menu = $('.dropdown-menu', dropdown);
         
-        const observer = new IntersectionObserver((entries) => {
+        // Desktop: Hover
+        dropdown.addEventListener('mouseenter', () => {
+            if (window.innerWidth > 768) {
+                menu.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+            }
+        });
+        dropdown.addEventListener('mouseleave', () => {
+            if (window.innerWidth > 768) {
+                menu.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Mobile: Click
+        toggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                const isOpen = menu.classList.contains('is-open');
+                // Close other dropdowns
+                $$('.dropdown-menu').forEach(m => m.classList.remove('is-open'));
+                $$('.dropdown-toggle').forEach(t => t.setAttribute('aria-expanded', 'false'));
+                
+                // Toggle current
+                menu.classList.toggle('is-open', !isOpen);
+                toggle.setAttribute('aria-expanded', !isOpen);
+            }
+        });
+    });
+    
+    // Smooth Scroll & Active Nav
+    $$('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const href = link.getAttribute('href');
+            if (href === '#') return;
+            const target = $(href);
+            if (!target) return;
+            e.preventDefault();
+            
+            const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height'));
+            const targetPosition = target.offsetTop - navHeight - 20;
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            
+            // Update active nav
+            $$('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Close mobile menu
+            if (navLinks.classList.contains('is-open')) {
+                navToggle.click();
+            }
+        });
+    });
+    
+    // Counter Animation
+    const counters = $$('.stat-value');
+    if (counters.length) {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    updateCounter();
-                    observer.unobserve(entry.target);
+                    counters.forEach(counter => {
+                        const target = parseFloat(counter.dataset.count);
+                        const duration = 2000; const start = performance.now();
+                        const animate = (currentTime) => {
+                            const elapsed = currentTime - start;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const easeOut = 1 - Math.pow(1 - progress, 3);
+                            const current = (target * easeOut).toFixed(1);
+                            counter.textContent = current % 1 === 0 ? parseInt(current) : current;
+                            if (progress < 1) requestAnimationFrame(animate);
+                            else counter.textContent = target % 1 === 0 ? target : target.toFixed(1);
+                        };
+                        requestAnimationFrame(animate);
+                    });
+                    observer.disconnect();
                 }
             });
         }, { threshold: 0.5 });
-        
-        observer.observe(counter);
-    });
-    
-    const contactForm = document.getElementById('projectForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                projectType: formData.get('projectType'),
-                budget: formData.get('budget'),
-                message: formData.get('message')
-            };
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            try {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                
-                console.log('✅ Form submitted:', data);
-                
-                submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
-                submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                
-                this.reset();
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.disabled = false;
-                }, 3000);
-                
-                setTimeout(() => {
-                    const email = 'haggai.enitan.dev@gmail.com';
-                    const subject = encodeURIComponent('Project Inquiry from Portfolio');
-                    const body = encodeURIComponent(
-                        `Name: ${data.name}\n` +
-                        `Email: ${data.email}\n` +
-                        `Project Type: ${data.projectType}\n` +
-                        `Budget: ${data.budget}\n\n` +
-                        `Message:\n${data.message}`
-                    );
-                    
-                    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
-                }, 200);
-                
-            } catch (error) {
-                console.error('Form error:', error);
-                
-                submitBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error - Try Email';
-                submitBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-                
-                setTimeout(() => {
-                    if (confirm('Form submission failed. Would you like to send via email instead?')) {
-                        const email = 'haggai.enitan.dev@gmail.com';
-                        const subject = encodeURIComponent('Project Inquiry from Portfolio');
-                        const body = encodeURIComponent(
-                            `Name: ${data.name}\n` +
-                            `Email: ${data.email}\n` +
-                            `Project Type: ${data.projectType}\n` +
-                            `Budget: ${data.budget}\n\n` +
-                            `Message:\n${data.message}`
-                        );
-                        
-                        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-                    }
-                    
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    submitBtn.disabled = false;
-                }, 2000);
-            }
-        });
+        counters.forEach(counter => observer.observe(counter));
     }
     
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            
-            if (href === '#' || href === '#home') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Form Validation & Submission
+    const form = $('#projectForm');
+    const submitBtn = $('#submitBtn');
+    const status = $('#formStatus');
+    if (form) {
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const required = $$('input[required], select[required], textarea[required]', form);
+            let valid = true;
+            required.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('invalid'); valid = false;
+                } else {
+                    field.classList.remove('invalid'); field.classList.add('valid');
+                }
+            });
+            if (!valid) {
+                status.textContent = 'Please fill in all required fields correctly.';
+                status.className = 'form-status error';
                 return;
             }
-            
-            e.preventDefault();
-            const targetElement = document.querySelector(href);
-            
-            if (targetElement) {
-                const headerHeight = document.querySelector('nav').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                this.classList.add('active');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            try {
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                form.reset(); required.forEach(f => f.classList.remove('valid'));
+                status.textContent = 'Thank you! Your inquiry has been sent successfully.';
+                status.className = 'form-status success';
+                setTimeout(() => { status.textContent = ''; status.className = 'form-status'; }, 5000);
+            } catch {
+                status.textContent = 'Something went wrong. Please try again.';
+                status.className = 'form-status error';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
             }
         });
-    });
-    
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    window.addEventListener('scroll', () => {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const scrollPosition = window.pageYOffset + 100;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-    
-    const currentYear = document.getElementById('currentYear');
-    if (currentYear) {
-        currentYear.textContent = new Date().getFullYear();
     }
     
-    const techIcons = document.querySelectorAll('.tech-icon');
-    techIcons.forEach(icon => {
-        icon.addEventListener('mouseenter', () => {
-            icon.style.transform = 'translateY(-5px)';
-            icon.style.boxShadow = '0 10px 20px rgba(99, 102, 241, 0.2)';
-        });
-        
-        icon.addEventListener('mouseleave', () => {
-            icon.style.transform = 'translateY(0)';
-            icon.style.boxShadow = 'none';
-        });
+    // Animate elements on scroll
+    const animateElements = $$('.project-card, .expertise-card, .process-step, .info-card');
+    if (animateElements.length) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
+                    entry.target.classList.add('animate-fade-in-up');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        animateElements.forEach(el => observer.observe(el));
+    }
+    
+    // Current Year & Navbar Scroll
+    const yearSpan = $('#currentYear');
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    
+    let lastScrollY = window.scrollY;
+    const nav = $('.glass-nav');
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            nav.style.transform = 'translateY(-100%)';
+        } else {
+            nav.style.transform = 'translateY(0)';
+        }
+        nav.classList.toggle('is-scrolled', currentScrollY > 50);
+        lastScrollY = currentScrollY;
     });
     
-    const projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0)';
-        });
+    // Resize handler for mobile/desktop transitions
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            // Close mobile menu
+            navLinks.classList.remove('is-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+            
+            // Reset dropdowns
+            $$('.dropdown-menu').forEach(menu => menu.classList.remove('is-open'));
+            $$('.dropdown-toggle').forEach(toggle => toggle.setAttribute('aria-expanded', 'false'));
+        }
     });
-    
-    const whisperCards = document.querySelectorAll('.project-card:first-child');
-    whisperCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            const badge = card.querySelector('.badge-production-ready');
-            if (badge) {
-                badge.style.animation = 'pulse 1.5s infinite';
-            }
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            const badge = card.querySelector('.badge-production-ready');
-            if (badge) {
-                badge.style.animation = 'none';
-            }
-        });
-    });
-    
-    console.log('✅ All features initialized successfully!');
-    console.log('📱 Whisper Network v1.0 + GospelSwipe Pro integrated!');
-});
-
-console.log('%c⚡ Haggai Enitan - Full-Stack Architect Portfolio', 'color: #6366f1; font-size: 18px; font-weight: bold;');
-console.log('%c🚀 Production-Ready Portfolio Experience', 'color: #10b981; font-size: 14px;');
-console.log('%c📱 GospelSwipe Pro - Product Ready PWA', 'color: #10b981; font-size: 14px;');
-console.log('%c📧 Contact: haggai.enitan.dev@gmail.com', 'color: #a0a0a0;');
+})();

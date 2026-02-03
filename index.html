@@ -1,1467 +1,1050 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haggai Enitan | Full-Stack Technical Architect</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <title>GP Tech Studio | Premium SaaS Development</title>
+    <meta name="description" content="Full-stack technical architecture & SaaS development studio.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
     <style>
+        /* ===== PREMIUM CSS ARCHITECTURE - ALL EMBEDDED ===== */
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --dark: #0a0a0a;
-            --dark-gray: #111111;
-            --gray: #1e1e1e;
-            --light-gray: #2d2d2d;
-            --text: #ffffff;
-            --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
-            --border: rgba(255, 255, 255, 0.1);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --gradient-success: linear-gradient(135deg, var(--success), #059669);
-            --gradient-warning: linear-gradient(135deg, var(--warning), #d97706);
-            --gradient-accent: linear-gradient(135deg, var(--primary), var(--accent));
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --glass: rgba(255, 255, 255, 0.05);
+            --primary-500: #6366f1; --accent-500: #d946ef;
+            --bg-dark: #0a0a0a; --bg-card: rgba(255,255,255,0.03);
+            --text-primary: #ffffff; --text-muted: #9ca3af;
+            --gradient-dual: linear-gradient(135deg, #6366f1, #d946ef);
+            --shadow-glow: 0 0 30px rgba(99,102,241,0.3);
+            --nav-height: 80px; --space-lg: 2rem; --space-xl: 3rem;
+            --font-sans: 'Inter', sans-serif; --font-display: 'Space Grotesk', sans-serif;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: var(--font-sans); background: var(--bg-dark);
+            color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: var(--gradient-dual);
+            color: white; padding: 0.5rem; text-decoration: none; font-weight: 600; z-index: 9999;
         }
-        
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
+        .skip-link:focus { top: 0; }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+        /* Navigation */
+        .glass-nav {
+            position: fixed; inset: 0 0 auto 0;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1000;
+            transition: all 0.3s ease;
         }
-        
         .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: var(--nav-height);
         }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+        .logo-circle {
+            width: 48px; height: 48px; background: var(--gradient-dual);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 1.25rem; color: white; box-shadow: var(--shadow-glow);
         }
-        
-        .logo-accent {
-            color: var(--primary);
+        .brand-primary, .brand-accent {
+            font-family: var(--font-display); font-weight: 800; font-size: 1.2rem;
         }
+        .brand-primary { color: var(--primary-500); }
+        .brand-accent { color: var(--accent-500); }
         
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-        
+        /* Dropdown Navigation */
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-item { position: relative; }
         .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
+            display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted);
+            text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 8px;
+            transition: all 0.3s ease; position: relative; white-space: nowrap;
         }
-        
-        .nav-link:hover {
-            color: var(--text);
+        .nav-link:hover, .nav-link.active { color: white; background: rgba(255,255,255,0.08); }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; width: 70%; height: 2px;
+            background: var(--gradient-dual); transform: translateX(-50%);
         }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient);
-            transition: width 0.3s ease;
+        .dropdown-toggle { padding-right: 2rem !important; }
+        .dropdown-toggle::after {
+            content: ''; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+            width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent;
+            border-top: 4px solid var(--text-muted); transition: transform 0.3s ease;
         }
+        .nav-item:hover .dropdown-toggle::after { transform: translateY(-50%) rotate(180deg); }
         
-        .nav-link:hover::after {
-            width: 100%;
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 0; min-width: 220px;
+            background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            padding: 0.5rem 0; opacity: 0; visibility: hidden;
+            transform: translateY(10px); transition: all 0.3s ease;
+            z-index: 1001; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
+        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
         
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.5rem;
-            cursor: pointer;
+        .dropdown-item {
+            display: block; padding: 0.75rem 1.5rem; color: var(--text-muted);
+            text-decoration: none; transition: all 0.3s ease; font-size: 0.875rem;
         }
+        .dropdown-item:hover { color: white; background: rgba(255,255,255,0.08); padding-left: 2rem; }
+        .dropdown-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
         
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
+        .cta-button {
+            background: var(--gradient-dual); color: white; padding: 0.75rem 1.5rem;
+            border-radius: 10px; text-decoration: none; font-weight: 600; display: flex;
+            align-items: center; gap: 0.5rem; box-shadow: 0 0 20px rgba(99,102,241,0.3);
+            animation: pulse-glow 3s infinite; transition: all 0.3s ease; white-space: nowrap;
         }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
-            z-index: -1;
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(217,70,239,0.5); }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,0.3); }
+            50% { box-shadow: 0 0 30px rgba(99,102,241,0.6), 0 0 40px rgba(217,70,239,0.3); }
         }
-        
-        .hero-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            width: 100%;
+        .nav-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; }
+        .nav-toggle span { width: 28px; height: 3px; background: white; border-radius: 2px; transition: all 0.3s ease; }
+
+        /* Hero */
+        .hero-section {
+            min-height: 100vh; display: flex; align-items: center; position: relative;
+            padding-top: var(--nav-height); overflow: hidden;
         }
-        
+        .gradient-background {
+            position: absolute; inset: 0; z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(217,70,239,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(16,185,129,0.1) 0%, transparent 50%);
+            animation: gradient-shift 20s infinite alternate;
+        }
+        @keyframes gradient-shift { 0% { transform: translateX(0) translateY(0); } 100% { transform: translateX(-5%) translateY(-5%); } }
         .hero-content {
-            text-align: center;
+            max-width: 800px; margin: 0 auto; text-align: center; padding: 3rem 1.5rem;
         }
-        
+        .premium-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gradient-dual);
+            color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.875rem;
+            font-weight: 600; margin-bottom: 2rem; box-shadow: var(--shadow-glow);
+        }
         .hero-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em;
         }
-        
+        .gradient-text {
+            background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text;
+            color: transparent; display: block;
+        }
         .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem;
+            max-width: 700px; margin-inline: auto; line-height: 1.7;
         }
-        
-        .highlight {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-card {
-            text-align: center;
-            min-width: 120px;
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            font-family: 'Inter', monospace;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .hero-cta {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        
+        .highlight { color: var(--primary-500); font-weight: 600; background: rgba(99,102,241,0.1); padding: 0.25rem 0.5rem; border-radius: 8px; }
+        .hero-stats { display: flex; justify-content: center; gap: 2rem; margin: 3rem 0; flex-wrap: wrap; }
+        .stat-item { text-align: center; padding: 1rem 1.5rem; background: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; min-width: 180px; }
+        .stat-item:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .stat-value { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 900; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; line-height: 1; }
+        .stat-label { color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; margin-top: 0.5rem; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
         .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-            text-align: center;
-            justify-content: center;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            padding: 0.875rem 2rem; border-radius: 10px; font-weight: 600; text-decoration: none;
+            cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; font-size: 0.875rem;
+            white-space: nowrap;
         }
-        
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: var(--shadow);
+        .btn-primary { background: var(--gradient-dual); color: white; box-shadow: 0 5px 20px rgba(99,102,241,0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(99,102,241,0.5); }
+        .btn-outline { background: transparent; color: white; border-color: rgba(255,255,255,0.2); }
+        .btn-outline:hover { border-color: var(--primary-500); background: rgba(99,102,241,0.1); transform: translateY(-3px); }
+        .tech-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+        .tech-badge {
+            display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1.25rem; border-radius: 10px;
+            color: var(--text-muted); font-weight: 500; transition: all 0.3s ease;
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--text);
-            border-color: var(--border);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.1);
-        }
-        
-        .hero-visual {
-            position: relative;
-        }
-        
-        .tech-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .tech-category {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .tech-category:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        
-        .tech-category h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .tech-icons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-        
-        .tech-icon {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .tech-icon:hover {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--text);
-            transform: translateY(-2px);
-        }
-        
-        .section {
-            padding: 6rem 0;
-        }
-        
-        .section-alt {
-            background: var(--dark-gray);
-        }
-        
+        .tech-badge:hover { background: rgba(255,255,255,0.08); border-color: var(--primary-500); color: white; transform: translateY(-2px); }
+
+        /* Sections */
+        section { padding: 4rem 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-header { text-align: center; margin-bottom: 3rem; }
         .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 1rem;
         }
-        
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 4rem;
-        }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
+        .title-decorator { width: 48px; height: 4px; background: var(--gradient-dual); border-radius: 2px; }
+        .section-subtitle { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* Projects */
+        .projects-section { background: rgba(0,0,0,0.3); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 2rem; }
         .project-card {
-            background: var(--gray);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%;
         }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: var(--shadow);
-        }
-        
-        .project-header {
-            padding: 1.5rem 1.5rem 0;
-        }
-        
+        .project-card:hover { transform: translateY(-8px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-dual); }
         .project-badge {
-            display: inline-block;
-            background: var(--gradient);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            position: absolute; top: 2rem; right: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+            max-width: 140px; text-align: center;
         }
-        
-        .badge-product-ready {
-            background: var(--gradient-success) !important;
-            animation: pulse 2s infinite;
-        }
-        
-        .badge-production-ready {
-            background: linear-gradient(135deg, #FF6B6B, #4ECDC4) !important;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        .project-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
+        .badge-premium { background: var(--gradient-dual); color: white; }
+        .badge-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .badge-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .badge-info { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .project-header { margin-bottom: 1.5rem; padding-right: 120px; }
+        .project-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
+        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; }
         .tech-tag {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            background: rgba(99,102,241,0.1); color: var(--primary-500); padding: 0.25rem 0.75rem;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 500;
         }
-        
-        .tag-product-ready {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .project-description {
-            color: var(--text-secondary);
-            padding: 0 1.5rem;
-            flex-grow: 1;
-            margin-bottom: 1.5rem;
-        }
-        
-        .project-features {
-            padding: 0 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .project-features li {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .project-features li::before {
-            content: '✓';
-            color: var(--success);
-            font-weight: bold;
-        }
-        
-        .project-footer {
-            padding: 1.5rem;
-            border-top: 1px solid var(--border);
-            margin-top: auto;
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
+        .project-body { margin-bottom: 2rem; flex-grow: 1; }
+        .project-description { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.7; }
+        .project-features { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; }
+        .feature { display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; }
+        .feature i { color: #10b981; flex-shrink: 0; margin-top: 0.2rem; }
+        .project-footer { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: auto; }
+        .project-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
         .project-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 0.5rem; color: var(--primary-500);
+            text-decoration: none; font-weight: 500; transition: all 0.3s ease;
         }
-        
-        .project-link:hover {
-            gap: 0.75rem;
-            color: var(--accent);
+        .project-link:hover { gap: 0.75rem; color: var(--accent-500); }
+
+        /* Expertise */
+        .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 2rem; }
+        .expertise-card {
+            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+            padding: 2.5rem 2rem; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%;
         }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
+        .expertise-card:hover { transform: translateY(-6px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .expertise-icon { font-size: 3.5rem; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1.5rem; }
+        .expertise-card h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .expertise-list { list-style: none; text-align: left; flex-grow: 1; }
+        .expertise-list li { color: var(--text-muted); margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative; font-size: 0.875rem; line-height: 1.5; }
+        .expertise-list li::before { content: '▸'; color: var(--primary-500); position: absolute; left: 0; font-weight: bold; }
+
+        /* Process */
+        .process-section { background: rgba(0,0,0,0.3); }
+        .process-timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .process-step { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .process-step:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .process-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-dual); }
+        .step-number { font-family: var(--font-display); font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.1); margin-bottom: 0.5rem; line-height: 1; }
+        .step-content h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .step-content p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+
+        /* Contact */
+        .contact-container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto; }
+        .contact-form-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; transition: all 0.3s ease; }
+        .contact-form-card:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .contact-form-card h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        .form-group { position: relative; margin-bottom: 1.5rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.875rem 0.875rem 0.875rem 2.75rem; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;
+            font-family: inherit; font-size: 0.875rem; transition: all 0.3s ease;
         }
-        
-        .contact-form {
-            background: var(--gray);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 2.5rem;
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+            background: rgba(255,255,255,0.08);
         }
-        
-        .contact-form h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--text);
+        .form-group i { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+        .form-group textarea { resize: vertical; min-height: 140px; padding-left: 2.75rem; }
+        .form-status { margin-top: 1rem; padding: 0.75rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500; }
+        .form-status.success { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+        .form-status.error { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+
+        .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+        .info-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; text-align: center; transition: all 0.3s ease; }
+        .info-card:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .info-icon { font-size: 2.5rem; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+        .contact-email { display: block; color: var(--primary-500); text-decoration: none; font-weight: 600; margin: 0.5rem 0; word-break: break-word; }
+        .contact-email:hover { color: var(--accent-500); text-decoration: underline; }
+        .status-indicator { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.5rem 0; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #10b981; }
+        .status-dot.active { animation: pulse 2s infinite; }
+        .availability-status { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.5rem 0; }
+        .status-badge { padding: 0.25rem 0.75rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+
+        /* Footer */
+        .premium-footer { background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.1); padding: 3rem 0 2rem; }
+        .footer-content { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 3rem; margin-bottom: 2rem; max-width: 1200px; margin-inline: auto; padding: 0 1.5rem; }
+        .footer-brand { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; text-align: center; }
+        .footer-logo { display: flex; align-items: center; gap: 0.75rem; justify-content: center; }
+        .logo-circle.small { width: 36px; height: 36px; font-size: 1rem; }
+        .footer-tagline { color: var(--text-muted); font-size: 0.875rem; max-width: 300px; }
+        .social-links { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+        .social-link {
+            display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+            color: var(--text-muted); text-decoration: none; transition: all 0.3s ease;
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
+        .social-link:hover { background: var(--gradient-dual); color: white; transform: translateY(-3px); border-color: transparent; box-shadow: 0 0 20px rgba(99,102,241,0.3); }
+        .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .link-group { display: flex; flex-direction: column; gap: 0.75rem; }
+        .link-group h4 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: white; }
+        .link-group a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: all 0.3s ease; }
+        .link-group a:hover { color: var(--primary-500); transform: translateX(4px); }
+        .footer-cta { text-align: center; display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
+        .footer-cta h4 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
+        .footer-cta p { color: var(--text-muted); font-size: 0.875rem; max-width: 250px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; max-width: 1200px; margin-inline: auto; padding: 2rem 1.5rem 0; }
+        .footer-bottom p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .footer-subtext { font-size: 0.75rem; font-style: italic; }
+
+        /* Animations */
+        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Responsive */
+        @media (max-width: 1024px) { 
+            .contact-container, .footer-content { grid-template-columns: 1fr; text-align: center; } 
+            .footer-cta { align-items: center; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
         }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        .btn-block {
-            width: 100%;
-            padding: 1.2rem;
-            font-size: 1.1rem;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .info-card {
-            background: var(--gray);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .info-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .info-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--text);
-        }
-        
-        .contact-email {
-            display: block;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin: 0.5rem 0;
-            word-break: break-all;
-        }
-        
-        .contact-email:hover {
-            text-decoration: underline;
-        }
-        
-        .availability {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--success);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-        }
-        
-        .response-time {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
-        footer {
-            background: var(--dark-gray);
-            border-top: 1px solid var(--border);
-            padding: 4rem 0 2rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 3rem;
-            align-items: start;
-            margin-bottom: 3rem;
-        }
-        
-        .footer-brand {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 900;
-        }
-        
-        .footer-tagline {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-        
-        .link-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .link-group h4 {
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-        
-        .link-group a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        
-        .link-group a:hover {
-            color: var(--primary);
-            transform: translateX(5px);
-        }
-        
-        .footer-cta {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 1rem;
-        }
-        
-        .footer-cta h4 {
-            font-size: 1.25rem;
-            text-align: right;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid var(--border);
-            padding-top: 2rem;
-            text-align: center;
-        }
-        
-        .footer-bottom p {
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-subtext {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            opacity: 0.8;
-        }
-        
-        @media (max-width: 1024px) {
-            .hero-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-            
-            .footer-cta {
-                align-items: center;
-            }
-            
-            .footer-cta h4 {
-                text-align: center;
-            }
-        }
-        
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.8rem;
+            .nav-links { 
+                display: none; position: fixed; top: var(--nav-height); left: 0; right: 0;
+                background: rgba(10,10,10,0.98); backdrop-filter: blur(20px); padding: 2rem;
+                flex-direction: column; gap: 0; max-height: calc(100vh - var(--nav-height));
+                overflow-y: auto; z-index: 999;
             }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .nav-links {
+            .nav-links.active { display: flex; }
+            .nav-item { width: 100%; }
+            .nav-link { padding: 1rem; border-radius: 8px; justify-content: space-between; }
+            .dropdown-menu {
+                position: static; opacity: 1; visibility: visible; transform: none;
+                background: transparent; border: none; box-shadow: none; padding: 0.5rem 0 0.5rem 2rem;
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 10, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                padding: 1.5rem;
-                border-bottom: 1px solid var(--border);
             }
+            .nav-item:hover .dropdown-menu, .dropdown.active .dropdown-menu { display: block; }
+            .dropdown-toggle::after { right: 1rem; }
+            .cta-button { display: none; }
+            .nav-toggle { display: flex; }
+            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+            .nav-toggle.active span:nth-child(2) { opacity: 0; }
+            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
             
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-toggle {
-                display: block;
-            }
-            
-            .hero-stats {
-                gap: 2rem;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
-                grid-template-columns: 1fr;
-            }
+            .hero-stats { flex-direction: column; gap: 1rem; align-items: center; }
+            .stat-item { width: 100%; max-width: 280px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 300px; }
+            .project-header { padding-right: 0; }
+            .project-badge { position: static; margin-bottom: 1rem; display: inline-flex; }
+            .footer-links { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .link-group { align-items: center; }
+            .hero-title { font-size: clamp(2rem, 5vw, 3rem); }
+            .gradient-text { display: inline; }
+            .section-title { flex-direction: column; gap: 0.5rem; }
+            .title-decorator { width: 60px; }
         }
-        
         @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .section {
-                padding: 4rem 0;
-            }
+            .hero-content { padding: 2rem 1rem; }
+            .tech-badges { justify-content: center; }
+            .tech-badge { padding: 0.5rem 1rem; font-size: 0.75rem; }
+            .project-card { padding: 1.5rem; }
+            .contact-form-card { padding: 1.5rem; }
+            .footer-content { gap: 2rem; }
         }
-        
-        .text-center {
-            text-align: center;
-        }
-        
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mt-3 { margin-top: 3rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-        .mb-3 { margin-bottom: 3rem; }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container nav-container">
-            <div class="logo">
-                <span class="logo-accent">Haggai</span>.tech
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo-circle"><span>GP</span></div>
+                <div class="brand-text"><span class="brand-primary">Tech</span><span class="brand-accent">Studio</span></div>
             </div>
-            <div class="nav-links">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#projects" class="nav-link">Projects</a>
-                <a href="#expertise" class="nav-link">Expertise</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <div class="nav-links" id="navLinks">
+                <div class="nav-item">
+                    <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+                </div>
+                
+                <div class="nav-item dropdown">
+                    <a href="#projects" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span>Projects</span></a>
+                    <div class="dropdown-menu">
+                        <a href="#projects" class="dropdown-item">All Projects</a>
+                        <a href="#projects" class="dropdown-item">Production Ready</a>
+                        <a href="#projects" class="dropdown-item">Web Applications</a>
+                        <a href="#projects" class="dropdown-item">Mobile Apps</a>
+                        <a href="#projects" class="dropdown-item">Chrome Extensions</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item dropdown">
+                    <a href="#expertise" class="nav-link dropdown-toggle"><i class="fas fa-layer-group"></i><span>Expertise</span></a>
+                    <div class="dropdown-menu">
+                        <a href="#expertise" class="dropdown-item">All Expertise</a>
+                        <a href="#expertise" class="dropdown-item">Frontend Architecture</a>
+                        <a href="#expertise" class="dropdown-item">Backend & API</a>
+                        <a href="#expertise" class="dropdown-item">Cloud & DevOps</a>
+                        <a href="#expertise" class="dropdown-item">Specialized Solutions</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="#process" class="nav-link"><i class="fas fa-cogs"></i><span>Process</span></a>
+                </div>
+                
+                <div class="nav-item">
+                    <a href="#contact" class="nav-link"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
+                </div>
             </div>
-            <button class="nav-toggle" id="navToggle">
-                <i class="fas fa-bars"></i>
+            
+            <a href="#contact" class="cta-button"><i class="fas fa-rocket"></i><span>Start Project</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title text-center">Haggai Enitan</h1>
-                <h2 class="hero-title text-center">Full-Stack Technical Architect</h2>
-                <p class="hero-subtitle">
-                    I build <span class="highlight">scalable, production-ready</span> digital solutions that transform businesses from vision to reality.
-                </p>
-                
-                <div class="hero-stats">
-                    <div class="stat-card">
-                        <div class="stat-number" data-count="52">0</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-count="99.9">0</div>
-                        <div class="stat-label">% Uptime</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" data-count="40">0</div>
-                        <div class="stat-label">% Faster</div>
-                    </div>
-                </div>
-                
-                <div class="hero-cta">
-                    <a href="#projects" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> View My Work
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-paper-plane"></i> Contact Me
-                    </a>
-                </div>
-            </div>
-            
-            <div class="hero-visual">
-                <div class="tech-stack">
-                    <div class="tech-category">
-                        <h3><i class="fas fa-code"></i> Frontend</h3>
-                        <div class="tech-icons">
-                            <span class="tech-icon"><i class="fab fa-react"></i> React</span>
-                            <span class="tech-icon"><i class="fab fa-vuejs"></i> Vue.js</span>
-                            <span class="tech-icon"><i class="fab fa-js"></i> TypeScript</span>
-                            <span class="tech-icon"><i class="fab fa-angular"></i> Angular</span>
+    <main id="main-content">
+        <section id="home" class="hero-section">
+            <div class="gradient-background"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="premium-badge"><i class="fas fa-crown"></i><span>Premium Studio</span></div>
+                    <h1 class="hero-title">
+                        <span class="title-line">Full-Stack Technical</span>
+                        <span class="title-line gradient-text">Architecture & SaaS</span>
+                    </h1>
+                    <p class="hero-subtitle">We architect and build <span class="highlight">scalable, production-ready</span> digital solutions that transform business vision into measurable results.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="52">0</span>
+                            <div class="stat-label">Projects Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="99.9">0</span>
+                            <div class="stat-label">% Uptime</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="40">0</span>
+                            <div class="stat-label">% Performance Gain</div>
                         </div>
                     </div>
                     
-                    <div class="tech-category">
-                        <h3><i class="fas fa-server"></i> Backend</h3>
-                        <div class="tech-icons">
-                            <span class="tech-icon"><i class="fab fa-node-js"></i> Node.js</span>
-                            <span class="tech-icon"><i class="fab fa-python"></i> Python</span>
-                            <span class="tech-icon"><i class="fas fa-database"></i> PostgreSQL</span>
-                            <span class="tech-icon"><i class="fas fa-database"></i> MongoDB</span>
-                        </div>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i><span>View Our Work</span></a>
+                        <a href="#contact" class="btn btn-outline"><i class="fas fa-calendar-check"></i><span>Schedule Consultation</span></a>
                     </div>
                     
-                    <div class="tech-category">
-                        <h3><i class="fas fa-cloud"></i> Cloud & DevOps</h3>
-                        <div class="tech-icons">
-                            <span class="tech-icon"><i class="fab fa-aws"></i> AWS</span>
-                            <span class="tech-icon"><i class="fab fa-docker"></i> Docker</span>
-                            <span class="tech-icon"><i class="fas fa-server"></i> Kubernetes</span>
-                            <span class="tech-icon"><i class="fab fa-git-alt"></i> CI/CD</span>
-                        </div>
+                    <div class="tech-badges">
+                        <div class="tech-badge"><i class="fab fa-react"></i><span>React</span></div>
+                        <div class="tech-badge"><i class="fab fa-js"></i><span>TypeScript</span></div>
+                        <div class="tech-badge"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                        <div class="tech-badge"><i class="fab fa-python"></i><span>Python</span></div>
+                        <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                        <div class="tech-badge"><i class="fab fa-aws"></i><span>AWS</span></div>
+                        <div class="tech-badge"><i class="fab fa-docker"></i><span>Docker</span></div>
+                        <div class="tech-badge"><i class="fas fa-server"></i><span>Kubernetes</span></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle">A showcase of production-ready applications and technical expertise</p>
-            
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge badge-production-ready">Production Ready</span>
-                        <h3 class="project-title">Whisper Network v1.0</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">PWA</span>
-                            <span class="tech-tag">Firebase</span>
-                            <span class="tech-tag">Geolocation</span>
-                            <span class="tech-tag">Web Speech API</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        Anonymous safety network for Lagos & Ogun states. A production-ready Progressive Web App with real-time community alerts, emergency contacts, and voice/image sharing.
-                    </p>
-                    <ul class="project-features">
-                        <li>Real-time anonymous whisper sharing</li>
-                        <li>Emergency contacts for Lagos & Ogun states</li>
-                        <li>Voice notes and image upload capabilities</li>
-                        <li>Offline functionality with Firebase sync</li>
-                        <li>Geolocation-based content filtering</li>
-                        <li>Legal compliance with Nigerian law</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://gpmulticoncept.github.io/whisper-network/" class="project-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="https://github.com/gpmulticoncept/whisper-network" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title"><span class="title-decorator"></span>Production Portfolio</h2>
+                    <p class="section-subtitle">Enterprise-grade applications built for scale, performance, and reliability</p>
+                </header>
                 
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge badge-product-ready">Product Ready</span>
-                        <h3 class="project-title">GospelSwipe Pro</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag tag-product-ready">React</span>
-                            <span class="tech-tag tag-product-ready">PWA</span>
-                            <span class="tech-tag tag-product-ready">OpenAI API</span>
-                            <span class="tech-tag tag-product-ready">Web Speech</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A production-ready Progressive Web App optimized for mobile first, featuring AI-powered Q&A system with voice interaction capabilities and full offline functionality.
-                    </p>
-                    <ul class="project-features">
-                        <li>AI-powered Bible verse recommendations</li>
-                        <li>Voice-to-text prayer journal</li>
-                        <li>Full offline functionality</li>
-                        <li>Cross-device synchronization</li>
-                        <li>Push notifications</li>
-                        <li>App store ready</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" class="project-link" target="_blank">
-                                <i class="fas fa-external-link-alt"></i> Live Product
-                            </a>
-                            <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> Source Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">Chrome Extension</span>
-                        <h3 class="project-title">DevTools Pro Suite</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Chrome API</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Webpack</span>
-                            <span class="tech-tag">Firebase</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A comprehensive Chrome extension suite for developers featuring code snippet manager, performance monitor, and API testing tools.
-                    </p>
-                    <ul class="project-features">
-                        <li>Code snippet cloud synchronization</li>
-                        <li>Real-time website performance metrics</li>
-                        <li>API request builder & tester</li>
-                        <li>Customizable dashboard</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Chrome Store
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">Full-Stack</span>
-                        <h3 class="project-title">Nexus Commerce Platform</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Stripe</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A high-performance e-commerce platform with real-time inventory management, AI-powered recommendations, and multi-vendor support.
-                    </p>
-                    <ul class="project-features">
-                        <li>Real-time inventory tracking</li>
-                        <li>AI-powered product recommendations</li>
-                        <li>Multi-vendor marketplace</li>
-                        <li>Advanced analytics dashboard</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Backend API
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">Real Estate</span>
-                        <h3 class="project-title">PropertyVue Platform</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Mapbox</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A comprehensive real estate platform with virtual property tours, AI-based property valuation, and blockchain-based contract management.
-                    </p>
-                    <ul class="project-features">
-                        <li>360° virtual property tours</li>
-                        <li>AI-powered property valuation</li>
-                        <li>Blockchain contract management</li>
-                        <li>Real-time mortgage calculator</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Platform
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Mobile App
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <span class="project-badge">SaaS</span>
-                        <h3 class="project-title">DataSphere Analytics</h3>
-                        <div class="project-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">FastAPI</span>
-                            <span class="tech-tag">Redis</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        A multi-tenant SaaS analytics platform with real-time data processing, predictive analytics, and automated report generation.
-                    </p>
-                    <ul class="project-features">
-                        <li>Real-time data processing pipeline</li>
-                        <li>Predictive analytics with ML</li>
-                        <li>Automated report generation</li>
-                        <li>Multi-tenant architecture</li>
-                    </ul>
-                    <div class="project-footer">
-                        <div class="project-links">
-                            <a href="#" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Dashboard
-                            </a>
-                            <a href="#" class="project-link">
-                                <i class="fab fa-github"></i> Data Pipeline
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="expertise" class="section">
-        <div class="container">
-            <h2 class="section-title">Technical Expertise</h2>
-            <p class="section-subtitle">Comprehensive skills across the full development stack</p>
-            
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Frontend Development</h3>
-                    </div>
-                    <ul class="project-features">
-                        <li>React, Vue.js, Angular, TypeScript</li>
-                        <li>Next.js, Gatsby, Nuxt.js</li>
-                        <li>State Management (Redux, Vuex)</li>
-                        <li>Responsive & Mobile-First Design</li>
-                        <li>Progressive Web Apps (PWA)</li>
-                        <li>Web Performance Optimization</li>
-                    </ul>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Backend Development</h3>
-                    </div>
-                    <ul class="project-features">
-                        <li>Node.js, Express, NestJS</li>
-                        <li>Python, Django, FastAPI</li>
-                        <li>REST & GraphQL API Design</li>
-                        <li>Microservices Architecture</li>
-                        <li>Database Design & Optimization</li>
-                        <li>Authentication & Authorization</li>
-                    </ul>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Cloud & DevOps</h3>
-                    </div>
-                    <ul class="project-features">
-                        <li>AWS, Azure, Google Cloud</li>
-                        <li>Docker & Kubernetes</li>
-                        <li>CI/CD Pipeline Automation</li>
-                        <li>Infrastructure as Code</li>
-                        <li>Monitoring & Logging</li>
-                        <li>Serverless Architecture</li>
-                    </ul>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-header">
-                        <h3 class="project-title">Specialized Development</h3>
-                    </div>
-                    <ul class="project-features">
-                        <li>Chrome Extension Development</li>
-                        <li>Mobile Apps (React Native)</li>
-                        <li>Real-time Applications (WebSockets)</li>
-                        <li>Blockchain & Smart Contracts</li>
-                        <li>AI/ML Integration</li>
-                        <li>Payment Gateway Integration</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Start Your Project</h2>
-            <p class="section-subtitle">Let's build something exceptional together</p>
-            
-            <div class="contact-grid">
-                <div class="contact-form">
-                    <h3>Project Inquiry</h3>
-                    <form id="projectForm" action="https://formsubmit.co/haggai.enitan.dev@gmail.com" method="POST">
-                        <input type="hidden" name="_subject" value="New Project Inquiry from Portfolio">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_next" value="https://yourportfolio.com/thank-you.html">
-                        <input type="hidden" name="_captcha" value="false">
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-badge badge-premium"><i class="fas fa-shield-alt"></i><span>Production Ready</span></div>
+                        <div class="project-header">
+                            <h3 class="project-title">Whisper Network v1.0</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">PWA</span><span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Real-time</span><span class="tech-tag">Geolocation</span>
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="projectType">Project Type</label>
-                            <select id="projectType" name="projectType" required>
-                                <option value="">Select project type</option>
-                                <option value="web">Web Application</option>
-                                <option value="mobile">Mobile Application</option>
-                                <option value="chrome">Chrome Extension</option>
-                                <option value="ecommerce">E-commerce Platform</option>
-                                <option value="saas">SaaS Platform</option>
-                                <option value="enterprise">Enterprise System</option>
-                                <option value="consultation">Technical Consultation</option>
-                            </select>
+                        <div class="project-body">
+                            <p class="project-description">Anonymous safety network serving Lagos & Ogun states. Production-ready PWA with real-time alerts and secure media sharing.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>Real-time anonymous communication</span></li>
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>Emergency contacts database</span></li>
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>Voice/image upload with encryption</span></li>
+                            </ul>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="budget">Project Budget Range</label>
-                            <select id="budget" name="budget" required>
-                                <option value="">Select budget range</option>
-                                <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                                <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                                <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                                <option value="$50,000 - $100,000">$50,000 - $100,000</option>
-                                <option value="$100,000+">$100,000+</option>
-                            </select>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://gpmulticoncept.github.io/whisper-network/" class="project-link" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span>Live App</span></a>
+                                <a href="https://github.com/gpmulticoncept/whisper-network" class="project-link" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>Source</span></a>
+                            </div>
+                        </footer>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-badge badge-success"><i class="fas fa-star"></i><span>Product Ready</span></div>
+                        <div class="project-header">
+                            <h3 class="project-title">GospelSwipe Pro</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">React</span><span class="tech-tag">PWA</span>
+                                <span class="tech-tag">AI Integration</span><span class="tech-tag">Voice API</span>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Project Details</label>
-                            <textarea id="message" name="message" placeholder="Describe your project goals, requirements, and timeline..." required></textarea>
+                        <div class="project-body">
+                            <p class="project-description">AI-powered spiritual companion with verse recommendations, voice prayers, and offline functionality.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>AI-powered recommendations</span></li>
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>Voice-to-text prayer journal</span></li>
+                                <li class="feature"><i class="fas fa-check-circle"></i><span>Full offline functionality</span></li>
+                            </ul>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                            <i class="fas fa-paper-plane"></i> Send Project Inquiry
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="contact-info">
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope"></i>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" class="project-link" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span>Live Product</span></a>
+                                <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" class="project-link" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>Source</span></a>
+                            </div>
+                        </footer>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-badge badge-warning"><i class="fas fa-chrome"></i><span>Chrome Extension</span></div>
+                        <div class="project-header">
+                            <h3 class="project-title">DevTools Pro Suite</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Chrome API</span><span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Webpack</span><span class="tech-tag">Firebase</span>
+                            </div>
                         </div>
-                        <h4>Direct Contact</h4>
-                        <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">
-                            haggai.enitan.dev@gmail.com
-                        </a>
-                        <p class="response-time">For detailed technical discussions</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-calendar-alt"></i>
+                        <div class="project-body">
+                            <p class="project-description">Comprehensive Chrome extension suite for developers with code manager, performance monitor, and API testing tools.</p>
                         </div>
-                        <h4>Availability</h4>
-                        <div class="availability">
-                            <span class="status-indicator"></span>
-                            <span>Available for Q2 2024 Projects</span>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-badge badge-info"><i class="fas fa-shopping-cart"></i><span>E-commerce</span></div>
+                        <div class="project-header">
+                            <h3 class="project-title">Nexus Commerce Platform</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Next.js</span><span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">PostgreSQL</span><span class="tech-tag">Stripe</span>
+                            </div>
                         </div>
-                        <p class="response-time">Starting new engagements</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-clock"></i>
+                        <div class="project-body">
+                            <p class="project-description">High-performance e-commerce with real-time inventory, AI recommendations, and multi-vendor support.</p>
                         </div>
-                        <h4>Response Time</h4>
-                        <p class="response-time">Typically responds within 2-4 hours during business hours</p>
-                    </div>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <span class="logo-accent">Haggai</span>.tech
-                    </div>
-                    <p class="footer-tagline">Full-Stack Technical Architect</p>
-                    <p>Building digital solutions that scale from startups to enterprise.</p>
-                </div>
+        <section id="expertise" class="expertise-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title"><span class="title-decorator"></span>Technical Expertise</h2>
+                    <p class="section-subtitle">Comprehensive skills across modern development stacks</p>
+                </header>
                 
-                <div class="footer-links">
-                    <div class="link-group">
-                        <h4>Services</h4>
-                        <a href="#expertise">Full-Stack Development</a>
-                        <a href="#expertise">Technical Architecture</a>
-                        <a href="#expertise">Cloud & DevOps</a>
-                        <a href="#expertise">System Optimization</a>
+                <div class="expertise-grid">
+                    <article class="expertise-card">
+                        <div class="expertise-icon"><i class="fab fa-react"></i></div>
+                        <h3>Frontend Architecture</h3>
+                        <ul class="expertise-list">
+                            <li>React, Vue.js, Angular, TypeScript</li>
+                            <li>Next.js, Gatsby, Nuxt.js</li>
+                            <li>State Management (Redux, Zustand)</li>
+                            <li>Progressive Web Apps & Offline-First</li>
+                            <li>Performance Optimization & Core Web Vitals</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-server"></i></div>
+                        <h3>Backend & API Design</h3>
+                        <ul class="expertise-list">
+                            <li>Node.js, Python, Go, Rust</li>
+                            <li>REST & GraphQL APIs</li>
+                            <li>Microservices & Event-Driven</li>
+                            <li>Database Design & Optimization</li>
+                            <li>Authentication & Security</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud & DevOps</h3>
+                        <ul class="expertise-list">
+                            <li>AWS, Azure, Google Cloud</li>
+                            <li>Docker, Kubernetes, Terraform</li>
+                            <li>CI/CD Automation</li>
+                            <li>Infrastructure as Code</li>
+                            <li>Observability & Monitoring</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>Specialized Solutions</h3>
+                        <ul class="expertise-list">
+                            <li>Chrome Extension Development</li>
+                            <li>Mobile Apps (React Native, Flutter)</li>
+                            <li>Real-time Systems (WebSockets)</li>
+                            <li>AI/ML Integration</li>
+                            <li>Payment Systems</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="process-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title"><span class="title-decorator"></span>Development Process</h2>
+                    <p class="section-subtitle">Structured methodology ensuring quality and on-time delivery</p>
+                </header>
+                
+                <div class="process-timeline">
+                    <article class="process-step">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h3>Discovery & Planning</h3>
+                            <p>Requirements analysis, technical planning, and stakeholder alignment</p>
+                        </div>
+                    </article>
+                    
+                    <article class="process-step">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h3>Architecture & Prototyping</h3>
+                            <p>System design, technology selection, and rapid MVP development</p>
+                        </div>
+                    </article>
+                    
+                    <article class="process-step">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h3>Development & Testing</h3>
+                            <p>Agile sprints, continuous integration, and quality assurance</p>
+                        </div>
+                    </article>
+                    
+                    <article class="process-step">
+                        <div class="step-number">04</div>
+                        <div class="step-content">
+                            <h3>Deployment & Support</h3>
+                            <p>Production deployment, monitoring, and ongoing maintenance</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title"><span class="title-decorator"></span>Start Your Project</h2>
+                    <p class="section-subtitle">Let's architect your vision into a scalable solution</p>
+                </header>
+                
+                <div class="contact-container">
+                    <div class="contact-form-card">
+                        <h3>Project Inquiry Form</h3>
+                        <form id="projectForm" novalidate>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name" class="visually-hidden">Full Name</label>
+                                    <input type="text" id="name" name="name" placeholder="Full Name" required autocomplete="name">
+                                    <i class="fas fa-user" aria-hidden="true"></i>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="visually-hidden">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="email">
+                                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="projectType" class="visually-hidden">Project Type</label>
+                                <select id="projectType" name="projectType" required>
+                                    <option value="">Project Type</option>
+                                    <option value="web">Web Application</option>
+                                    <option value="mobile">Mobile Application</option>
+                                    <option value="saas">SaaS Platform</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                    <option value="enterprise">Enterprise System</option>
+                                    <option value="consultation">Technical Consultation</option>
+                                </select>
+                                <i class="fas fa-briefcase" aria-hidden="true"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="budget" class="visually-hidden">Budget</label>
+                                <select id="budget" name="budget" required>
+                                    <option value="">Budget Range</option>
+                                    <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                                    <option value="$10,000 - $25,000">$10,000 - $25,000</option>
+                                    <option value="$25,000 - $50,000">$25,000 - $50,000</option>
+                                    <option value="$50,000 - $100,000">$50,000 - $100,000</option>
+                                    <option value="$100,000+">$100,000+</option>
+                                </select>
+                                <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="visually-hidden">Project Details</label>
+                                <textarea id="message" name="message" placeholder="Project details, requirements, and timeline..." rows="5" required></textarea>
+                                <i class="fas fa-file-alt" aria-hidden="true"></i>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                                <i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>
+                            </button>
+                            
+                            <div class="form-status" id="formStatus" role="alert"></div>
+                        </form>
                     </div>
                     
-                    <div class="link-group">
-                        <h4>Connect</h4>
-                        <a href="https://github.com/gpmulticoncept" target="_blank">GitHub</a>
-                        <a href="#" id="linkedinLink">LinkedIn</a>
-                        <a href="#" id="twitterLink">Twitter</a>
-                        <a href="#" id="devtoLink">Dev.to</a>
+                    <aside class="contact-info">
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <h4>Direct Contact</h4>
+                            <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">haggai.enitan.dev@gmail.com</a>
+                            <p>For detailed technical discussions</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <h4>Response Time</h4>
+                            <div class="status-indicator">
+                                <span class="status-dot active"></span>
+                                <span>Typically within 2-4 hours</span>
+                            </div>
+                            <p>Monday - Friday, 9AM - 6PM EST</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <h4>Availability</h4>
+                            <div class="availability-status">
+                                <span class="status-badge">Available</span>
+                                <span>for Q2 2024 Projects</span>
+                            </div>
+                            <p>Limited capacity, book in advance</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="premium-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-circle small"><span>GP</span></div>
+                    <div class="brand-text">
+                        <span class="brand-primary">Tech</span>
+                        <span class="brand-accent">Studio</span>
                     </div>
                 </div>
+                <p class="footer-tagline">Architecting scalable digital solutions from concept to production.</p>
                 
-                <div class="footer-cta">
-                    <h4>Ready to Build?</h4>
-                    <a href="#contact" class="btn btn-outline">
-                        <i class="fas fa-comments"></i>
-                        Start Conversation
-                    </a>
+                <div class="social-links">
+                    <a href="https://github.com/gpmulticoncept" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> Haggai Enitan. All rights reserved.</p>
-                <p class="footer-subtext">Architecting the future, one line of code at a time</p>
+            <nav class="footer-links">
+                <div class="link-group">
+                    <h4>Navigation</h4>
+                    <a href="#home">Home</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#expertise">Expertise</a>
+                    <a href="#process">Process</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Services</h4>
+                    <a href="#expertise">Full-Stack Development</a>
+                    <a href="#expertise">SaaS Development</a>
+                    <a href="#expertise">Technical Architecture</a>
+                    <a href="#expertise">System Optimization</a>
+                </div>
+            </nav>
+            
+            <div class="footer-cta">
+                <h4>Ready to Build?</h4>
+                <p>Let's discuss your project requirements</p>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-comments"></i><span>Start Conversation</span></a>
             </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; <span id="currentYear"></span> GP Tech Studio. All rights reserved.</p>
+            <p class="footer-subtext">Building the future, one scalable solution at a time</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Portfolio initialized successfully!');
+        // ===== EMBEDDED JAVASCRIPT - ALL FUNCTIONALITY INCLUDED =====
+        (() => {
+            'use strict';
             
-            const navToggle = document.getElementById('navToggle');
-            const navLinks = document.querySelector('.nav-links');
+            const $ = (sel, scope = document) => scope.querySelector(sel);
+            const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
             
-            if (navToggle) {
+            // Mobile Navigation Toggle
+            const navToggle = $('#navToggle');
+            const navLinks = $('#navLinks');
+            const navItems = $$('.dropdown');
+            
+            if (navToggle && navLinks) {
                 navToggle.addEventListener('click', () => {
+                    const isOpen = navToggle.classList.contains('active');
+                    navToggle.classList.toggle('active');
                     navLinks.classList.toggle('active');
-                    navToggle.innerHTML = navLinks.classList.contains('active') 
-                        ? '<i class="fas fa-times"></i>' 
-                        : '<i class="fas fa-bars"></i>';
-                });
-            }
-            
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    navToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-            
-            const counters = document.querySelectorAll('.stat-number');
-            
-            counters.forEach(counter => {
-                const target = parseFloat(counter.getAttribute('data-count'));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = current.toFixed(counter.getAttribute('data-count').includes('.') ? 1 : 0);
-                        setTimeout(updateCounter, 16);
-                    } else {
-                        counter.textContent = target.toFixed(counter.getAttribute('data-count').includes('.') ? 1 : 0);
+                    document.body.style.overflow = isOpen ? '' : 'hidden';
+                    
+                    // Close all dropdowns when closing mobile menu
+                    if (isOpen) {
+                        navItems.forEach(item => item.classList.remove('active'));
                     }
-                };
-                
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            updateCounter();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                
-                observer.observe(counter);
-            });
-            
-            const contactForm = document.getElementById('projectForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function(e) {
-                    const submitBtn = document.getElementById('submitBtn');
-                    const originalText = submitBtn.innerHTML;
-                    
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                    submitBtn.disabled = true;
-                    
-                    setTimeout(() => {
-                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent Successfully!';
-                        submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-                        
-                        setTimeout(() => {
-                            submitBtn.innerHTML = originalText;
-                            submitBtn.style.background = '';
-                            submitBtn.disabled = false;
-                        }, 3000);
-                    }, 1500);
                 });
-            }
-            
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerHeight = document.querySelector('nav').offsetHeight;
-                        const targetPosition = targetElement.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
+                
+                // Mobile dropdown functionality
+                navItems.forEach(item => {
+                    const toggle = item.querySelector('.dropdown-toggle');
+                    if (toggle) {
+                        toggle.addEventListener('click', (e) => {
+                            if (window.innerWidth <= 768) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                
+                                // Close other dropdowns
+                                navItems.forEach(other => {
+                                    if (other !== item) other.classList.remove('active');
+                                });
+                                
+                                // Toggle current dropdown
+                                item.classList.toggle('active');
+                            }
                         });
                     }
                 });
+                
+                // Close dropdowns when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 && !e.target.closest('.nav-item')) {
+                        navItems.forEach(item => item.classList.remove('active'));
+                    }
+                });
+            }
+            
+            // Close mobile menu when clicking a link
+            $$('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                        navItems.forEach(item => item.classList.remove('active'));
+                    }
+                });
             });
             
-            const sections = document.querySelectorAll('section[id]');
+            // Smooth Scroll & Active Nav
+            $$('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', e => {
+                    const href = link.getAttribute('href');
+                    if (href === '#') return;
+                    const target = $(href);
+                    if (!target) return;
+                    e.preventDefault();
+                    const navHeight = 80;
+                    const targetPosition = target.offsetTop - navHeight - 20;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    
+                    // Update active nav link
+                    $$('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Close mobile menu after clicking
+                    if (window.innerWidth <= 768) {
+                        navToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+            
+            // Update active nav on scroll
+            const sections = $$('section');
+            const navLinksAll = $$('.nav-link');
+            
             window.addEventListener('scroll', () => {
                 let current = '';
-                const scrollPos = window.pageYOffset + 100;
+                const scrollY = window.pageYOffset + 100;
                 
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.clientHeight;
                     
-                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                         current = section.getAttribute('id');
                     }
                 });
                 
-                document.querySelectorAll('.nav-link').forEach(link => {
+                navLinksAll.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${current}`) {
                         link.classList.add('active');
                     }
                 });
-            });
-            
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            document.getElementById('linkedinLink').href = 'https://linkedin.com/in/yourprofile';
-            document.getElementById('twitterLink').href = 'https://twitter.com/yourprofile';
-            document.getElementById('devtoLink').href = 'https://dev.to/yourprofile';
-            
-            document.querySelectorAll('.project-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px)';
-                });
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
+                // Navbar hide/show on scroll
+                const nav = $('.glass-nav');
+                const currentScrollY = window.scrollY;
+                const lastScrollY = window.lastScrollY || 0;
+                
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    nav.style.transform = 'translateY(-100%)';
+                } else {
+                    nav.style.transform = 'translateY(0)';
+                }
+                
+                window.lastScrollY = currentScrollY;
             });
             
-            console.log('✅ All features initialized!');
-        });
-        
-        console.log('%c⚡ Haggai Enitan - Full-Stack Technical Architect', 'color: #6366f1; font-size: 18px; font-weight: bold;');
-        console.log('%c🚀 Production-Ready Portfolio', 'color: #10b981; font-size: 14px;');
-        console.log('%c📱 Whisper Network v1.0 + GospelSwipe Pro', 'color: #FF6B6B; font-size: 14px;');
-        console.log('%c📧 Contact: haggai.enitan.dev@gmail.com', 'color: #a0a0a0;');
+            // Counter Animation
+            const counters = $$('.stat-value');
+            if (counters.length) {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            counters.forEach(counter => {
+                                const target = parseFloat(counter.dataset.count);
+                                const duration = 2000;
+                                const start = performance.now();
+                                
+                                const animate = (currentTime) => {
+                                    const elapsed = currentTime - start;
+                                    const progress = Math.min(elapsed / duration, 1);
+                                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                                    const current = (target * easeOut).toFixed(1);
+                                    counter.textContent = current % 1 === 0 ? parseInt(current) : current;
+                                    
+                                    if (progress < 1) {
+                                        requestAnimationFrame(animate);
+                                    } else {
+                                        counter.textContent = target % 1 === 0 ? target : target.toFixed(1);
+                                    }
+                                };
+                                
+                                requestAnimationFrame(animate);
+                            });
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                counters.forEach(counter => observer.observe(counter));
+            }
+            
+            // Form Validation & Submission
+            const form = $('#projectForm');
+            const submitBtn = $('#submitBtn');
+            const status = $('#formStatus');
+            
+            if (form) {
+                form.addEventListener('submit', async e => {
+                    e.preventDefault();
+                    const required = $$('input[required], select[required], textarea[required]', form);
+                    let valid = true;
+                    
+                    required.forEach(field => {
+                        if (!field.value.trim()) {
+                            field.style.borderColor = '#ef4444';
+                            valid = false;
+                        } else {
+                            field.style.borderColor = '';
+                        }
+                    });
+                    
+                    if (!valid) {
+                        status.textContent = 'Please fill in all required fields correctly.';
+                        status.className = 'form-status error';
+                        return;
+                    }
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    
+                    try {
+                        // Simulate API call
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        
+                        // Reset form
+                        form.reset();
+                        required.forEach(f => f.style.borderColor = '');
+                        
+                        // Show success message
+                        status.textContent = 'Thank you! Your inquiry has been sent successfully.';
+                        status.className = 'form-status success';
+                        
+                        // Clear message after 5 seconds
+                        setTimeout(() => {
+                            status.textContent = '';
+                            status.className = 'form-status';
+                        }, 5000);
+                    } catch {
+                        status.textContent = 'Something went wrong. Please try again.';
+                        status.className = 'form-status error';
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
+                    }
+                });
+            }
+            
+            // Intersection Observer Animations
+            const animateElements = $$('.project-card, .expertise-card, .process-step, .info-card');
+            if (animateElements.length) {
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
+                            entry.target.classList.add('animate-fade-in-up');
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+                
+                animateElements.forEach(el => observer.observe(el));
+            }
+            
+            // Current Year
+            const yearSpan = $('#currentYear');
+            if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+            
+            // Initialize lastScrollY
+            window.lastScrollY = window.scrollY;
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    // Reset mobile menu state on desktop
+                    navToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = '';
+                    navItems.forEach(item => item.classList.remove('active'));
+                }
+            });
+        })();
     </script>
 </body>
 </html>
