@@ -176,7 +176,7 @@
         .title-decorator { width: 48px; height: 4px; background: var(--gradient-dual); border-radius: 2px; }
         .section-subtitle { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* Projects */
+        /* Projects - FIXED OVERLAP ISSUE */
         .projects-section { background: rgba(0,0,0,0.3); }
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 2rem; }
         .project-card {
@@ -186,23 +186,24 @@
         .project-card:hover { transform: translateY(-8px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
         .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-dual); }
         .project-badge {
-            position: absolute; top: 2rem; right: 2rem; display: inline-flex; align-items: center; gap: 0.5rem;
+            position: relative; display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-            max-width: 140px; text-align: center;
+            max-width: 160px; text-align: center; margin-bottom: 1rem;
+            z-index: 2;
         }
         .badge-premium { background: var(--gradient-dual); color: white; }
         .badge-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
         .badge-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
         .badge-info { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
-        .project-header { margin-bottom: 1.5rem; padding-right: 120px; }
+        .project-header { margin-bottom: 1.5rem; }
         .project-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
-        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
         .tech-tag {
             background: rgba(99,102,241,0.1); color: var(--primary-500); padding: 0.25rem 0.75rem;
-            border-radius: 20px; font-size: 0.75rem; font-weight: 500;
+            border-radius: 20px; font-size: 0.75rem; font-weight: 500; white-space: nowrap;
         }
         .project-body { margin-bottom: 2rem; flex-grow: 1; }
-        .project-description { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.7; }
+        .project-description { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; font-size: 0.95rem; }
         .project-features { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; }
         .feature { display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; }
         .feature i { color: #10b981; flex-shrink: 0; margin-top: 0.2rem; }
@@ -213,6 +214,21 @@
             text-decoration: none; font-weight: 500; transition: all 0.3s ease;
         }
         .project-link:hover { gap: 0.75rem; color: var(--accent-500); }
+
+        /* Desktop specific positioning for badges */
+        @media (min-width: 1024px) {
+            .project-card {
+                padding: 2.5rem 2rem;
+            }
+            .project-badge {
+                position: absolute; top: 2rem; right: 2rem; margin-bottom: 0;
+                max-width: 140px;
+            }
+            .project-header {
+                padding-right: 140px; /* Make room for the badge */
+                min-height: 60px; /* Ensure consistent height */
+            }
+        }
 
         /* Expertise */
         .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 2rem; }
@@ -307,6 +323,9 @@
             .contact-container, .footer-content { grid-template-columns: 1fr; text-align: center; } 
             .footer-cta { align-items: center; }
             .footer-links { grid-template-columns: repeat(2, 1fr); }
+            .project-header {
+                padding-right: 0 !important;
+            }
         }
         @media (max-width: 768px) {
             .nav-links { 
@@ -335,22 +354,23 @@
             .stat-item { width: 100%; max-width: 280px; }
             .hero-buttons { flex-direction: column; align-items: center; }
             .btn { width: 100%; max-width: 300px; }
-            .project-header { padding-right: 0; }
-            .project-badge { position: static; margin-bottom: 1rem; display: inline-flex; }
+            .project-badge { position: relative !important; margin-bottom: 1rem; }
+            .project-header { padding-right: 0 !important; min-height: auto !important; }
             .footer-links { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
             .link-group { align-items: center; }
             .hero-title { font-size: clamp(2rem, 5vw, 3rem); }
             .gradient-text { display: inline; }
             .section-title { flex-direction: column; gap: 0.5rem; }
             .title-decorator { width: 60px; }
+            .project-card { padding: 1.5rem; }
         }
         @media (max-width: 480px) {
             .hero-content { padding: 2rem 1rem; }
             .tech-badges { justify-content: center; }
             .tech-badge { padding: 0.5rem 1rem; font-size: 0.75rem; }
-            .project-card { padding: 1.5rem; }
             .contact-form-card { padding: 1.5rem; }
             .footer-content { gap: 2rem; }
+            .project-tech { justify-content: center; }
         }
     </style>
 </head>
@@ -465,8 +485,10 @@
                         <div class="project-header">
                             <h3 class="project-title">Whisper Network v1.0</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">PWA</span><span class="tech-tag">Firebase</span>
-                                <span class="tech-tag">Real-time</span><span class="tech-tag">Geolocation</span>
+                                <span class="tech-tag">PWA</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Real-time</span>
+                                <span class="tech-tag">Geolocation</span>
                             </div>
                         </div>
                         <div class="project-body">
@@ -490,8 +512,10 @@
                         <div class="project-header">
                             <h3 class="project-title">GospelSwipe Pro</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">React</span><span class="tech-tag">PWA</span>
-                                <span class="tech-tag">AI Integration</span><span class="tech-tag">Voice API</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">PWA</span>
+                                <span class="tech-tag">AI Integration</span>
+                                <span class="tech-tag">Voice API</span>
                             </div>
                         </div>
                         <div class="project-body">
@@ -515,8 +539,10 @@
                         <div class="project-header">
                             <h3 class="project-title">DevTools Pro Suite</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">Chrome API</span><span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">Webpack</span><span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">Chrome API</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Webpack</span>
+                                <span class="tech-tag">Firebase</span>
                             </div>
                         </div>
                         <div class="project-body">
@@ -529,8 +555,10 @@
                         <div class="project-header">
                             <h3 class="project-title">Nexus Commerce Platform</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">Next.js</span><span class="tech-tag">Node.js</span>
-                                <span class="tech-tag">PostgreSQL</span><span class="tech-tag">Stripe</span>
+                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Stripe</span>
                             </div>
                         </div>
                         <div class="project-body">
