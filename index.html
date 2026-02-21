@@ -681,9 +681,9 @@
                 <div class="contact-container">
                     <div class="contact-form-card">
                         <h3>Project Inquiry Form</h3>
-                        <!-- FORM WITH CORRECT METHOD AND HIDDEN FIELDS -->
+                        <!-- FORM WITH FETCH SUBMISSION (no redirect issues) -->
                         <form id="projectForm" action="https://formsubmit.co/haggai.enitan.dev@gmail.com" method="POST" novalidate>
-                            <input type="hidden" name="_next" value="thank-you.html">
+                            <!-- _next is removed – we handle redirect manually -->
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_subject" value="New Project Inquiry from GP Tech Studio">
                             
@@ -825,7 +825,7 @@
     </footer>
 
     <script>
-        // ===== EMBEDDED JAVASCRIPT - ALL FUNCTIONALITY INCLUDED =====
+        // ===== EMBEDDED JAVASCRIPT - FETCH FORM SUBMISSION (NO MORE REDIRECT ERRORS) =====
         (() => {
             'use strict';
             
@@ -844,13 +844,11 @@
                     navLinks.classList.toggle('active');
                     document.body.style.overflow = isOpen ? '' : 'hidden';
                     
-                    // Close all dropdowns when closing mobile menu
                     if (isOpen) {
                         navItems.forEach(item => item.classList.remove('active'));
                     }
                 });
                 
-                // Mobile dropdown functionality
                 navItems.forEach(item => {
                     const toggle = item.querySelector('.dropdown-toggle');
                     if (toggle) {
@@ -858,20 +856,15 @@
                             if (window.innerWidth <= 768) {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                
-                                // Close other dropdowns
                                 navItems.forEach(other => {
                                     if (other !== item) other.classList.remove('active');
                                 });
-                                
-                                // Toggle current dropdown
                                 item.classList.toggle('active');
                             }
                         });
                     }
                 });
                 
-                // Close dropdowns when clicking outside on mobile
                 document.addEventListener('click', (e) => {
                     if (window.innerWidth <= 768 && !e.target.closest('.nav-item')) {
                         navItems.forEach(item => item.classList.remove('active'));
@@ -879,7 +872,6 @@
                 });
             }
             
-            // Close mobile menu when clicking a link
             $$('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(link => {
                 link.addEventListener('click', () => {
                     if (window.innerWidth <= 768) {
@@ -891,7 +883,6 @@
                 });
             });
             
-            // Smooth Scroll & Active Nav
             $$('a[href^="#"]').forEach(link => {
                 link.addEventListener('click', e => {
                     const href = link.getAttribute('href');
@@ -903,11 +894,9 @@
                     const targetPosition = target.offsetTop - navHeight - 20;
                     window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     
-                    // Update active nav link
                     $$('.nav-link').forEach(l => l.classList.remove('active'));
                     link.classList.add('active');
                     
-                    // Close mobile menu after clicking
                     if (window.innerWidth <= 768) {
                         navToggle.classList.remove('active');
                         navLinks.classList.remove('active');
@@ -916,7 +905,6 @@
                 });
             });
             
-            // Update active nav on scroll
             const sections = $$('section');
             const navLinksAll = $$('.nav-link');
             
@@ -940,7 +928,6 @@
                     }
                 });
                 
-                // Navbar hide/show on scroll
                 const nav = $('.glass-nav');
                 const currentScrollY = window.scrollY;
                 const lastScrollY = window.lastScrollY || 0;
@@ -954,7 +941,6 @@
                 window.lastScrollY = currentScrollY;
             });
             
-            // Counter Animation
             const counters = $$('.stat-value');
             if (counters.length) {
                 const observer = new IntersectionObserver(entries => {
@@ -989,13 +975,16 @@
                 counters.forEach(counter => observer.observe(counter));
             }
             
-            // Form Validation & Submission (only validation, actual submit handled by FormSubmit)
+            // ===== FETCH FORM HANDLER (NO MORE REDIRECT ERRORS) =====
             const form = $('#projectForm');
             const submitBtn = $('#submitBtn');
             const status = $('#formStatus');
             
             if (form) {
-                form.addEventListener('submit', e => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault(); // Stop default browser submission
+                    
+                    // Client-side validation
                     const required = $$('input[required], select[required], textarea[required]', form);
                     let valid = true;
                     
@@ -1009,22 +998,42 @@
                     });
                     
                     if (!valid) {
-                        e.preventDefault();
                         status.textContent = 'Please fill in all required fields correctly.';
                         status.className = 'form-status error';
-                        return false;
+                        return;
                     }
                     
-                    // Optional: show loading state
+                    // Show loading state
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    status.textContent = '';
+                    status.className = 'form-status';
                     
-                    // Allow form to submit normally
-                    return true;
+                    // Prepare form data
+                    const formData = new FormData(form);
+                    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            // Success – redirect to your custom thank-you page
+                            window.location.href = 'thank-you.html';
+                        } else {
+                            throw new Error('Server returned an error');
+                        }
+                    } catch (error) {
+                        console.error('Submission error:', error);
+                        status.textContent = 'Something went wrong. Please try again later.';
+                        status.className = 'form-status error';
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
+                    }
                 });
             }
             
-            // Intersection Observer Animations
             const animateElements = $$('.project-card, .expertise-card, .process-step, .info-card');
             if (animateElements.length) {
                 const observer = new IntersectionObserver(entries => {
@@ -1039,17 +1048,13 @@
                 animateElements.forEach(el => observer.observe(el));
             }
             
-            // Current Year
             const yearSpan = $('#currentYear');
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
             
-            // Initialize lastScrollY
             window.lastScrollY = window.scrollY;
             
-            // Handle window resize
             window.addEventListener('resize', () => {
                 if (window.innerWidth > 768) {
-                    // Reset mobile menu state on desktop
                     navToggle.classList.remove('active');
                     navLinks.classList.remove('active');
                     document.body.style.overflow = '';
