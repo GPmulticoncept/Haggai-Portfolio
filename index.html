@@ -681,7 +681,14 @@
                 <div class="contact-container">
                     <div class="contact-form-card">
                         <h3>Project Inquiry Form</h3>
-                        <form id="projectForm" novalidate>
+                        <!-- FORM NOW SUBMITS TO FORMSUBMIT.CO TO DELIVER EMAIL -->
+                        <form id="projectForm" action="https://formsubmit.co/haggai.enitan.dev@gmail.com" method="POST" novalidate>
+                            <!-- Hidden fields for FormSubmit.co configuration -->
+                            <input type="hidden" name="_next" value="thank-you.html">
+                            <input type="hidden" name="_captcha" value="false">
+                            <!-- Optional: customize email subject -->
+                            <input type="hidden" name="_subject" value="New Project Inquiry from GP Tech Studio">
+                            
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="name" class="visually-hidden">Full Name</label>
@@ -732,6 +739,7 @@
                                 <i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>
                             </button>
                             
+                            <!-- Status div for validation errors (visible only if JS validation fails) -->
                             <div class="form-status" id="formStatus" role="alert"></div>
                         </form>
                     </div>
@@ -820,7 +828,7 @@
     </footer>
 
     <script>
-        // ===== EMBEDDED JAVASCRIPT - ALL FUNCTIONALITY INCLUDED =====
+        // ===== EMBEDDED JAVASCRIPT - UPDATED FORM HANDLER =====
         (() => {
             'use strict';
             
@@ -984,14 +992,14 @@
                 counters.forEach(counter => observer.observe(counter));
             }
             
-            // Form Validation & Submission
+            // ===== UPDATED FORM HANDLER - VALIDATION ONLY, THEN SUBMIT =====
             const form = $('#projectForm');
             const submitBtn = $('#submitBtn');
             const status = $('#formStatus');
             
             if (form) {
-                form.addEventListener('submit', async e => {
-                    e.preventDefault();
+                form.addEventListener('submit', function(e) {
+                    // Client-side validation
                     const required = $$('input[required], select[required], textarea[required]', form);
                     let valid = true;
                     
@@ -1005,38 +1013,18 @@
                     });
                     
                     if (!valid) {
+                        e.preventDefault(); // Stop submission
                         status.textContent = 'Please fill in all required fields correctly.';
                         status.className = 'form-status error';
-                        return;
+                        return false;
                     }
                     
+                    // Optional: show loading state (brief, since page will redirect)
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                     
-                    try {
-                        // Simulate API call
-                        await new Promise(resolve => setTimeout(resolve, 1500));
-                        
-                        // Reset form
-                        form.reset();
-                        required.forEach(f => f.style.borderColor = '');
-                        
-                        // Show success message
-                        status.textContent = 'Thank you! Your inquiry has been sent successfully.';
-                        status.className = 'form-status success';
-                        
-                        // Clear message after 5 seconds
-                        setTimeout(() => {
-                            status.textContent = '';
-                            status.className = 'form-status';
-                        }, 5000);
-                    } catch {
-                        status.textContent = 'Something went wrong. Please try again.';
-                        status.className = 'form-status error';
-                    } finally {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
-                    }
+                    // Allow the form to submit naturally to FormSubmit.co
+                    return true;
                 });
             }
             

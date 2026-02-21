@@ -108,42 +108,34 @@
         counters.forEach(counter => observer.observe(counter));
     }
     
-    // Form Validation & Submission
+    // ===== UPDATED FORM HANDLER (matches embedded script) =====
     const form = $('#projectForm');
     const submitBtn = $('#submitBtn');
     const status = $('#formStatus');
     if (form) {
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
+        form.addEventListener('submit', function(e) {
             const required = $$('input[required], select[required], textarea[required]', form);
             let valid = true;
             required.forEach(field => {
                 if (!field.value.trim()) {
-                    field.classList.add('invalid'); valid = false;
+                    field.classList.add('invalid');
+                    valid = false;
                 } else {
-                    field.classList.remove('invalid'); field.classList.add('valid');
+                    field.classList.remove('invalid');
+                    field.classList.add('valid');
                 }
             });
             if (!valid) {
+                e.preventDefault();
                 status.textContent = 'Please fill in all required fields correctly.';
                 status.className = 'form-status error';
-                return;
+                return false;
             }
+            // Show loading state
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            try {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                form.reset(); required.forEach(f => f.classList.remove('valid'));
-                status.textContent = 'Thank you! Your inquiry has been sent successfully.';
-                status.className = 'form-status success';
-                setTimeout(() => { status.textContent = ''; status.className = 'form-status'; }, 5000);
-            } catch {
-                status.textContent = 'Something went wrong. Please try again.';
-                status.className = 'form-status error';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
-            }
+            // Form will submit normally to FormSubmit.co
+            return true;
         });
     }
     
