@@ -681,12 +681,10 @@
                 <div class="contact-container">
                     <div class="contact-form-card">
                         <h3>Project Inquiry Form</h3>
-                        <!-- FORM NOW SUBMITS TO FORMSUBMIT.CO TO DELIVER EMAIL -->
+                        <!-- FORM WITH CORRECT METHOD AND HIDDEN FIELDS -->
                         <form id="projectForm" action="https://formsubmit.co/haggai.enitan.dev@gmail.com" method="POST" novalidate>
-                            <!-- Hidden fields for FormSubmit.co configuration -->
                             <input type="hidden" name="_next" value="thank-you.html">
                             <input type="hidden" name="_captcha" value="false">
-                            <!-- Optional: customize email subject -->
                             <input type="hidden" name="_subject" value="New Project Inquiry from GP Tech Studio">
                             
                             <div class="form-grid">
@@ -739,7 +737,6 @@
                                 <i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>
                             </button>
                             
-                            <!-- Status div for validation errors (visible only if JS validation fails) -->
                             <div class="form-status" id="formStatus" role="alert"></div>
                         </form>
                     </div>
@@ -828,7 +825,7 @@
     </footer>
 
     <script>
-        // ===== EMBEDDED JAVASCRIPT - UPDATED FORM HANDLER =====
+        // ===== EMBEDDED JAVASCRIPT - ALL FUNCTIONALITY INCLUDED =====
         (() => {
             'use strict';
             
@@ -992,14 +989,13 @@
                 counters.forEach(counter => observer.observe(counter));
             }
             
-            // ===== UPDATED FORM HANDLER - VALIDATION ONLY, THEN SUBMIT =====
+            // Form Validation & Submission (only validation, actual submit handled by FormSubmit)
             const form = $('#projectForm');
             const submitBtn = $('#submitBtn');
             const status = $('#formStatus');
             
             if (form) {
-                form.addEventListener('submit', function(e) {
-                    // Client-side validation
+                form.addEventListener('submit', e => {
                     const required = $$('input[required], select[required], textarea[required]', form);
                     let valid = true;
                     
@@ -1013,17 +1009,17 @@
                     });
                     
                     if (!valid) {
-                        e.preventDefault(); // Stop submission
+                        e.preventDefault();
                         status.textContent = 'Please fill in all required fields correctly.';
                         status.className = 'form-status error';
                         return false;
                     }
                     
-                    // Optional: show loading state (brief, since page will redirect)
+                    // Optional: show loading state
                     submitBtn.disabled = true;
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
                     
-                    // Allow the form to submit naturally to FormSubmit.co
+                    // Allow form to submit normally
                     return true;
                 });
             }
