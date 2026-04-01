@@ -2,708 +2,530 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="GP Tech Studio — Full-stack technical architecture & SaaS development studio. Scalable, production-ready digital solutions.">
+    <meta name="keywords" content="SaaS development, full-stack developer, React, Node.js, PWA, technical architecture, Nigeria">
+    <meta name="author" content="Haggai Enitan — GP Tech Studio">
+    <meta property="og:title" content="GP Tech Studio | Premium SaaS Development">
+    <meta property="og:description" content="Full-stack technical architecture & SaaS development studio. We build scalable, production-ready digital solutions.">
+    <meta property="og:type" content="website">
+
     <title>GP Tech Studio | Premium SaaS Development</title>
-    <meta name="description" content="Full-stack technical architecture & SaaS development studio.">
+
+    <!-- EXTERNAL STYLESHEETS (loaded first, before fonts) -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Space+Grotesk:wght@400..700&display=swap" rel="stylesheet">
-    <style>
-        /* ===== PREMIUM CSS ARCHITECTURE - ALL EMBEDDED ===== */
-        :root {
-            --primary-500: #6366f1; --accent-500: #d946ef;
-            --bg-dark: #0a0a0a; --bg-card: rgba(255,255,255,0.03);
-            --text-primary: #ffffff; --text-muted: #9ca3af;
-            --gradient-dual: linear-gradient(135deg, #6366f1, #d946ef);
-            --shadow-glow: 0 0 30px rgba(99,102,241,0.3);
-            --nav-height: 80px; --space-lg: 2rem; --space-xl: 3rem;
-            --font-sans: 'Inter', sans-serif; --font-display: 'Space Grotesk', sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: var(--nav-height); }
-        body {
-            font-family: var(--font-sans); background: var(--bg-dark);
-            color: var(--text-primary); line-height: 1.6; overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        .skip-link {
-            position: absolute; top: -40px; left: 0; background: var(--gradient-dual);
-            color: white; padding: 0.5rem; text-decoration: none; font-weight: 600; z-index: 9999;
-        }
-        .skip-link:focus { top: 0; }
-        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
-        /* Navigation */
-        .glass-nav {
-            position: fixed; inset: 0 0 auto 0;
-            background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .nav-container {
-            display: flex; align-items: center; justify-content: space-between;
-            max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: var(--nav-height);
-        }
-        .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
-        .logo-circle {
-            width: 48px; height: 48px; background: var(--gradient-dual);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 1.25rem; color: white; box-shadow: var(--shadow-glow);
-        }
-        .brand-primary, .brand-accent {
-            font-family: var(--font-display); font-weight: 800; font-size: 1.2rem;
-        }
-        .brand-primary { color: var(--primary-500); }
-        .brand-accent { color: var(--accent-500); }
-        
-        /* Dropdown Navigation */
-        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
-        .nav-item { position: relative; }
-        .nav-link {
-            display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted);
-            text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border-radius: 8px;
-            transition: all 0.3s ease; position: relative; white-space: nowrap;
-        }
-        .nav-link:hover, .nav-link.active { color: white; background: rgba(255,255,255,0.08); }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; width: 70%; height: 2px;
-            background: var(--gradient-dual); transform: translateX(-50%);
-        }
-        .dropdown-toggle { padding-right: 2rem !important; }
-        .dropdown-toggle::after {
-            content: ''; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
-            width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent;
-            border-top: 4px solid var(--text-muted); transition: transform 0.3s ease;
-        }
-        .nav-item:hover .dropdown-toggle::after { transform: translateY(-50%) rotate(180deg); }
-        
-        .dropdown-menu {
-            position: absolute; top: 100%; left: 0; min-width: 220px;
-            background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            padding: 0.5rem 0; opacity: 0; visibility: hidden;
-            transform: translateY(10px); transition: all 0.3s ease;
-            z-index: 1001; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-        
-        .dropdown-item {
-            display: block; padding: 0.75rem 1.5rem; color: var(--text-muted);
-            text-decoration: none; transition: all 0.3s ease; font-size: 0.875rem;
-        }
-        .dropdown-item:hover { color: white; background: rgba(255,255,255,0.08); padding-left: 2rem; }
-        .dropdown-item:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
-        
-        .cta-button {
-            background: var(--gradient-dual); color: white; padding: 0.75rem 1.5rem;
-            border-radius: 10px; text-decoration: none; font-weight: 600; display: flex;
-            align-items: center; gap: 0.5rem; box-shadow: 0 0 20px rgba(99,102,241,0.3);
-            animation: pulse-glow 3s infinite; transition: all 0.3s ease; white-space: nowrap;
-        }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(217,70,239,0.5); }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,0.3); }
-            50% { box-shadow: 0 0 30px rgba(99,102,241,0.6), 0 0 40px rgba(217,70,239,0.3); }
-        }
-        .nav-toggle { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; }
-        .nav-toggle span { width: 28px; height: 3px; background: white; border-radius: 2px; transition: all 0.3s ease; }
-
-        /* Hero */
-        .hero-section {
-            min-height: 100vh; display: flex; align-items: center; position: relative;
-            padding-top: var(--nav-height); overflow: hidden;
-        }
-        .gradient-background {
-            position: absolute; inset: 0; z-index: -1;
-            background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(217,70,239,0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, rgba(16,185,129,0.1) 0%, transparent 50%);
-            animation: gradient-shift 20s infinite alternate;
-        }
-        @keyframes gradient-shift { 0% { transform: translateX(0) translateY(0); } 100% { transform: translateX(-5%) translateY(-5%); } }
-        .hero-content {
-            max-width: 800px; margin: 0 auto; text-align: center; padding: 3rem 1.5rem;
-        }
-        .premium-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gradient-dual);
-            color: white; padding: 0.5rem 1.5rem; border-radius: 20px; font-size: 0.875rem;
-            font-weight: 600; margin-bottom: 2rem; box-shadow: var(--shadow-glow);
-        }
-        .hero-title {
-            font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em;
-        }
-        .gradient-text {
-            background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text;
-            color: transparent; display: block;
-        }
-        .hero-subtitle {
-            font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2rem;
-            max-width: 700px; margin-inline: auto; line-height: 1.7;
-        }
-        .highlight { color: var(--primary-500); font-weight: 600; background: rgba(99,102,241,0.1); padding: 0.25rem 0.5rem; border-radius: 8px; }
-        .hero-stats { display: flex; justify-content: center; gap: 2rem; margin: 3rem 0; flex-wrap: wrap; }
-        .stat-item { text-align: center; padding: 1rem 1.5rem; background: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; min-width: 180px; }
-        .stat-item:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .stat-value { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 900; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; line-height: 1; }
-        .stat-label { color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; margin-top: 0.5rem; }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-            padding: 0.875rem 2rem; border-radius: 10px; font-weight: 600; text-decoration: none;
-            cursor: pointer; transition: all 0.3s ease; border: 2px solid transparent; font-size: 0.875rem;
-            white-space: nowrap;
-        }
-        .btn-primary { background: var(--gradient-dual); color: white; box-shadow: 0 5px 20px rgba(99,102,241,0.3); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(99,102,241,0.5); }
-        .btn-outline { background: transparent; color: white; border-color: rgba(255,255,255,0.2); }
-        .btn-outline:hover { border-color: var(--primary-500); background: rgba(99,102,241,0.1); transform: translateY(-3px); }
-        .tech-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
-        .tech-badge {
-            display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1.25rem; border-radius: 10px;
-            color: var(--text-muted); font-weight: 500; transition: all 0.3s ease;
-        }
-        .tech-badge:hover { background: rgba(255,255,255,0.08); border-color: var(--primary-500); color: white; transform: translateY(-2px); }
-
-        /* Sections */
-        section { padding: 4rem 0; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title {
-            font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 1rem;
-        }
-        .title-decorator { width: 48px; height: 4px; background: var(--gradient-dual); border-radius: 2px; }
-        .section-subtitle { font-size: 1.125rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
-
-        /* Projects - FIXED OVERLAP ISSUE */
-        .projects-section { background: rgba(0,0,0,0.3); }
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 2rem; }
-        .project-card {
-            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-            padding: 2rem; transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; height: 100%;
-        }
-        .project-card:hover { transform: translateY(-8px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-dual); }
-        .project-badge {
-            position: relative; display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
-            max-width: 160px; text-align: center; margin-bottom: 1rem;
-            z-index: 2;
-        }
-        .badge-premium { background: var(--gradient-dual); color: white; }
-        .badge-success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .badge-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .badge-info { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
-        .project-header { margin-bottom: 1.5rem; }
-        .project-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
-        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
-        .tech-tag {
-            background: rgba(99,102,241,0.1); color: var(--primary-500); padding: 0.25rem 0.75rem;
-            border-radius: 20px; font-size: 0.75rem; font-weight: 500; white-space: nowrap;
-        }
-        .project-body { margin-bottom: 2rem; flex-grow: 1; }
-        .project-description { color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; font-size: 0.95rem; }
-        .project-features { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; }
-        .feature { display: flex; align-items: flex-start; gap: 0.5rem; color: var(--text-muted); font-size: 0.875rem; line-height: 1.5; }
-        .feature i { color: #10b981; flex-shrink: 0; margin-top: 0.2rem; }
-        .project-footer { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; margin-top: auto; }
-        .project-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        .project-link {
-            display: flex; align-items: center; gap: 0.5rem; color: var(--primary-500);
-            text-decoration: none; font-weight: 500; transition: all 0.3s ease;
-        }
-        .project-link:hover { gap: 0.75rem; color: var(--accent-500); }
-
-        /* Desktop specific positioning for badges */
-        @media (min-width: 1024px) {
-            .project-card {
-                padding: 2.5rem 2rem;
-            }
-            .project-badge {
-                position: absolute; top: 2rem; right: 2rem; margin-bottom: 0;
-                max-width: 140px;
-            }
-            .project-header {
-                padding-right: 140px; /* Make room for the badge */
-                min-height: 60px; /* Ensure consistent height */
-            }
-        }
-
-        /* Expertise */
-        .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 2rem; }
-        .expertise-card {
-            background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-            padding: 2.5rem 2rem; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; height: 100%;
-        }
-        .expertise-card:hover { transform: translateY(-6px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .expertise-icon { font-size: 3.5rem; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1.5rem; }
-        .expertise-card h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .expertise-list { list-style: none; text-align: left; flex-grow: 1; }
-        .expertise-list li { color: var(--text-muted); margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative; font-size: 0.875rem; line-height: 1.5; }
-        .expertise-list li::before { content: '▸'; color: var(--primary-500); position: absolute; left: 0; font-weight: bold; }
-
-        /* Process */
-        .process-section { background: rgba(0,0,0,0.3); }
-        .process-timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
-        .process-step { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; text-align: center; position: relative; overflow: hidden; transition: all 0.3s ease; }
-        .process-step:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .process-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-dual); }
-        .step-number { font-family: var(--font-display); font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.1); margin-bottom: 0.5rem; line-height: 1; }
-        .step-content h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .step-content p { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
-
-        /* Contact */
-        .contact-container { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto; }
-        .contact-form-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; transition: all 0.3s ease; }
-        .contact-form-card:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .contact-form-card h3 { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-        .form-group { position: relative; margin-bottom: 1.5rem; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 0.875rem 0.875rem 0.875rem 2.75rem; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: white;
-            font-family: inherit; font-size: 0.875rem; transition: all 0.3s ease;
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
-            background: rgba(255,255,255,0.08);
-        }
-        .form-group i { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-        .form-group textarea { resize: vertical; min-height: 140px; padding-left: 2.75rem; }
-        .form-status { margin-top: 1rem; padding: 0.75rem; border-radius: 8px; font-size: 0.875rem; font-weight: 500; }
-        .form-status.success { background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
-        .form-status.error { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
-
-        .contact-info { display: flex; flex-direction: column; gap: 1rem; }
-        .info-card { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem; text-align: center; transition: all 0.3s ease; }
-        .info-card:hover { transform: translateY(-4px); border-color: var(--primary-500); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .info-icon { font-size: 2.5rem; background: var(--gradient-dual); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
-        .contact-email { display: block; color: var(--primary-500); text-decoration: none; font-weight: 600; margin: 0.5rem 0; word-break: break-word; }
-        .contact-email:hover { color: var(--accent-500); text-decoration: underline; }
-        .status-indicator { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.5rem 0; }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #10b981; }
-        .status-dot.active { animation: pulse 2s infinite; }
-        .availability-status { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 0.5rem 0; }
-        .status-badge { padding: 0.25rem 0.75rem; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-
-        /* Footer */
-        .premium-footer { background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.1); padding: 3rem 0 2rem; }
-        .footer-content { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 3rem; margin-bottom: 2rem; max-width: 1200px; margin-inline: auto; padding: 0 1.5rem; }
-        .footer-brand { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; text-align: center; }
-        .footer-logo { display: flex; align-items: center; gap: 0.75rem; justify-content: center; }
-        .logo-circle.small { width: 36px; height: 36px; font-size: 1rem; }
-        .footer-tagline { color: var(--text-muted); font-size: 0.875rem; max-width: 300px; }
-        .social-links { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
-        .social-link {
-            display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
-            color: var(--text-muted); text-decoration: none; transition: all 0.3s ease;
-        }
-        .social-link:hover { background: var(--gradient-dual); color: white; transform: translateY(-3px); border-color: transparent; box-shadow: 0 0 20px rgba(99,102,241,0.3); }
-        .footer-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-        .link-group { display: flex; flex-direction: column; gap: 0.75rem; }
-        .link-group h4 { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: white; }
-        .link-group a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: all 0.3s ease; }
-        .link-group a:hover { color: var(--primary-500); transform: translateX(4px); }
-        .footer-cta { text-align: center; display: flex; flex-direction: column; gap: 0.75rem; align-items: center; }
-        .footer-cta h4 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; }
-        .footer-cta p { color: var(--text-muted); font-size: 0.875rem; max-width: 250px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; max-width: 1200px; margin-inline: auto; padding: 2rem 1.5rem 0; }
-        .footer-bottom p { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
-        .footer-subtext { font-size: 0.75rem; font-style: italic; }
-
-        /* Animations */
-        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        /* Responsive */
-        @media (max-width: 1024px) { 
-            .contact-container, .footer-content { grid-template-columns: 1fr; text-align: center; } 
-            .footer-cta { align-items: center; }
-            .footer-links { grid-template-columns: repeat(2, 1fr); }
-            .project-header {
-                padding-right: 0 !important;
-            }
-        }
-        @media (max-width: 768px) {
-            .nav-links { 
-                display: none; position: fixed; top: var(--nav-height); left: 0; right: 0;
-                background: rgba(10,10,10,0.98); backdrop-filter: blur(20px); padding: 2rem;
-                flex-direction: column; gap: 0; max-height: calc(100vh - var(--nav-height));
-                overflow-y: auto; z-index: 999;
-            }
-            .nav-links.active { display: flex; }
-            .nav-item { width: 100%; }
-            .nav-link { padding: 1rem; border-radius: 8px; justify-content: space-between; }
-            .dropdown-menu {
-                position: static; opacity: 1; visibility: visible; transform: none;
-                background: transparent; border: none; box-shadow: none; padding: 0.5rem 0 0.5rem 2rem;
-                display: none;
-            }
-            .nav-item:hover .dropdown-menu, .dropdown.active .dropdown-menu { display: block; }
-            .dropdown-toggle::after { right: 1rem; }
-            .cta-button { display: none; }
-            .nav-toggle { display: flex; }
-            .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-            .nav-toggle.active span:nth-child(2) { opacity: 0; }
-            .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-            
-            .hero-stats { flex-direction: column; gap: 1rem; align-items: center; }
-            .stat-item { width: 100%; max-width: 280px; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 300px; }
-            .project-badge { position: relative !important; margin-bottom: 1rem; }
-            .project-header { padding-right: 0 !important; min-height: auto !important; }
-            .footer-links { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
-            .link-group { align-items: center; }
-            .hero-title { font-size: clamp(2rem, 5vw, 3rem); }
-            .gradient-text { display: inline; }
-            .section-title { flex-direction: column; gap: 0.5rem; }
-            .title-decorator { width: 60px; }
-            .project-card { padding: 1.5rem; }
-        }
-        @media (max-width: 480px) {
-            .hero-content { padding: 2rem 1rem; }
-            .tech-badges { justify-content: center; }
-            .tech-badge { padding: 0.5rem 1rem; font-size: 0.75rem; }
-            .contact-form-card { padding: 1.5rem; }
-            .footer-content { gap: 2rem; }
-            .project-tech { justify-content: center; }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>⚡</text></svg>">
 </head>
 <body>
+
+    <!-- Accessibility: skip to main content -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
-    <nav class="glass-nav">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <div class="logo-circle"><span>GP</span></div>
-                <div class="brand-text"><span class="brand-primary">Tech</span><span class="brand-accent">Studio</span></div>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <div class="nav-item">
-                    <a href="#home" class="nav-link active"><i class="fas fa-home"></i><span>Home</span></a>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="glass-nav" role="navigation" aria-label="Main navigation">
+        <div class="container nav-container">
+            <a href="#home" class="nav-brand">
+                <div class="logo-circle" aria-hidden="true"><span>GP</span></div>
+                <div class="brand-text">
+                    <span class="brand-primary">Tech</span><span class="brand-accent">Studio</span>
                 </div>
-                
-                <div class="nav-item dropdown">
-                    <a href="#projects" class="nav-link dropdown-toggle"><i class="fas fa-code-branch"></i><span>Projects</span></a>
-                    <div class="dropdown-menu">
-                        <a href="#projects" class="dropdown-item">All Projects</a>
-                        <a href="#projects" class="dropdown-item">Production Ready</a>
-                        <a href="#projects" class="dropdown-item">Web Applications</a>
-                        <a href="#projects" class="dropdown-item">Mobile Apps</a>
-                        <a href="#projects" class="dropdown-item">Chrome Extensions</a>
+            </a>
+
+            <div class="nav-links" id="navLinks" aria-label="Site navigation">
+                <div class="nav-item">
+                    <a href="#home" class="nav-link active">
+                        <i class="fas fa-home" aria-hidden="true"></i><span>Home</span>
+                    </a>
+                </div>
+
+                <!-- FIX: use nav-dropdown class (matches style.css + script.js) -->
+                <div class="nav-item nav-dropdown">
+                    <a href="#projects" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-code-branch" aria-hidden="true"></i>
+                        <span>Projects</span>
+                        <i class="fas fa-chevron-down dropdown-icon" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#projects" class="dropdown-item" role="menuitem">All Projects</a>
+                        <a href="#projects" class="dropdown-item" role="menuitem">Production Ready</a>
+                        <a href="#projects" class="dropdown-item" role="menuitem">Web Applications</a>
+                        <a href="#projects" class="dropdown-item" role="menuitem">Mobile Apps</a>
+                        <a href="#projects" class="dropdown-item" role="menuitem">Chrome Extensions</a>
                     </div>
                 </div>
-                
-                <div class="nav-item dropdown">
-                    <a href="#expertise" class="nav-link dropdown-toggle"><i class="fas fa-layer-group"></i><span>Expertise</span></a>
-                    <div class="dropdown-menu">
-                        <a href="#expertise" class="dropdown-item">All Expertise</a>
-                        <a href="#expertise" class="dropdown-item">Frontend Architecture</a>
-                        <a href="#expertise" class="dropdown-item">Backend & API</a>
-                        <a href="#expertise" class="dropdown-item">Cloud & DevOps</a>
-                        <a href="#expertise" class="dropdown-item">Specialized Solutions</a>
+
+                <div class="nav-item nav-dropdown">
+                    <a href="#expertise" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-layer-group" aria-hidden="true"></i>
+                        <span>Expertise</span>
+                        <i class="fas fa-chevron-down dropdown-icon" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#expertise" class="dropdown-item" role="menuitem">Frontend Architecture</a>
+                        <a href="#expertise" class="dropdown-item" role="menuitem">Backend &amp; API</a>
+                        <a href="#expertise" class="dropdown-item" role="menuitem">Cloud &amp; DevOps</a>
+                        <a href="#expertise" class="dropdown-item" role="menuitem">Specialized Solutions</a>
                     </div>
                 </div>
-                
+
                 <div class="nav-item">
-                    <a href="#process" class="nav-link"><i class="fas fa-cogs"></i><span>Process</span></a>
+                    <a href="#process" class="nav-link">
+                        <i class="fas fa-cogs" aria-hidden="true"></i><span>Process</span>
+                    </a>
                 </div>
-                
+
                 <div class="nav-item">
-                    <a href="#contact" class="nav-link"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
+                    <a href="#contact" class="nav-link">
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i><span>Contact</span>
+                    </a>
                 </div>
             </div>
-            
-            <a href="#contact" class="cta-button"><i class="fas fa-rocket"></i><span>Start Project</span></a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+
+            <a href="#contact" class="cta-button" aria-label="Start a project">
+                <i class="fas fa-rocket" aria-hidden="true"></i><span>Start Project</span>
+            </a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
+    <!-- ===== MAIN CONTENT ===== -->
     <main id="main-content">
+
+        <!-- HERO -->
         <section id="home" class="hero-section">
-            <div class="gradient-background"></div>
+            <div class="gradient-background" aria-hidden="true"></div>
             <div class="container">
                 <div class="hero-content">
-                    <div class="premium-badge"><i class="fas fa-crown"></i><span>Premium Studio</span></div>
+                    <div class="premium-badge">
+                        <i class="fas fa-crown" aria-hidden="true"></i>
+                        <span>Premium SaaS Studio</span>
+                    </div>
+
                     <h1 class="hero-title">
                         <span class="title-line">Full-Stack Technical</span>
-                        <span class="title-line gradient-text">Architecture & SaaS</span>
+                        <span class="title-line gradient-text">Architecture &amp; SaaS</span>
                     </h1>
-                    <p class="hero-subtitle">We architect and build <span class="highlight">scalable, production-ready</span> digital solutions that transform business vision into measurable results.</p>
-                    
-                    <div class="hero-stats">
+
+                    <p class="hero-subtitle">
+                        We architect and build <span class="highlight">scalable, production-ready</span>
+                        digital solutions that transform business vision into measurable results.
+                    </p>
+
+                    <div class="hero-stats" aria-label="Studio statistics">
                         <div class="stat-item">
                             <span class="stat-value" data-count="52">0</span>
                             <div class="stat-label">Projects Delivered</div>
                         </div>
                         <div class="stat-item">
                             <span class="stat-value" data-count="99.9">0</span>
-                            <div class="stat-label">% Uptime</div>
+                            <div class="stat-label">% Uptime SLA</div>
                         </div>
                         <div class="stat-item">
                             <span class="stat-value" data-count="40">0</span>
                             <div class="stat-label">% Performance Gain</div>
                         </div>
                     </div>
-                    
+
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i><span>View Our Work</span></a>
-                        <a href="#contact" class="btn btn-outline"><i class="fas fa-calendar-check"></i><span>Schedule Consultation</span></a>
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-code" aria-hidden="true"></i><span>View Our Work</span>
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <i class="fas fa-calendar-check" aria-hidden="true"></i><span>Schedule Consultation</span>
+                        </a>
                     </div>
-                    
-                    <div class="tech-badges">
-                        <div class="tech-badge"><i class="fab fa-react"></i><span>React</span></div>
-                        <div class="tech-badge"><i class="fab fa-js"></i><span>TypeScript</span></div>
-                        <div class="tech-badge"><i class="fab fa-node-js"></i><span>Node.js</span></div>
-                        <div class="tech-badge"><i class="fab fa-python"></i><span>Python</span></div>
-                        <div class="tech-badge"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
-                        <div class="tech-badge"><i class="fab fa-aws"></i><span>AWS</span></div>
-                        <div class="tech-badge"><i class="fab fa-docker"></i><span>Docker</span></div>
-                        <div class="tech-badge"><i class="fas fa-server"></i><span>Kubernetes</span></div>
+
+                    <div class="tech-badges" aria-label="Technologies we use">
+                        <div class="tech-badge"><i class="fab fa-react" aria-hidden="true"></i><span>React</span></div>
+                        <div class="tech-badge"><i class="fab fa-js" aria-hidden="true"></i><span>TypeScript</span></div>
+                        <div class="tech-badge"><i class="fab fa-node-js" aria-hidden="true"></i><span>Node.js</span></div>
+                        <div class="tech-badge"><i class="fas fa-database" aria-hidden="true"></i><span>PostgreSQL</span></div>
+                        <div class="tech-badge"><i class="fab fa-aws" aria-hidden="true"></i><span>AWS</span></div>
+                        <div class="tech-badge"><i class="fab fa-docker" aria-hidden="true"></i><span>Docker</span></div>
+                        <div class="tech-badge"><i class="fas fa-fire" aria-hidden="true"></i><span>Firebase</span></div>
+                        <div class="tech-badge"><i class="fas fa-brain" aria-hidden="true"></i><span>AI Integration</span></div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- PROJECTS -->
         <section id="projects" class="projects-section">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title"><span class="title-decorator"></span>Production Portfolio</h2>
+                    <h2 class="section-title">
+                        <span class="title-decorator" aria-hidden="true"></span>
+                        Production Portfolio
+                    </h2>
                     <p class="section-subtitle">Enterprise-grade applications built for scale, performance, and reliability</p>
                 </header>
-                
+
                 <div class="projects-grid">
+
+                    <!-- Whisper Network -->
                     <article class="project-card">
-                        <div class="project-badge badge-premium"><i class="fas fa-shield-alt"></i><span>Production Ready</span></div>
+                        <div class="project-badge badge-premium">
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i><span>Production Ready</span>
+                        </div>
                         <div class="project-header">
-                            <h3 class="project-title">Whisper Network v1.0</h3>
+                            <h3 class="project-title">Whisper Network v2.0</h3>
                             <div class="project-tech">
                                 <span class="tech-tag">PWA</span>
-                                <span class="tech-tag">Firebase</span>
-                                <span class="tech-tag">Real-time</span>
+                                <span class="tech-tag">Supabase</span>
+                                <span class="tech-tag">Leaflet.js</span>
                                 <span class="tech-tag">Geolocation</span>
                             </div>
                         </div>
                         <div class="project-body">
-                            <p class="project-description">Anonymous safety network serving Lagos & Ogun states. Production-ready PWA with real-time alerts and secure media sharing.</p>
+                            <p class="project-description">Anonymous hyper-local safety network for Lagos &amp; Ogun State. Text, voice, and photo incident reporting with geo bubbles, offline queue, corridor mode, and Nigerian law compliance.</p>
                             <ul class="project-features">
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>Real-time anonymous communication</span></li>
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>Emergency contacts database</span></li>
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>Voice/image upload with encryption</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Real-time anonymous reporting</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Voice/image upload with encryption</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Full offline-first with IndexedDB queue</span></li>
                             </ul>
                         </div>
                         <footer class="project-footer">
                             <div class="project-links">
-                                <a href="https://gpmulticoncept.github.io/whisper-network/" class="project-link" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span>Live App</span></a>
-                                <a href="https://github.com/gpmulticoncept/whisper-network" class="project-link" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>Source</span></a>
+                                <a href="https://gpmulticoncept.github.io/whisper-network/" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i><span>Live App</span>
+                                </a>
+                                <a href="https://github.com/gpmulticoncept/whisper-network" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
                             </div>
                         </footer>
                     </article>
 
+                    <!-- GospelSwipe Pro -->
                     <article class="project-card">
-                        <div class="project-badge badge-success"><i class="fas fa-star"></i><span>Product Ready</span></div>
+                        <div class="project-badge badge-success">
+                            <i class="fas fa-star" aria-hidden="true"></i><span>v1.0 Live</span>
+                        </div>
                         <div class="project-header">
-                            <h3 class="project-title">GospelSwipe Pro</h3>
+                            <h3 class="project-title">GospelSwipe Pro 🇳🇬</h3>
                             <div class="project-tech">
                                 <span class="tech-tag">React</span>
                                 <span class="tech-tag">PWA</span>
-                                <span class="tech-tag">AI Integration</span>
-                                <span class="tech-tag">Voice API</span>
+                                <span class="tech-tag">OpenAI</span>
+                                <span class="tech-tag">Web Speech</span>
                             </div>
                         </div>
                         <div class="project-body">
-                            <p class="project-description">AI-powered spiritual companion with verse recommendations, voice prayers, and offline functionality.</p>
+                            <p class="project-description">Offline-first gospel presentation PWA with 15 swipeable slides, AI Prayer Assistant, Prayer Journal, and gamification. Ships in 5 Nigerian languages (targeting 50).</p>
                             <ul class="project-features">
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>AI-powered recommendations</span></li>
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>Voice-to-text prayer journal</span></li>
-                                <li class="feature"><i class="fas fa-check-circle"></i><span>Full offline functionality</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>AI-powered prayer assistant</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Voice-to-text prayer journal</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Full offline functionality</span></li>
                             </ul>
                         </div>
                         <footer class="project-footer">
                             <div class="project-links">
-                                <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" class="project-link" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i><span>Live Product</span></a>
-                                <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" class="project-link" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>Source</span></a>
+                                <a href="https://gpmulticoncept.github.io/gospel-swipe-pro/" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i><span>Live Product</span>
+                                </a>
+                                <a href="https://github.com/gpmulticoncept/gospel-swipe-pro" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
                             </div>
                         </footer>
                     </article>
 
+                    <!-- StayFinder -->
                     <article class="project-card">
-                        <div class="project-badge badge-warning"><i class="fas fa-chrome"></i><span>Chrome Extension</span></div>
+                        <div class="project-badge badge-info">
+                            <i class="fas fa-hotel" aria-hidden="true"></i><span>Live PWA</span>
+                        </div>
                         <div class="project-header">
-                            <h3 class="project-title">DevTools Pro Suite</h3>
+                            <h3 class="project-title">StayFinder</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">Chrome API</span>
-                                <span class="tech-tag">JavaScript</span>
-                                <span class="tech-tag">Webpack</span>
-                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">React + Vite</span>
+                                <span class="tech-tag">LiteAPI</span>
+                                <span class="tech-tag">PWA</span>
+                                <span class="tech-tag">i18n</span>
                             </div>
                         </div>
                         <div class="project-body">
-                            <p class="project-description">Comprehensive Chrome extension suite for developers with code manager, performance monitor, and API testing tools.</p>
+                            <p class="project-description">Hotel booking PWA with a 6-platform affiliate comparison panel — Booking.com, Agoda, Hotels.com, Trip.com, Expedia, and Hotellook. Country-aware filtering, 8 languages, RTL Arabic support.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>6-platform affiliate comparison</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>8 languages including RTL Arabic</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Premium editorial UI</span></li>
+                            </ul>
                         </div>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://stayfinder-beige.vercel.app" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt" aria-hidden="true"></i><span>Live App</span>
+                                </a>
+                                <a href="https://github.com/GPmulticoncept/stayfinder" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
+                            </div>
+                        </footer>
                     </article>
 
+                    <!-- VisaSpotter -->
                     <article class="project-card">
-                        <div class="project-badge badge-info"><i class="fas fa-shopping-cart"></i><span>E-commerce</span></div>
+                        <div class="project-badge badge-warning">
+                            <i class="fas fa-chrome" aria-hidden="true"></i><span>Extension</span>
+                        </div>
                         <div class="project-header">
-                            <h3 class="project-title">Nexus Commerce Platform</h3>
+                            <h3 class="project-title">VisaSpotter</h3>
                             <div class="project-tech">
-                                <span class="tech-tag">Next.js</span>
+                                <span class="tech-tag">Manifest V3</span>
                                 <span class="tech-tag">Node.js</span>
-                                <span class="tech-tag">PostgreSQL</span>
-                                <span class="tech-tag">Stripe</span>
+                                <span class="tech-tag">OpenAI</span>
+                                <span class="tech-tag">Chrome API</span>
                             </div>
                         </div>
                         <div class="project-body">
-                            <p class="project-description">High-performance e-commerce with real-time inventory, AI recommendations, and multi-vendor support.</p>
+                            <p class="project-description">Chrome extension that automatically detects visa sponsorship jobs on job boards using AI content analysis. Manifest V3, Node.js + OpenAI backend, tested on Kiwi Browser.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>AI-powered job analysis</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Manifest V3 compliant</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Node.js + OpenAI backend</span></li>
+                            </ul>
                         </div>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://github.com/GPmulticoncept" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
+                            </div>
+                        </footer>
                     </article>
-                </div>
+
+                    <!-- Covenant Connect -->
+                    <article class="project-card">
+                        <div class="project-badge badge-premium">
+                            <i class="fas fa-church" aria-hidden="true"></i><span>In Production</span>
+                        </div>
+                        <div class="project-header">
+                            <h3 class="project-title">Covenant Connect</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">JWT Auth</span>
+                                <span class="tech-tag">WhatsApp Bot</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Church management SaaS platform piloting with Bethel Baptist Church. Role-based access, AI risk scoring, member management, prayer requests, attendance, and WhatsApp bot integration.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Role-based access control</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>AI member risk scoring</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>WhatsApp bot integration</span></li>
+                            </ul>
+                        </div>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://github.com/GPmulticoncept" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
+                            </div>
+                        </footer>
+                    </article>
+
+                    <!-- GP Realty -->
+                    <article class="project-card">
+                        <div class="project-badge badge-info">
+                            <i class="fas fa-building" aria-hidden="true"></i><span>In Development</span>
+                        </div>
+                        <div class="project-header">
+                            <h3 class="project-title">GP Realty Platform 🇳🇬</h3>
+                            <div class="project-tech">
+                                <span class="tech-tag">React 18</span>
+                                <span class="tech-tag">Supabase</span>
+                                <span class="tech-tag">EmailJS</span>
+                                <span class="tech-tag">Vercel</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Premium real estate platform for the Nigerian market — Lagos, Ogun, Abuja, Port Harcourt, Oyo. 61-file production architecture with lead capture and admin dashboard.</p>
+                            <ul class="project-features">
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>5 major Nigerian cities</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Lead capture &amp; admin panel</span></li>
+                                <li class="feature"><i class="fas fa-check-circle" aria-hidden="true"></i><span>Premium editorial UI</span></li>
+                            </ul>
+                        </div>
+                        <footer class="project-footer">
+                            <div class="project-links">
+                                <a href="https://github.com/GPmulticoncept" class="project-link" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i><span>Source</span>
+                                </a>
+                            </div>
+                        </footer>
+                    </article>
+
+                </div><!-- /projects-grid -->
             </div>
         </section>
 
+        <!-- EXPERTISE -->
         <section id="expertise" class="expertise-section">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title"><span class="title-decorator"></span>Technical Expertise</h2>
-                    <p class="section-subtitle">Comprehensive skills across modern development stacks</p>
+                    <h2 class="section-title">
+                        <span class="title-decorator" aria-hidden="true"></span>Technical Expertise
+                    </h2>
+                    <p class="section-subtitle">Comprehensive skills across modern full-stack development stacks</p>
                 </header>
-                
+
                 <div class="expertise-grid">
                     <article class="expertise-card">
-                        <div class="expertise-icon"><i class="fab fa-react"></i></div>
+                        <div class="expertise-icon" aria-hidden="true"><i class="fab fa-react"></i></div>
                         <h3>Frontend Architecture</h3>
                         <ul class="expertise-list">
-                            <li>React, Vue.js, Angular, TypeScript</li>
+                            <li>React, Vue.js, TypeScript, Vanilla JS ES6+</li>
                             <li>Next.js, Gatsby, Nuxt.js</li>
                             <li>State Management (Redux, Zustand)</li>
-                            <li>Progressive Web Apps & Offline-First</li>
-                            <li>Performance Optimization & Core Web Vitals</li>
+                            <li>Progressive Web Apps &amp; Offline-First</li>
+                            <li>Performance &amp; Core Web Vitals 90+</li>
                         </ul>
                     </article>
-                    
+
                     <article class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-server"></i></div>
-                        <h3>Backend & API Design</h3>
+                        <div class="expertise-icon" aria-hidden="true"><i class="fas fa-server"></i></div>
+                        <h3>Backend &amp; API Design</h3>
                         <ul class="expertise-list">
-                            <li>Node.js, Python, Go, Rust</li>
-                            <li>REST & GraphQL APIs</li>
-                            <li>Microservices & Event-Driven</li>
-                            <li>Database Design & Optimization</li>
-                            <li>Authentication & Security</li>
+                            <li>Node.js / Express, Python</li>
+                            <li>REST &amp; GraphQL APIs</li>
+                            <li>PostgreSQL, Firebase, Supabase</li>
+                            <li>Authentication &amp; JWT Security</li>
+                            <li>WhatsApp Bot Development</li>
                         </ul>
                     </article>
-                    
+
                     <article class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-cloud"></i></div>
-                        <h3>Cloud & DevOps</h3>
+                        <div class="expertise-icon" aria-hidden="true"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud &amp; DevOps</h3>
                         <ul class="expertise-list">
-                            <li>AWS, Azure, Google Cloud</li>
-                            <li>Docker, Kubernetes, Terraform</li>
-                            <li>CI/CD Automation</li>
+                            <li>AWS, Google Cloud, Firebase</li>
+                            <li>Vercel, Netlify, GitHub Pages</li>
+                            <li>Docker &amp; CI/CD Automation</li>
                             <li>Infrastructure as Code</li>
-                            <li>Observability & Monitoring</li>
+                            <li>Observability &amp; Monitoring</li>
                         </ul>
                     </article>
-                    
+
                     <article class="expertise-card">
-                        <div class="expertise-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="expertise-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
                         <h3>Specialized Solutions</h3>
                         <ul class="expertise-list">
-                            <li>Chrome Extension Development</li>
-                            <li>Mobile Apps (React Native, Flutter)</li>
+                            <li>AI Integration (OpenAI, Claude)</li>
+                            <li>Chrome Extension Development (MV3)</li>
+                            <li>i18n &amp; Localization (8+ languages)</li>
                             <li>Real-time Systems (WebSockets)</li>
-                            <li>AI/ML Integration</li>
-                            <li>Payment Systems</li>
+                            <li>Payment Systems (Stripe, Paystack)</li>
                         </ul>
                     </article>
                 </div>
             </div>
         </section>
 
+        <!-- PROCESS -->
         <section id="process" class="process-section">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title"><span class="title-decorator"></span>Development Process</h2>
-                    <p class="section-subtitle">Structured methodology ensuring quality and on-time delivery</p>
+                    <h2 class="section-title">
+                        <span class="title-decorator" aria-hidden="true"></span>Development Process
+                    </h2>
+                    <p class="section-subtitle">Structured methodology ensuring quality, clarity, and on-time delivery</p>
                 </header>
-                
+
                 <div class="process-timeline">
                     <article class="process-step">
-                        <div class="step-number">01</div>
+                        <div class="step-number" aria-hidden="true">01</div>
                         <div class="step-content">
-                            <h3>Discovery & Planning</h3>
-                            <p>Requirements analysis, technical planning, and stakeholder alignment</p>
+                            <h3>Discovery &amp; Planning</h3>
+                            <p>Requirements analysis, technical planning, and stakeholder alignment — we define the problem before writing a line of code.</p>
                         </div>
                     </article>
-                    
+
                     <article class="process-step">
-                        <div class="step-number">02</div>
+                        <div class="step-number" aria-hidden="true">02</div>
                         <div class="step-content">
-                            <h3>Architecture & Prototyping</h3>
-                            <p>System design, technology selection, and rapid MVP development</p>
+                            <h3>Architecture &amp; Prototyping</h3>
+                            <p>System design, technology selection, and rapid MVP development to validate ideas early and often.</p>
                         </div>
                     </article>
-                    
+
                     <article class="process-step">
-                        <div class="step-number">03</div>
+                        <div class="step-number" aria-hidden="true">03</div>
                         <div class="step-content">
-                            <h3>Development & Testing</h3>
-                            <p>Agile sprints, continuous integration, and quality assurance</p>
+                            <h3>Development &amp; Testing</h3>
+                            <p>Agile sprints, continuous integration, code review, and quality assurance across all target devices.</p>
                         </div>
                     </article>
-                    
+
                     <article class="process-step">
-                        <div class="step-number">04</div>
+                        <div class="step-number" aria-hidden="true">04</div>
                         <div class="step-content">
-                            <h3>Deployment & Support</h3>
-                            <p>Production deployment, monitoring, and ongoing maintenance</p>
+                            <h3>Deployment &amp; Support</h3>
+                            <p>Production deployment, performance monitoring, and ongoing maintenance with documented handover.</p>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
 
+        <!-- CONTACT -->
         <section id="contact" class="contact-section">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title"><span class="title-decorator"></span>Start Your Project</h2>
-                    <p class="section-subtitle">Let's architect your vision into a scalable solution</p>
+                    <h2 class="section-title">
+                        <span class="title-decorator" aria-hidden="true"></span>Start Your Project
+                    </h2>
+                    <p class="section-subtitle">Let's architect your vision into a scalable, production-ready solution</p>
                 </header>
-                
+
                 <div class="contact-container">
+                    <!-- FORM -->
                     <div class="contact-form-card">
                         <h3>Project Inquiry Form</h3>
-                        <!-- FORM WITH FETCH SUBMISSION (no redirect issues) -->
-                        <form id="projectForm" action="https://formsubmit.co/haggai.enitan.dev@gmail.com" method="POST" novalidate>
-                            <!-- _next is removed – we handle redirect manually -->
+                        <!--
+                            FORM NOTE: Uses formsubmit.co — first submission requires a one-time
+                            email confirmation to haggai.enitan.dev@gmail.com.
+                            After that, all submissions are delivered instantly.
+                        -->
+                        <form id="projectForm"
+                              action="https://formsubmit.co/haggai.enitan.dev@gmail.com"
+                              method="POST"
+                              novalidate>
+                            <!-- formsubmit.co config hidden fields -->
                             <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_subject" value="New Project Inquiry from GP Tech Studio">
-                            
+                            <input type="hidden" name="_subject" value="New Project Inquiry — GP Tech Studio">
+                            <!-- _next handled by JS redirect to thank-you.html -->
+
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="name" class="visually-hidden">Full Name</label>
-                                    <input type="text" id="name" name="name" placeholder="Full Name" required autocomplete="name">
+                                    <label for="name">Full Name <span class="required-star">*</span></label>
+                                    <input type="text" id="name" name="name"
+                                           placeholder="John Doe" required autocomplete="name">
                                     <i class="fas fa-user" aria-hidden="true"></i>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="visually-hidden">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="email">
+                                    <label for="email">Email Address <span class="required-star">*</span></label>
+                                    <input type="email" id="email" name="email"
+                                           placeholder="you@company.com" required autocomplete="email">
                                     <i class="fas fa-envelope" aria-hidden="true"></i>
                                 </div>
                             </div>
-                            
+
+                            <!-- FIX: disabled + selected on placeholder options -->
                             <div class="form-group">
-                                <label for="projectType" class="visually-hidden">Project Type</label>
+                                <label for="projectType">Project Type <span class="required-star">*</span></label>
                                 <select id="projectType" name="projectType" required>
-                                    <option value="">Project Type</option>
+                                    <option value="" disabled selected>Select project type…</option>
                                     <option value="web">Web Application</option>
                                     <option value="mobile">Mobile Application</option>
                                     <option value="saas">SaaS Platform</option>
@@ -713,355 +535,136 @@
                                 </select>
                                 <i class="fas fa-briefcase" aria-hidden="true"></i>
                             </div>
-                            
+
                             <div class="form-group">
-                                <label for="budget" class="visually-hidden">Budget</label>
+                                <label for="budget">Budget Range <span class="required-star">*</span></label>
                                 <select id="budget" name="budget" required>
-                                    <option value="">Budget Range</option>
-                                    <option value="$5,000 - $10,000">$5,000 - $10,000</option>
-                                    <option value="$10,000 - $25,000">$10,000 - $25,000</option>
-                                    <option value="$25,000 - $50,000">$25,000 - $50,000</option>
-                                    <option value="$50,000 - $100,000">$50,000 - $100,000</option>
+                                    <option value="" disabled selected>Select budget range…</option>
+                                    <option value="$5,000-$10,000">$5,000 – $10,000</option>
+                                    <option value="$10,000-$25,000">$10,000 – $25,000</option>
+                                    <option value="$25,000-$50,000">$25,000 – $50,000</option>
+                                    <option value="$50,000-$100,000">$50,000 – $100,000</option>
                                     <option value="$100,000+">$100,000+</option>
                                 </select>
                                 <i class="fas fa-dollar-sign" aria-hidden="true"></i>
                             </div>
-                            
-                            <div class="form-group">
-                                <label for="message" class="visually-hidden">Project Details</label>
-                                <textarea id="message" name="message" placeholder="Project details, requirements, and timeline..." rows="5" required></textarea>
+
+                            <div class="form-group form-group--textarea">
+                                <label for="message">Project Details <span class="required-star">*</span></label>
+                                <textarea id="message" name="message"
+                                          placeholder="Describe your project requirements, goals, and timeline…"
+                                          rows="5" required></textarea>
                                 <i class="fas fa-file-alt" aria-hidden="true"></i>
                             </div>
-                            
+
                             <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-                                <i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>
+                                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                                <span>Send Project Inquiry</span>
                             </button>
-                            
-                            <div class="form-status" id="formStatus" role="alert"></div>
+
+                            <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
                         </form>
-                    </div>
-                    
-                    <aside class="contact-info">
+                    </div><!-- /contact-form-card -->
+
+                    <!-- CONTACT INFO SIDEBAR -->
+                    <aside class="contact-info" aria-label="Contact information">
                         <div class="info-card">
-                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
                             <h4>Direct Contact</h4>
-                            <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">haggai.enitan.dev@gmail.com</a>
+                            <!-- FIX: decoded real email (no more Cloudflare obfuscation) -->
+                            <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">
+                                haggai.enitan.dev@gmail.com
+                            </a>
                             <p>For detailed technical discussions</p>
                         </div>
-                        
+
                         <div class="info-card">
-                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <div class="info-icon" aria-hidden="true"><i class="fas fa-clock"></i></div>
                             <h4>Response Time</h4>
                             <div class="status-indicator">
-                                <span class="status-dot active"></span>
-                                <span>Typically within 2-4 hours</span>
+                                <span class="status-dot active" aria-hidden="true"></span>
+                                <span>Typically within 2–4 hours</span>
                             </div>
-                            <p>Monday - Friday, 9AM - 6PM EST</p>
+                            <p>Monday – Friday, 9 AM – 6 PM WAT</p>
                         </div>
-                        
+
                         <div class="info-card">
-                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="info-icon" aria-hidden="true"><i class="fas fa-calendar-alt"></i></div>
                             <h4>Availability</h4>
+                            <!-- FIX: updated from Q2 2024 -->
                             <div class="availability-status">
                                 <span class="status-badge">Available</span>
-                                <span>for Q2 2024 Projects</span>
+                                <span>for Q2 2026 Projects</span>
                             </div>
-                            <p>Limited capacity, book in advance</p>
+                            <p>Limited capacity — book in advance</p>
                         </div>
                     </aside>
-                </div>
+                </div><!-- /contact-container -->
             </div>
         </section>
+
     </main>
 
+    <!-- ===== FOOTER ===== -->
     <footer class="premium-footer">
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="footer-logo">
-                    <div class="logo-circle small"><span>GP</span></div>
+                    <div class="logo-circle small" aria-hidden="true"><span>GP</span></div>
                     <div class="brand-text">
-                        <span class="brand-primary">Tech</span>
-                        <span class="brand-accent">Studio</span>
+                        <span class="brand-primary">Tech</span><span class="brand-accent">Studio</span>
                     </div>
                 </div>
                 <p class="footer-tagline">Architecting scalable digital solutions from concept to production.</p>
-                
-                <div class="social-links">
-                    <a href="https://github.com/gpmulticoncept" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <div class="social-links" aria-label="Social links">
+                    <a href="https://github.com/gpmulticoncept" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://linkedin.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile">
+                        <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
-            
-            <nav class="footer-links">
+
+            <nav class="footer-links" aria-label="Footer navigation">
                 <div class="link-group">
                     <h4>Navigation</h4>
                     <a href="#home">Home</a>
                     <a href="#projects">Projects</a>
                     <a href="#expertise">Expertise</a>
                     <a href="#process">Process</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                
                 <div class="link-group">
                     <h4>Services</h4>
                     <a href="#expertise">Full-Stack Development</a>
                     <a href="#expertise">SaaS Development</a>
                     <a href="#expertise">Technical Architecture</a>
-                    <a href="#expertise">System Optimization</a>
+                    <a href="#expertise">PWA Development</a>
+                    <a href="#expertise">AI Integration</a>
                 </div>
             </nav>
-            
+
             <div class="footer-cta">
                 <h4>Ready to Build?</h4>
                 <p>Let's discuss your project requirements</p>
-                <a href="#contact" class="btn btn-outline"><i class="fas fa-comments"></i><span>Start Conversation</span></a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-comments" aria-hidden="true"></i><span>Start Conversation</span>
+                </a>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; <span id="currentYear"></span> GP Tech Studio. All rights reserved.</p>
             <p class="footer-subtext">Building the future, one scalable solution at a time</p>
         </div>
     </footer>
 
-    <script>
-        // ===== EMBEDDED JAVASCRIPT - FETCH FORM SUBMISSION (NO MORE REDIRECT ERRORS) =====
-        (() => {
-            'use strict';
-            
-            const $ = (sel, scope = document) => scope.querySelector(sel);
-            const $$ = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
-            
-            // Mobile Navigation Toggle
-            const navToggle = $('#navToggle');
-            const navLinks = $('#navLinks');
-            const navItems = $$('.dropdown');
-            
-            if (navToggle && navLinks) {
-                navToggle.addEventListener('click', () => {
-                    const isOpen = navToggle.classList.contains('active');
-                    navToggle.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                    document.body.style.overflow = isOpen ? '' : 'hidden';
-                    
-                    if (isOpen) {
-                        navItems.forEach(item => item.classList.remove('active'));
-                    }
-                });
-                
-                navItems.forEach(item => {
-                    const toggle = item.querySelector('.dropdown-toggle');
-                    if (toggle) {
-                        toggle.addEventListener('click', (e) => {
-                            if (window.innerWidth <= 768) {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                navItems.forEach(other => {
-                                    if (other !== item) other.classList.remove('active');
-                                });
-                                item.classList.toggle('active');
-                            }
-                        });
-                    }
-                });
-                
-                document.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 768 && !e.target.closest('.nav-item')) {
-                        navItems.forEach(item => item.classList.remove('active'));
-                    }
-                });
-            }
-            
-            $$('.nav-link:not(.dropdown-toggle), .dropdown-item').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
-                        navToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        document.body.style.overflow = '';
-                        navItems.forEach(item => item.classList.remove('active'));
-                    }
-                });
-            });
-            
-            $$('a[href^="#"]').forEach(link => {
-                link.addEventListener('click', e => {
-                    const href = link.getAttribute('href');
-                    if (href === '#') return;
-                    const target = $(href);
-                    if (!target) return;
-                    e.preventDefault();
-                    const navHeight = 80;
-                    const targetPosition = target.offsetTop - navHeight - 20;
-                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                    
-                    $$('.nav-link').forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                    
-                    if (window.innerWidth <= 768) {
-                        navToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        document.body.style.overflow = '';
-                    }
-                });
-            });
-            
-            const sections = $$('section');
-            const navLinksAll = $$('.nav-link');
-            
-            window.addEventListener('scroll', () => {
-                let current = '';
-                const scrollY = window.pageYOffset + 100;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinksAll.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                const nav = $('.glass-nav');
-                const currentScrollY = window.scrollY;
-                const lastScrollY = window.lastScrollY || 0;
-                
-                if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                    nav.style.transform = 'translateY(-100%)';
-                } else {
-                    nav.style.transform = 'translateY(0)';
-                }
-                
-                window.lastScrollY = currentScrollY;
-            });
-            
-            const counters = $$('.stat-value');
-            if (counters.length) {
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            counters.forEach(counter => {
-                                const target = parseFloat(counter.dataset.count);
-                                const duration = 2000;
-                                const start = performance.now();
-                                
-                                const animate = (currentTime) => {
-                                    const elapsed = currentTime - start;
-                                    const progress = Math.min(elapsed / duration, 1);
-                                    const easeOut = 1 - Math.pow(1 - progress, 3);
-                                    const current = (target * easeOut).toFixed(1);
-                                    counter.textContent = current % 1 === 0 ? parseInt(current) : current;
-                                    
-                                    if (progress < 1) {
-                                        requestAnimationFrame(animate);
-                                    } else {
-                                        counter.textContent = target % 1 === 0 ? target : target.toFixed(1);
-                                    }
-                                };
-                                
-                                requestAnimationFrame(animate);
-                            });
-                            observer.disconnect();
-                        }
-                    });
-                }, { threshold: 0.5 });
-                
-                counters.forEach(counter => observer.observe(counter));
-            }
-            
-            // ===== FETCH FORM HANDLER (NO MORE REDIRECT ERRORS) =====
-            const form = $('#projectForm');
-            const submitBtn = $('#submitBtn');
-            const status = $('#formStatus');
-            
-            if (form) {
-                form.addEventListener('submit', async (e) => {
-                    e.preventDefault(); // Stop default browser submission
-                    
-                    // Client-side validation
-                    const required = $$('input[required], select[required], textarea[required]', form);
-                    let valid = true;
-                    
-                    required.forEach(field => {
-                        if (!field.value.trim()) {
-                            field.style.borderColor = '#ef4444';
-                            valid = false;
-                        } else {
-                            field.style.borderColor = '';
-                        }
-                    });
-                    
-                    if (!valid) {
-                        status.textContent = 'Please fill in all required fields correctly.';
-                        status.className = 'form-status error';
-                        return;
-                    }
-                    
-                    // Show loading state
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                    status.textContent = '';
-                    status.className = 'form-status';
-                    
-                    // Prepare form data
-                    const formData = new FormData(form);
-                    
-                    try {
-                        const response = await fetch(form.action, {
-                            method: 'POST',
-                            body: formData
-                        });
-                        
-                        if (response.ok) {
-                            // Success – redirect to your custom thank-you page
-                            window.location.href = 'thank-you.html';
-                        } else {
-                            throw new Error('Server returned an error');
-                        }
-                    } catch (error) {
-                        console.error('Submission error:', error);
-                        status.textContent = 'Something went wrong. Please try again later.';
-                        status.className = 'form-status error';
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Send Project Inquiry</span>';
-                    }
-                });
-            }
-            
-            const animateElements = $$('.project-card, .expertise-card, .process-step, .info-card');
-            if (animateElements.length) {
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.animationDelay = `${Math.random() * 0.2}s`;
-                            entry.target.classList.add('animate-fade-in-up');
-                        }
-                    });
-                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-                
-                animateElements.forEach(el => observer.observe(el));
-            }
-            
-            const yearSpan = $('#currentYear');
-            if (yearSpan) yearSpan.textContent = new Date().getFullYear();
-            
-            window.lastScrollY = window.scrollY;
-            
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768) {
-                    navToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    document.body.style.overflow = '';
-                    navItems.forEach(item => item.classList.remove('active'));
-                }
-            });
-        })();
-    </script>
+    <!-- EXTERNAL SCRIPT (deferred, runs after DOM ready) -->
+    <script src="script.js" defer></script>
+
 </body>
 </html>
