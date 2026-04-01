@@ -268,9 +268,15 @@
 
     /* ══════════════════════════════════════════════════════════════
        7. CONTACT FORM — FETCH SUBMISSION
-       FIX: single handler (no duplicate from embedded script)
-       FIX: Accept: application/json header for formsubmit.co
+       ROOT CAUSE OF "Failed to fetch":
+         formsubmit.co's regular endpoint does NOT support CORS for
+         cross-origin fetch — it blocks the preflight OPTIONS request.
+       THE FIX: use their dedicated /ajax/ endpoint which has proper
+         CORS headers, and send a JSON payload (no FormData, no hidden
+         fields) so there is zero preflight complexity.
     ══════════════════════════════════════════════════════════════ */
+    const FORMSUBMIT_AJAX = 'https://formsubmit.co/ajax/haggai.enitan.dev@gmail.com';
+
     const form      = $('#projectForm');
     const submitBtn = $('#submitBtn');
     const statusDiv = $('#formStatus');
@@ -290,7 +296,7 @@
         form.addEventListener('submit', async e => {
             e.preventDefault();
 
-            // Validate required fields
+            // ── Validate required fields ───────────────────────────
             const requiredFields = $$('input[required], select[required], textarea[required]', form);
             let valid = true;
 
@@ -303,48 +309,57 @@
 
             // Extra email format check
             const emailField = $('#email', form);
-            if (emailField && !isValidEmail(emailField.value)) {
+            if (emailField && !isValidEmail(emailField.value.trim())) {
                 emailField.classList.add('invalid');
                 valid = false;
             }
 
             if (!valid) {
                 setStatus('Please fill in all required fields correctly.', 'error');
-                // Scroll to first invalid field
                 const firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) firstInvalid.focus();
                 return;
             }
 
-            // Loading state
+            // ── Loading state ──────────────────────────────────────
             submitBtn.disabled  = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending…</span>';
-            statusDiv.className = 'form-status';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending\u2026</span>';
+            statusDiv.className  = 'form-status';
             statusDiv.textContent = '';
 
+            // ── Build JSON payload (no FormData — avoids preflight) ──
+            const payload = {
+                name:        ($('#name',        form)?.value || '').trim(),
+                email:       ($('#email',       form)?.value || '').trim(),
+                projectType: ($('#projectType', form)?.value || '').trim(),
+                budget:      ($('#budget',      form)?.value || '').trim(),
+                message:     ($('#message',     form)?.value || '').trim(),
+                _subject:    'New Project Inquiry \u2014 GP Tech Studio',
+                _captcha:    'false'
+            };
+
             try {
-                const res = await fetch(form.action, {
+                const res = await fetch(FORMSUBMIT_AJAX, {
                     method:  'POST',
-                    body:    new FormData(form),
-                    // FIX: formsubmit.co requires this to respond with JSON instead of redirecting
-                    headers: { 'Accept': 'application/json' }
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept':       'application/json'
+                    },
+                    body: JSON.stringify(payload)
                 });
 
-                if (res.ok) {
-                    // Redirect to custom thank-you page on success
+                const data = await res.json().catch(() => ({}));
+
+                if (res.ok && (data.success === 'true' || data.success === true)) {
                     window.location.href = 'thank-you.html';
                 } else {
-                    let errMsg = 'Server error. Please try again.';
-                    try {
-                        const data = await res.json();
-                        if (data?.message) errMsg = data.message;
-                    } catch (_) { /* ignore JSON parse failure */ }
-                    throw new Error(errMsg);
+                    throw new Error(data.message || 'Server error. Please try again.');
                 }
+
             } catch (err) {
                 console.error('[GP Tech Studio] Form submission error:', err);
                 setStatus(
-                    err.message || 'Something went wrong. Try emailing us directly.',
+                    'Submission failed. Please email us directly: haggai.enitan.dev@gmail.com',
                     'error'
                 );
                 submitBtn.disabled  = false;
@@ -352,7 +367,7 @@
             }
         });
 
-        // Clear invalid state on field input
+        // ── Clear invalid styling on input ─────────────────────────
         $$('input, select, textarea', form).forEach(field => {
             field.addEventListener('input', () => {
                 if (field.value.trim()) {

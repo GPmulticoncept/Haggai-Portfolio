@@ -103,13 +103,22 @@ button { font-family: inherit; }
 
 /* ===== ACCESSIBILITY ===== */
 .skip-link {
-    position: absolute; top: -40px; left: 0;
+    /* FIX: position:fixed + transform keeps it out of document flow & off-screen
+       on every device. The old position:absolute with top:-40px was scrolling
+       into view on mobile. */
+    position: fixed; top: 0; left: 0;
+    transform: translateY(-120%);
     background: var(--gradient-dual); color: #fff;
-    padding: var(--gap-sm); text-decoration: none;
+    padding: var(--gap-sm) var(--gap-md); text-decoration: none;
     font-weight: 600; z-index: 9999;
-    transition: top var(--transition-fast);
+    border-radius: 0 0 var(--radius-md) 0;
+    transition: transform var(--transition-fast);
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
 .visually-hidden {
     position: absolute; width: 1px; height: 1px;
     overflow: hidden; clip: rect(0,0,0,0);
