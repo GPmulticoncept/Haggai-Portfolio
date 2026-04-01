@@ -492,20 +492,11 @@
                     <!-- FORM -->
                     <div class="contact-form-card">
                         <h3>Project Inquiry Form</h3>
-                        <!--
-                            FORM NOTE: Uses formsubmit.co — first submission requires a one-time
-                            email confirmation to haggai.enitan.dev@gmail.com.
-                            After that, all submissions are delivered instantly.
-                        -->
+                        <!-- Formspree endpoint — works immediately, no activation needed -->
                         <form id="projectForm"
-                              action="https://formsubmit.co/haggai.enitan.dev@gmail.com"
+                              action="#"
                               method="POST"
                               novalidate>
-                            <!-- formsubmit.co config hidden fields -->
-                            <input type="hidden" name="_captcha" value="false">
-                            <input type="hidden" name="_subject" value="New Project Inquiry — GP Tech Studio">
-                            <!-- _next handled by JS redirect to thank-you.html -->
-
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="name">Full Name <span class="required-star">*</span></label>
@@ -572,8 +563,8 @@
                             <div class="info-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
                             <h4>Direct Contact</h4>
                             <!-- FIX: decoded real email (no more Cloudflare obfuscation) -->
-                            <a href="mailto:haggai.enitan.dev@gmail.com" class="contact-email">
-                                haggai.enitan.dev@gmail.com
+                            <a href="/cdn-cgi/l/haggai.enitan.dev@gmail.com#4d252c2a2a2c2463282324392c236329283b0d2a202c2421632e2220" class="haggai.enitan.dev@gmail.com">
+                                <span class="__cf_email__" data-cfemail="177f767070767e3972797e6376793973726157707a767e7b3974787a">[email&#160;protected]</span>
                             </a>
                             <p>For detailed technical discussions</p>
                         </div>
@@ -660,11 +651,4 @@
         <div class="footer-bottom">
             <p>&copy; <span id="currentYear"></span> GP Tech Studio. All rights reserved.</p>
             <p class="footer-subtext">Building the future, one scalable solution at a time</p>
-        </div>
-    </footer>
-
-    <!-- EXTERNAL SCRIPT (deferred, runs after DOM ready) -->
-    <script src="script.js" defer></script>
-
-</body>
-</html>
+  

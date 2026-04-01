@@ -267,25 +267,23 @@
     }
 
     /* ══════════════════════════════════════════════════════════════
-       7. CONTACT FORM — NATIVE BROWSER POST (no fetch, no CORS)
-       WHY fetch NEVER WORKED:
-         formsubmit.co blocks preflight OPTIONS requests from arbitrary
-         origins. Both the regular endpoint and the /ajax/ endpoint have
-         inconsistent CORS behaviour depending on activation state.
-       THE DEFINITIVE FIX:
-         - Validate in JS, then call form.submit() — a direct browser POST.
-         - Zero CORS. Zero preflight. Works on every host, every browser.
-         - We set _next dynamically so formsubmit.co redirects the browser
-           to thank-you.html on the same host automatically.
-         - IMPORTANT: visit your inbox for haggai.enitan.dev@gmail.com and
-           click the ONE-TIME activation link formsubmit.co sends on the
-           very first submission. After that, all emails deliver instantly.
+       7. CONTACT FORM — WEB3FORMS
+       No account needed. Just get a free access key:
+         1. Visit web3forms.com
+         2. Enter haggai.enitan.dev@gmail.com and click Send
+         3. Copy the access key from the email
+         4. Replace 0662fa50-b237-42c3-b6b5-eff1e5db31e4 below with it
+       Web3Forms has full CORS support, no activation wait,
+       and works instantly on any host including GitHub Pages.
     ══════════════════════════════════════════════════════════════ */
+    const WEB3FORMS_KEY = '0662fa50-b237-42c3-b6b5-eff1e5db31e4'; // ← paste your key here
+
     const form      = $('#projectForm');
     const submitBtn = $('#submitBtn');
     const statusDiv = $('#formStatus');
 
     if (form && submitBtn && statusDiv) {
+        const originalBtnHTML = submitBtn.innerHTML;
 
         function setStatus(msg, type) {
             statusDiv.textContent = msg;
@@ -296,26 +294,10 @@
             return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
         }
 
-        // Inject (or reuse) a hidden _next field so formsubmit.co
-        // redirects the browser to thank-you.html on THIS host
-        function ensureNextField() {
-            let el = form.querySelector('input[name="_next"]');
-            if (!el) {
-                el = document.createElement('input');
-                el.type = 'hidden';
-                el.name = '_next';
-                form.appendChild(el);
-            }
-            // Works on GitHub Pages, Vercel, Netlify, local — anywhere
-            const base = window.location.href.replace(/\/[^/]*$/, '/');
-            el.value = base + 'thank-you.html';
-            return el;
-        }
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
 
-        form.addEventListener('submit', e => {
-            e.preventDefault(); // Hold until we validate
-
-            // ── Validate required fields ─────────────────────────────────────
+            // ── Validate ──────────────────────────────────────────────
             const requiredFields = $$('input[required], select[required], textarea[required]', form);
             let valid = true;
 
@@ -326,7 +308,6 @@
                 if (empty) valid = false;
             });
 
-            // Extra email format check
             const emailField = $('#email', form);
             if (emailField && !isValidEmail(emailField.value.trim())) {
                 emailField.classList.add('invalid');
@@ -337,23 +318,63 @@
                 setStatus('Please fill in all required fields correctly.', 'error');
                 const firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) firstInvalid.focus();
-                return; // Stay on page, show error
+                return;
             }
 
-            // ── All valid — set redirect target and submit natively ──────────────
-            ensureNextField();
-
-            // Show loading state (browser will navigate away on success)
+            // ── Loading state ──────────────────────────────────────────
             submitBtn.disabled  = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending…</span>';
             statusDiv.className  = 'form-status';
             statusDiv.textContent = '';
 
-            // Native POST — browser handles everything, no CORS, no fetch
-            form.submit();
+            // ── Submit to Web3Forms ───────────────────────────────────
+            // Web3Forms accepts JSON, has CORS, works on any host
+            const payload = {
+                access_key:  WEB3FORMS_KEY,
+                subject:     'New Project Inquiry — GP Tech Studio',
+                from_name:   'GP Tech Studio Website',
+                name:        ($('#name',        form)?.value || '').trim(),
+                email:       ($('#email',       form)?.value || '').trim(),
+                projectType: ($('#projectType', form)?.value || '').trim(),
+                budget:      ($('#budget',      form)?.value || '').trim(),
+                message:     ($('#message',     form)?.value || '').trim(),
+                botcheck:    ''   // honeypot — leave empty
+            };
+
+            try {
+                const res  = await fetch('https://api.web3forms.com/submit', {
+                    method:  'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept':       'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json().catch(() => ({}));
+
+                if (res.ok && data.success) {
+                    window.location.href = 'thank-you.html';
+                } else {
+                    throw new Error(data.message || 'Submission failed. Please try again.');
+                }
+
+            } catch (err) {
+                console.error('[GP Tech Studio] Form error:', err);
+                const isNetwork = err.message.toLowerCase().includes('fetch') ||
+                                  err.message.toLowerCase().includes('network');
+                setStatus(
+                    isNetwork
+                        ? 'Network error — check your connection and try again.'
+                        : (err.message || 'Something went wrong. Email: haggai.enitan.dev@gmail.com'),
+                    'error'
+                );
+                submitBtn.disabled  = false;
+                submitBtn.innerHTML = originalBtnHTML;
+            }
         });
 
-        // ── Clear invalid styling as user types ──────────────────────────
+        // ── Clear invalid state as user types ──────────────────────────
         $$('input, select, textarea', form).forEach(field => {
             field.addEventListener('input', () => {
                 if (field.value.trim()) {
