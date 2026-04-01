@@ -6,7 +6,7 @@
  * - No duplicate form handler (was firing twice with embedded script)
  * - nav reference no longer called per scroll event (cached)
  * - window.lastScrollY non-standard property replaced with local let
- * - fetch form includes Accept: application/json (formsubmit.co requirement)
+ * - Form uses native POST (no fetch) — zero CORS issues on any host
  * - Counter fires per-counter, not all-at-once on first observe
  * - resize handler guards against null navLinks
  */
@@ -267,36 +267,55 @@
     }
 
     /* ══════════════════════════════════════════════════════════════
-       7. CONTACT FORM — FETCH SUBMISSION
-       ROOT CAUSE OF "Failed to fetch":
-         formsubmit.co's regular endpoint does NOT support CORS for
-         cross-origin fetch — it blocks the preflight OPTIONS request.
-       THE FIX: use their dedicated /ajax/ endpoint which has proper
-         CORS headers, and send a JSON payload (no FormData, no hidden
-         fields) so there is zero preflight complexity.
+       7. CONTACT FORM — NATIVE BROWSER POST (no fetch, no CORS)
+       WHY fetch NEVER WORKED:
+         formsubmit.co blocks preflight OPTIONS requests from arbitrary
+         origins. Both the regular endpoint and the /ajax/ endpoint have
+         inconsistent CORS behaviour depending on activation state.
+       THE DEFINITIVE FIX:
+         - Validate in JS, then call form.submit() — a direct browser POST.
+         - Zero CORS. Zero preflight. Works on every host, every browser.
+         - We set _next dynamically so formsubmit.co redirects the browser
+           to thank-you.html on the same host automatically.
+         - IMPORTANT: visit your inbox for haggai.enitan.dev@gmail.com and
+           click the ONE-TIME activation link formsubmit.co sends on the
+           very first submission. After that, all emails deliver instantly.
     ══════════════════════════════════════════════════════════════ */
-    const FORMSUBMIT_AJAX = 'https://formsubmit.co/ajax/haggai.enitan.dev@gmail.com';
-
     const form      = $('#projectForm');
     const submitBtn = $('#submitBtn');
     const statusDiv = $('#formStatus');
 
     if (form && submitBtn && statusDiv) {
-        const originalBtnHTML = submitBtn.innerHTML;
 
         function setStatus(msg, type) {
             statusDiv.textContent = msg;
-            statusDiv.className   = `form-status ${type}`;
+            statusDiv.className   = 'form-status ' + type;
         }
 
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
         }
 
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
+        // Inject (or reuse) a hidden _next field so formsubmit.co
+        // redirects the browser to thank-you.html on THIS host
+        function ensureNextField() {
+            let el = form.querySelector('input[name="_next"]');
+            if (!el) {
+                el = document.createElement('input');
+                el.type = 'hidden';
+                el.name = '_next';
+                form.appendChild(el);
+            }
+            // Works on GitHub Pages, Vercel, Netlify, local — anywhere
+            const base = window.location.href.replace(/\/[^/]*$/, '/');
+            el.value = base + 'thank-you.html';
+            return el;
+        }
 
-            // ── Validate required fields ───────────────────────────
+        form.addEventListener('submit', e => {
+            e.preventDefault(); // Hold until we validate
+
+            // ── Validate required fields ─────────────────────────────────────
             const requiredFields = $$('input[required], select[required], textarea[required]', form);
             let valid = true;
 
@@ -318,56 +337,23 @@
                 setStatus('Please fill in all required fields correctly.', 'error');
                 const firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) firstInvalid.focus();
-                return;
+                return; // Stay on page, show error
             }
 
-            // ── Loading state ──────────────────────────────────────
+            // ── All valid — set redirect target and submit natively ──────────────
+            ensureNextField();
+
+            // Show loading state (browser will navigate away on success)
             submitBtn.disabled  = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending\u2026</span>';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending…</span>';
             statusDiv.className  = 'form-status';
             statusDiv.textContent = '';
 
-            // ── Build JSON payload (no FormData — avoids preflight) ──
-            const payload = {
-                name:        ($('#name',        form)?.value || '').trim(),
-                email:       ($('#email',       form)?.value || '').trim(),
-                projectType: ($('#projectType', form)?.value || '').trim(),
-                budget:      ($('#budget',      form)?.value || '').trim(),
-                message:     ($('#message',     form)?.value || '').trim(),
-                _subject:    'New Project Inquiry \u2014 GP Tech Studio',
-                _captcha:    'false'
-            };
-
-            try {
-                const res = await fetch(FORMSUBMIT_AJAX, {
-                    method:  'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept':       'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await res.json().catch(() => ({}));
-
-                if (res.ok && (data.success === 'true' || data.success === true)) {
-                    window.location.href = 'thank-you.html';
-                } else {
-                    throw new Error(data.message || 'Server error. Please try again.');
-                }
-
-            } catch (err) {
-                console.error('[GP Tech Studio] Form submission error:', err);
-                setStatus(
-                    'Submission failed. Please email us directly: haggai.enitan.dev@gmail.com',
-                    'error'
-                );
-                submitBtn.disabled  = false;
-                submitBtn.innerHTML = originalBtnHTML;
-            }
+            // Native POST — browser handles everything, no CORS, no fetch
+            form.submit();
         });
 
-        // ── Clear invalid styling on input ─────────────────────────
+        // ── Clear invalid styling as user types ──────────────────────────
         $$('input, select, textarea', form).forEach(field => {
             field.addEventListener('input', () => {
                 if (field.value.trim()) {
