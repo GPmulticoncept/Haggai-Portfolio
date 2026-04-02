@@ -267,23 +267,47 @@
     }
 
     /* ══════════════════════════════════════════════════════════════
-       7. CONTACT FORM — WEB3FORMS
-       No account needed. Just get a free access key:
-         1. Visit web3forms.com
-         2. Enter haggai.enitan.dev@gmail.com and click Send
-         3. Copy the access key from the email
-         4. Replace 0662fa50-b237-42c3-b6b5-eff1e5db31e4 below with it
-       Web3Forms has full CORS support, no activation wait,
-       and works instantly on any host including GitHub Pages.
-    ══════════════════════════════════════════════════════════════ */
-    const WEB3FORMS_KEY = '0662fa50-b237-42c3-b6b5-eff1e5db31e4'; // ← paste your key here
+       7. WHATSAPP LINKS + CONTACT FORM (Web3Forms)
 
-    const form      = $('#projectForm');
-    const submitBtn = $('#submitBtn');
-    const statusDiv = $('#formStatus');
+       WHY THE FORM KEPT FAILING:
+         - The HTML file was TRUNCATED — </footer></body></html> and the
+           <script> tag were all missing. script.js never loaded at all.
+           Every submit fell through to a native POST on "#" which GitHub
+           Pages returns as 405 Not Allowed.
+         - The submit button is now type="button" (not type="submit") so
+           a native POST is physically impossible.
+         - WhatsApp href built entirely in JS — Cloudflare cannot scrape
+           and obfuscate a phone number that never appears in the HTML.
+    ══════════════════════════════════════════════════════════════ */
+
+    // ---- WhatsApp links (built in JS so Cloudflare cannot obfuscate) ----
+    (function () {
+        // +234 703 454 2773 without + and spaces = 2347034542773
+        var num = ['234','703','454','2773'].join('');
+        var msg = encodeURIComponent(
+            "Hello! I found you on GP Tech Studio and I'd like to discuss a project."
+        );
+        var url = 'https://wa.me/' + num + '?text=' + msg;
+
+        var waLink   = document.getElementById('waLink');
+        var waFooter = document.getElementById('waFooter');
+        if (waLink)   waLink.href   = url;
+        if (waFooter) waFooter.href = url;
+    }());
+
+    // ---- Contact Form (Web3Forms) ----------------------------------------
+    // Key: 0662fa50-b237-42c3-b6b5-eff1e5db31e4
+    // Submit button is type="button" so NO native POST is ever possible.
+    // Web3Forms accepts JSON with full CORS — works on any static host.
+    // -------------------------------------------------------------------------
+    var WEB3FORMS_KEY = '0662fa50-b237-42c3-b6b5-eff1e5db31e4';
+
+    var form      = document.getElementById('projectForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var statusDiv = document.getElementById('formStatus');
 
     if (form && submitBtn && statusDiv) {
-        const originalBtnHTML = submitBtn.innerHTML;
+        var originalBtnHTML = submitBtn.innerHTML;
 
         function setStatus(msg, type) {
             statusDiv.textContent = msg;
@@ -294,21 +318,23 @@
             return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
         }
 
-        form.addEventListener('submit', async e => {
-            e.preventDefault();
+        // Button click handler — NOT a form submit handler
+        submitBtn.addEventListener('click', function () {
 
-            // ── Validate ──────────────────────────────────────────────
-            const requiredFields = $$('input[required], select[required], textarea[required]', form);
-            let valid = true;
+            // ── Validate ────────────────────────────────────────
+            var requiredFields = form.querySelectorAll(
+                'input[required], select[required], textarea[required]'
+            );
+            var valid = true;
 
-            requiredFields.forEach(field => {
-                const empty = !field.value.trim();
+            requiredFields.forEach(function (field) {
+                var empty = !field.value.trim();
                 field.classList.toggle('invalid', empty);
                 field.classList.toggle('valid',   !empty);
                 if (empty) valid = false;
             });
 
-            const emailField = $('#email', form);
+            var emailField = document.getElementById('femail');
             if (emailField && !isValidEmail(emailField.value.trim())) {
                 emailField.classList.add('invalid');
                 valid = false;
@@ -316,67 +342,65 @@
 
             if (!valid) {
                 setStatus('Please fill in all required fields correctly.', 'error');
-                const firstInvalid = form.querySelector('.invalid');
+                var firstInvalid = form.querySelector('.invalid');
                 if (firstInvalid) firstInvalid.focus();
                 return;
             }
 
-            // ── Loading state ──────────────────────────────────────────
+            // ── Loading ─────────────────────────────────────────
             submitBtn.disabled  = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" aria-hidden="true"></i> <span>Sending…</span>';
             statusDiv.className  = 'form-status';
             statusDiv.textContent = '';
 
-            // ── Submit to Web3Forms ───────────────────────────────────
-            // Web3Forms accepts JSON, has CORS, works on any host
-            const payload = {
+            // ── Build payload ─────────────────────────────────
+            var payload = {
                 access_key:  WEB3FORMS_KEY,
                 subject:     'New Project Inquiry — GP Tech Studio',
                 from_name:   'GP Tech Studio Website',
-                name:        ($('#name',        form)?.value || '').trim(),
-                email:       ($('#email',       form)?.value || '').trim(),
-                projectType: ($('#projectType', form)?.value || '').trim(),
-                budget:      ($('#budget',      form)?.value || '').trim(),
-                message:     ($('#message',     form)?.value || '').trim(),
-                botcheck:    ''   // honeypot — leave empty
+                name:        (document.getElementById('name')?.value || '').trim(),
+                email:       (emailField?.value || '').trim(),
+                projectType: (document.getElementById('projectType')?.value || '').trim(),
+                budget:      (document.getElementById('budget')?.value || '').trim(),
+                message:     (document.getElementById('message')?.value || '').trim(),
+                botcheck:    ''
             };
 
-            try {
-                const res  = await fetch('https://api.web3forms.com/submit', {
-                    method:  'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept':       'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await res.json().catch(() => ({}));
-
-                if (res.ok && data.success) {
-                    window.location.href = 'thank-you.html';
+            // ── Submit via fetch to Web3Forms ─────────────────────
+            fetch('https://api.web3forms.com/submit', {
+                method:  'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept':       'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                if (data.success) {
+                    // Success: go to thank-you page on same host
+                    var base = window.location.href.replace(/\/[^\/]*$/, '/');
+                    window.location.href = base + 'thank-you.html';
                 } else {
-                    throw new Error(data.message || 'Submission failed. Please try again.');
+                    throw new Error(data.message || 'Submission failed.');
                 }
-
-            } catch (err) {
+            })
+            .catch(function (err) {
                 console.error('[GP Tech Studio] Form error:', err);
-                const isNetwork = err.message.toLowerCase().includes('fetch') ||
-                                  err.message.toLowerCase().includes('network');
                 setStatus(
-                    isNetwork
+                    err.message.includes('fetch') || err.message.includes('NetworkError')
                         ? 'Network error — check your connection and try again.'
-                        : (err.message || 'Something went wrong. Email: haggai.enitan.dev@gmail.com'),
+                        : (err.message || 'Something went wrong. Please try again.'),
                     'error'
                 );
                 submitBtn.disabled  = false;
                 submitBtn.innerHTML = originalBtnHTML;
-            }
+            });
         });
 
-        // ── Clear invalid state as user types ──────────────────────────
-        $$('input, select, textarea', form).forEach(field => {
-            field.addEventListener('input', () => {
+        // Clear invalid state as user types
+        form.querySelectorAll('input, select, textarea').forEach(function (field) {
+            field.addEventListener('input', function () {
                 if (field.value.trim()) {
                     field.classList.remove('invalid');
                     field.classList.add('valid');
